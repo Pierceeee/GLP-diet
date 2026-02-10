@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --brand: #0f4c4c;
+  --brand-hover: #0a3535;
+  --brand-light: #e6f0f0;
+  --brand-muted: #1a6b6b;
+  --text: #1a1a1a;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
+  --bg: #ffffff;
+  --bg-subtle: #f7f7f7;
+  --bg-card: #f9fafb;
+  --border: #e5e7eb;
+  --border-light: #f3f4f6;
+  --danger-bg: #fef2f2;
+  --danger-text: #991b1b;
+  --info-bg: #fffbeb;
+  --info-text: #92400e;
+  --success: #16a34a;
+  --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+  }
+
+  ::selection {
+    background: var(--brand-light);
+    color: var(--brand);
+  }
+}
