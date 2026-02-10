@@ -6,6 +6,7 @@ import { NumberInput } from "./NumberInput";
 import { InfoCard } from "./InfoCard";
 import { ContinueButton } from "./ContinueButton";
 import { PersonalSummary } from "./PersonalSummary";
+import { BodyMapSelector } from "./BodyMapSelector";
 import { getQuestionWithGender } from "@/config/questions";
 
 interface QuestionCardProps {
@@ -38,8 +39,8 @@ export function QuestionCard({
 
   const handleSingle = (id: string) => {
     onAnswer(id);
-    const hasImg = q.options?.some((o) => o.image);
-    if (!hasImg) setTimeout(onContinue, 200);
+    // Auto-advance for all single-select questions
+    setTimeout(onContinue, 200);
   };
 
   const handleMulti = (id: string) => {
@@ -59,18 +60,34 @@ export function QuestionCard({
     </div>
   );
 
-  const renderMulti = () => (
-    <div className="space-y-3">
-      {q.options?.map((o) => (
-        <OptionButton key={o.id} label={o.label} emoji={o.emoji} image={o.image}
-          selected={Array.isArray(currentAnswer) && currentAnswer.includes(o.id)}
-          onClick={() => handleMulti(o.id)} type="multi" />
-      ))}
-      <div className="pt-3">
-        <ContinueButton onClick={onContinue} disabled={!canContinue()} />
+  const renderMulti = () => {
+    // Special case: Body parts question uses BodyMapSelector
+    if (q.id === "body-parts") {
+      return (
+        <div className="space-y-6">
+          <BodyMapSelector
+            gender={gender}
+            selected={Array.isArray(currentAnswer) ? currentAnswer : []}
+            onChange={handleMulti}
+          />
+          <ContinueButton onClick={onContinue} disabled={!canContinue()} />
+        </div>
+      );
+    }
+
+    return (
+      <div className="space-y-3">
+        {q.options?.map((o) => (
+          <OptionButton key={o.id} label={o.label} emoji={o.emoji} image={o.image}
+            selected={Array.isArray(currentAnswer) && currentAnswer.includes(o.id)}
+            onClick={() => handleMulti(o.id)} type="multi" />
+        ))}
+        <div className="pt-3">
+          <ContinueButton onClick={onContinue} disabled={!canContinue()} />
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const renderNumber = () => (
     <div className="space-y-6">

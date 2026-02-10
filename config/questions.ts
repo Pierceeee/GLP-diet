@@ -160,33 +160,21 @@ export const questions: Question[] = [
     },
   },
 
-  // Step 6: Body Parts to Improve (Gender-specific)
+  // Step 6: Body Parts to Improve (Uses BodyMapSelector)
   {
     id: "body-parts",
     step: 6,
     type: "multi-select",
-    title: "Which body parts would you like to improve?",
-    subtitle: "Select all that apply:",
+    title: "Any areas you'd like to improve?",
+    subtitle: "If you're happy with your appearance, then press Continue",
     options: [
-      opt("belly", "Belly", "🔥"),
-      opt("chest", "Chest", "💪"),
-      opt("arms", "Arms", "💪"),
-      opt("legs", "Legs", "🦵"),
-      opt("back", "Back", "🔙"),
-      opt("overall", "Overall body", "✨"),
+      opt("arms", "Arms"),
+      opt("chest", "Chest"),
+      opt("back", "Back"),
+      opt("belly", "Belly"),
+      opt("butt", "Butt"),
+      opt("legs", "Legs"),
     ],
-    genderVariant: {
-      female: {
-        options: [
-          opt("belly", "Belly/Waist", "🔥"),
-          opt("hips", "Hips", "✨"),
-          opt("thighs", "Thighs", "🦵"),
-          opt("arms", "Arms", "💪"),
-          opt("back", "Back", "🔙"),
-          opt("overall", "Overall body", "✨"),
-        ],
-      },
-    },
   },
 
   // Step 7: Day-to-Day Activity (Gender-specific emoji)

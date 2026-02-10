@@ -1,2 +1,32 @@
-# Placeholder to keep the images folder in git
-# Add your hero-bowl.png image here
+# Placeholder Images Reference
+
+## Already Exist
+- food-bowl.png (Landing page)
+- info-card-bowl.png (Step 2 & 12 info cards)
+- body/male-skinny.png (Step 4)
+- body/male-regular.png (Step 4)
+- body/male-potbelly.png (Step 4)
+- body/male-extra.png (Step 4)
+- body/male-smaller.png (Step 5)
+- body/male-lean.png (Step 5)
+- body/male-athletic.png (Step 5)
+- body/male-shredded.png (Step 5)
+
+## Still Needed
+
+### Body Map Base Images (Step 6 - Areas to improve)
+### Note: Highlight overlays are rendered in CSS, only base images needed
+- bodymap/male-base.png
+- bodymap/female-base.png
+
+### Body Type Images - Female (Step 4 - Current body)
+- body/female-skinny.png
+- body/female-regular.png
+- body/female-potbelly.png
+- body/female-extra.png
+
+### Target Body Images - Female (Step 5 - Goal body)
+- body/female-smaller.png
+- body/female-lean.png
+- body/female-toned.png
+- body/female-fit.png

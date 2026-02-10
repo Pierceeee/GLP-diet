@@ -53,9 +53,10 @@ export function useQuizState() {
 
   /**
    * Go to next step
+   * Allow going to step TOTAL_STEPS + 1 for email capture
    */
   const nextStep = useCallback(() => {
-    if (step < TOTAL_STEPS) {
+    if (step <= TOTAL_STEPS) {
       setStep(step + 1);
     }
   }, [step, setStep]);

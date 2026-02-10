@@ -1,4 +1,5 @@
 import { Check } from "lucide-react";
+import Image from "next/image";
 
 interface InfoCardProps {
   title: string;
@@ -28,9 +29,13 @@ export function InfoCard({ title, subtitle, benefits }: InfoCardProps) {
     <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm max-w-lg mx-auto">
       {/* Image area */}
       <div className="h-48 bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center overflow-hidden">
-        <div className="w-40 h-28 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl shadow-lg flex items-center justify-center transform rotate-2">
-          <span className="text-5xl">🥗</span>
-        </div>
+        <Image
+          src="/images/info-card-bowl.png"
+          alt="Healthy food bowl"
+          width={160}
+          height={112}
+          className="rounded-xl shadow-lg transform rotate-2"
+        />
       </div>
       {/* Content */}
       <div className="px-6 py-5">

@@ -8,6 +8,7 @@ export { LoadingScreen } from "./LoadingScreen";
 export { PersonalSummary } from "./PersonalSummary";
 export { EmailCapture } from "./EmailCapture";
 export { QuestionCard } from "./QuestionCard";
+export { BodyMapSelector } from "./BodyMapSelector";
 export {
   AnimatedContainer,
   FadeIn,
