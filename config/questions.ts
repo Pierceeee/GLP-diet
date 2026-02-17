@@ -1,7 +1,7 @@
 import type { Question, QuestionOption, Gender } from "@/types";
 
-/** Steps skipped for women: 8 (social proof), 15 (previous diet attempts) */
-const STEPS_SKIP_FOR_FEMALE = [8, 15];
+/** Steps skipped for women: 16 (weight loss multiplier info card). */
+const STEPS_SKIP_FOR_FEMALE: number[] = [16];
 
 /**
  * Total number of quiz steps (excluding loading and email)
@@ -539,7 +539,7 @@ export const questions: Question[] = [
 
 /**
  * Get question by step number.
- * For women, steps 8 and 15 are skipped (social proof, previous diet attempts).
+ * Gender-specific content is handled via genderVariant on each question.
  */
 export function getQuestionByStep(
   step: number,
@@ -553,7 +553,7 @@ export function getQuestionByStep(
 }
 
 /**
- * Total steps for a given gender (women skip steps 8 and 15).
+ * Total steps for a given gender.
  */
 export function getTotalSteps(gender?: Gender): number {
   return gender === "female" ? TOTAL_STEPS - STEPS_SKIP_FOR_FEMALE.length : TOTAL_STEPS;

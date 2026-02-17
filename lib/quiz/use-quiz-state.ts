@@ -32,10 +32,10 @@ export function useQuizState() {
   const gender: Gender =
     rawGender.toLowerCase() === "female" ? "female" : "male";
 
-  // Total steps (women skip step 8)
+  // Total steps for current gender
   const totalSteps = getTotalSteps(gender);
 
-  // Get current question (step 8 skipped for women)
+  // Get current question for this step/gender
   const currentQuestion = getQuestionByStep(step, gender);
 
   // Get current answer for the active question
@@ -105,7 +105,10 @@ export function useQuizState() {
     // In production, this would call the Supabase createSubmission function
     // For now, generate a simple ID
     if (!submissionId) {
-      const newId = crypto.randomUUID();
+      const newId =
+        typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
+          ? crypto.randomUUID()
+          : `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
       setSubmissionId(newId);
     }
   }, [submissionId, setSubmissionId]);
