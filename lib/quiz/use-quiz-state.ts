@@ -3,7 +3,7 @@
 import { useQueryState, parseAsInteger, parseAsString } from "nuqs";
 import { useCallback, useState, useEffect } from "react";
 import type { QuizAnswers, Gender, AnswerValue } from "@/types";
-import { getQuestionByStep, TOTAL_STEPS } from "@/config/questions";
+import { getQuestionByStep, getTotalSteps } from "@/config/questions";
 
 /**
  * Custom hook for managing quiz state with URL persistence
@@ -27,11 +27,16 @@ export function useQuizState() {
   const [answers, setAnswers] = useState<QuizAnswers>({});
   const [isLoading, setIsLoading] = useState(false);
 
-  // Derive gender from URL or answers
-  const gender: Gender = (genderParam as Gender) || (answers.gender as Gender) || "male";
+  // Derive gender from URL or answers (normalize to lowercase for comparison)
+  const rawGender = genderParam || (answers.gender as string) || "";
+  const gender: Gender =
+    rawGender.toLowerCase() === "female" ? "female" : "male";
 
-  // Get current question
-  const currentQuestion = getQuestionByStep(step);
+  // Total steps (women skip step 8)
+  const totalSteps = getTotalSteps(gender);
+
+  // Get current question (step 8 skipped for women)
+  const currentQuestion = getQuestionByStep(step, gender);
 
   // Get current answer for the active question
   const currentAnswer = currentQuestion ? answers[currentQuestion.id] : null;
@@ -53,13 +58,13 @@ export function useQuizState() {
 
   /**
    * Go to next step
-   * Allow going to step TOTAL_STEPS + 1 for email capture
+   * Allow going to step totalSteps + 1 for email capture
    */
   const nextStep = useCallback(() => {
-    if (step <= TOTAL_STEPS) {
+    if (step <= totalSteps) {
       setStep(step + 1);
     }
-  }, [step, setStep]);
+  }, [step, totalSteps, setStep]);
 
   /**
    * Go to previous step
@@ -75,11 +80,11 @@ export function useQuizState() {
    */
   const goToStep = useCallback(
     (targetStep: number) => {
-      if (targetStep >= 1 && targetStep <= TOTAL_STEPS) {
+      if (targetStep >= 1 && targetStep <= totalSteps) {
         setStep(targetStep);
       }
     },
-    [setStep]
+    [totalSteps, setStep]
   );
 
   /**
@@ -108,7 +113,7 @@ export function useQuizState() {
   /**
    * Check if quiz is complete
    */
-  const isComplete = step >= TOTAL_STEPS;
+  const isComplete = step >= totalSteps;
 
   /**
    * Check if on loading step
@@ -118,7 +123,7 @@ export function useQuizState() {
   /**
    * Get progress percentage
    */
-  const progressPercentage = (step / TOTAL_STEPS) * 100;
+  const progressPercentage = (step / totalSteps) * 100;
 
   // Initialize on mount
   useEffect(() => {
@@ -139,7 +144,7 @@ export function useQuizState() {
     isComplete,
     isLoadingStep,
     progressPercentage,
-    totalSteps: TOTAL_STEPS,
+    totalSteps,
 
     // Actions
     setStep: goToStep,

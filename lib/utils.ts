@@ -27,6 +27,25 @@ export function getBMICategory(bmi: number): string {
 }
 
 /**
+ * Display label for BMI category (e.g. "Normal weight" -> "Healthy")
+ */
+export function getBMICategoryDisplay(bmi: number): string {
+  if (bmi < 18.5) return "Underweight";
+  if (bmi < 25) return "Healthy";
+  if (bmi < 30) return "Overweight";
+  return "Obese";
+}
+
+/**
+ * Metabolism status from BMI (for post-email summary)
+ */
+export function getMetabolismStatus(bmi: number): "Slow" | "Normal" | "Fast" {
+  if (bmi >= 25) return "Slow";
+  if (bmi < 18.5) return "Fast";
+  return "Normal";
+}
+
+/**
  * Calculate weight loss percentage
  */
 export function calculateWeightLossPercentage(
@@ -43,6 +62,32 @@ export function calculateWeightLossPercentage(
  */
 export function formatNumber(num: number, decimals: number = 1): string {
   return num.toFixed(decimals);
+}
+
+/**
+ * Estimate target date to reach goal weight (GLP-style programme ~1 kg/week)
+ */
+export function getTargetWeightDate(
+  currentWeight: number,
+  targetWeight: number,
+  startDate: Date = new Date()
+): Date {
+  const kgToLose = Math.max(0, currentWeight - targetWeight);
+  const weeksNeeded = Math.max(1, Math.ceil(kgToLose / 1)); // ~1 kg per week
+  const target = new Date(startDate);
+  target.setDate(target.getDate() + weeksNeeded * 7);
+  return target;
+}
+
+/**
+ * Format date as "April 14, 2026" for display
+ */
+export function formatTargetDate(date: Date): string {
+  return date.toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 }
 
 /**

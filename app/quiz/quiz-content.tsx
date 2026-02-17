@@ -8,13 +8,19 @@ import {
   QuestionCard,
   LoadingScreen,
   EmailCapture,
+  SummaryAfterEmail,
+  FatBurningRateScreen,
+  PlanReadyScreen,
+  PlanIncludesScreen,
+  TestimonialsScreen,
   AnimatedContainer,
 } from "@/components/quiz";
-import { TOTAL_STEPS } from "@/config/questions";
 
 export function QuizContent() {
   const router = useRouter();
   const [direction, setDirection] = useState<"left" | "right">("right");
+  const [emailSubmitted, setEmailSubmitted] = useState(false);
+  const [postEmailStep, setPostEmailStep] = useState(0);
   const {
     step,
     gender,
@@ -26,6 +32,7 @@ export function QuizContent() {
     prevStep,
     setAnswer,
     initializeSubmission,
+    totalSteps,
   } = useQuizState();
 
   // Initialize submission on mount
@@ -39,16 +46,20 @@ export function QuizContent() {
     nextStep();
   }, [nextStep]);
 
-  // Handle email submission
-  const handleEmailSubmit = useCallback(
-    (email: string) => {
-      // In production, this would save to Supabase and call AI analysis
-      console.log("Email submitted:", email);
-      // Navigate to offer page
+  // Handle email submission: show summary after email, then offer on Continue
+  const handleEmailSubmit = useCallback((email: string) => {
+    // In production, save to Supabase and call AI analysis
+    console.log("Email submitted:", email);
+    setEmailSubmitted(true);
+  }, []);
+
+  const handlePostEmailContinue = useCallback(() => {
+    if (postEmailStep < 4) {
+      setPostEmailStep((s) => s + 1);
+    } else {
       router.push("/offer");
-    },
-    [router]
-  );
+    }
+  }, [postEmailStep, router]);
 
   // Handle continue (next step)
   const handleContinue = useCallback(() => {
@@ -62,17 +73,73 @@ export function QuizContent() {
     prevStep();
   }, [prevStep]);
 
-  // If we're past the last question, show loading or email
-  if (step > TOTAL_STEPS) {
-    // Email capture step
+  // If we're past the last question: email capture, then post-email screens
+  if (step > totalSteps) {
+    if (emailSubmitted) {
+      const header = (
+        <QuizHeader
+          currentStep={step}
+          showBack={false}
+          showStepCount={false}
+          totalSteps={totalSteps}
+        />
+      );
+      if (postEmailStep === 0) {
+        return (
+          <div className="min-h-screen bg-white">
+            {header}
+            <SummaryAfterEmail
+              answers={answers}
+              onContinue={handlePostEmailContinue}
+            />
+          </div>
+        );
+      }
+      if (postEmailStep === 1) {
+        return (
+          <div className="min-h-screen bg-white">
+            {header}
+            <FatBurningRateScreen
+              answers={answers}
+              onContinue={handlePostEmailContinue}
+            />
+          </div>
+        );
+      }
+      if (postEmailStep === 2) {
+        return (
+          <div className="min-h-screen bg-white">
+            {header}
+            <PlanReadyScreen
+              answers={answers}
+              onContinue={handlePostEmailContinue}
+            />
+          </div>
+        );
+      }
+      if (postEmailStep === 3) {
+        return (
+          <div className="min-h-screen bg-white">
+            {header}
+            <PlanIncludesScreen onContinue={handlePostEmailContinue} />
+          </div>
+        );
+      }
+      return (
+        <div className="min-h-screen bg-white">
+          {header}
+          <TestimonialsScreen onContinue={handlePostEmailContinue} />
+        </div>
+      );
+    }
     return <EmailCapture onSubmit={handleEmailSubmit} />;
   }
 
-  // Loading step (step 24)
+  // Loading step (step 28); step 29 = meal combinations summary
   if (isLoadingStep) {
     return (
       <div className="min-h-screen bg-white">
-        <QuizHeader currentStep={step} showBack={false} showStepCount={false} />
+        <QuizHeader currentStep={step} showBack={false} showStepCount={false} totalSteps={totalSteps} />
         <LoadingScreen onComplete={handleLoadingComplete} />
       </div>
     );
@@ -95,6 +162,7 @@ export function QuizContent() {
         onBack={handleBack}
         showBack={step > 1}
         showStepCount={currentQuestion.type !== "info"}
+        totalSteps={totalSteps}
       />
 
       <main className="pt-4 pb-8">

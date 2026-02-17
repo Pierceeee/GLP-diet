@@ -9,9 +9,10 @@ interface QuizHeaderProps {
   onBack?: () => void;
   showBack?: boolean;
   showStepCount?: boolean;
+  totalSteps?: number;
 }
 
-export function QuizHeader({ currentStep, onBack, showBack = true, showStepCount = true }: QuizHeaderProps) {
+export function QuizHeader({ currentStep, onBack, showBack = true, showStepCount = true, totalSteps = TOTAL_STEPS }: QuizHeaderProps) {
   return (
     <header className="sticky top-0 z-50 bg-white">
       <div className="w-full max-w-[660px] mx-auto px-6">
@@ -36,13 +37,13 @@ export function QuizHeader({ currentStep, onBack, showBack = true, showStepCount
           <div className="absolute right-0">
             {showStepCount && (
               <span className="text-[13px] text-[var(--text-muted)]">
-                {currentStep}/{TOTAL_STEPS}
+                {currentStep}/{totalSteps}
               </span>
             )}
           </div>
         </div>
       </div>
-      <ProgressBar currentStep={currentStep} />
+      <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
     </header>
   );
 }

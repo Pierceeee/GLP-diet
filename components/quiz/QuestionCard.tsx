@@ -6,6 +6,8 @@ import { NumberInput } from "./NumberInput";
 import { InfoCard } from "./InfoCard";
 import { ContinueButton } from "./ContinueButton";
 import { PersonalSummary } from "./PersonalSummary";
+import { WeightPrediction } from "./WeightPrediction";
+import { MealCombinationsSummary } from "./MealCombinationsSummary";
 import { BodyMapSelector } from "./BodyMapSelector";
 import { getQuestionWithGender } from "@/config/questions";
 
@@ -126,6 +128,14 @@ export function QuestionCard({
           <ContinueButton onClick={onContinue}>Continue</ContinueButton>
         </div>
       );
+    }
+    if (q.id === "weight-prediction") {
+      return (
+        <WeightPrediction answers={allAnswers} onContinue={onContinue} />
+      );
+    }
+    if (q.id === "meal-combinations") {
+      return <MealCombinationsSummary onContinue={onContinue} />;
     }
     return (
       <div className="space-y-6">

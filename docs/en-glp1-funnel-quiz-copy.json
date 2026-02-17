@@ -1,0 +1,448 @@
+{
+  "source": {
+    "file": "docs/EN GLP1 Funnel Copy.pdf",
+    "scope": "quiz-only",
+    "notes": [
+      "Includes quiz flow copy (questions, info blocks, email capture, result summary blocks).",
+      "Excludes checkout and post-quiz upsell pages."
+    ]
+  },
+  "funnel": {
+    "hero": {
+      "headline": "Lose Weight More Easily with a Personalized GLP-1 Programme",
+      "subheadline": "Your hunger hormones do not respond the same way as others. Let us see how yours work."
+    },
+    "entry": {
+      "questionId": "q1_programme",
+      "title": "Select the GLP-1 programme designed for you",
+      "options": [
+        {
+          "id": "men",
+          "label": "Plan for Men",
+          "supportingCopy": "Trusted by over 1.2 million men looking for a more manageable approach to weight loss."
+        },
+        {
+          "id": "women",
+          "label": "Plan for Women",
+          "supportingCopy": "Trusted by over 1.5 million women looking for a calmer, more manageable approach to weight loss."
+        }
+      ]
+    },
+    "questions": [
+      {
+        "id": "q2_glp1_medication",
+        "type": "single-select",
+        "title": "Are you currently taking a GLP-1 medication for weight control?",
+        "options": [
+          "Yes",
+          "No",
+          "I would rather not answer"
+        ]
+      },
+      {
+        "id": "q3_familiarity",
+        "type": "single-select",
+        "title": "How familiar are you with hunger and satiety hormones such as GLP-1?",
+        "options": [
+          "Beginner",
+          "Heard a bit",
+          "Expert"
+        ]
+      },
+      {
+        "id": "q4_focus_areas",
+        "type": "multi-select",
+        "title": "What would you like to focus on?",
+        "subtitle": "Select all that apply:",
+        "options": [
+          "Weight control",
+          "Body toning",
+          "Overall health",
+          "Natural GLP-1 support",
+          "Medication support",
+          "Metabolic health",
+          "Energy levels",
+          "Gut health"
+        ]
+      },
+      {
+        "id": "q5_current_body_type",
+        "type": "single-select",
+        "title": "Which body type best describes you?",
+        "genderVariants": {
+          "men": [
+            "Slim",
+            "Average",
+            "Soft midsection",
+            "Overweight"
+          ],
+          "women": [
+            "Slim",
+            "Average",
+            "Curvier",
+            "Overweight"
+          ]
+        }
+      },
+      {
+        "id": "q6_desired_look",
+        "type": "single-select",
+        "title": "How would you like to look?",
+        "genderVariants": {
+          "men": [
+            "A bit smaller",
+            "Lean",
+            "Athletic",
+            "Defined"
+          ],
+          "women": [
+            "A few sizes smaller",
+            "Fit",
+            "Toned",
+            "Curvier"
+          ]
+        }
+      },
+      {
+        "id": "q7_body_areas",
+        "type": "multi-select",
+        "title": "Are there any areas you would like to focus on?",
+        "subtitle": "If you are already happy with how you look, you can continue.",
+        "options": [
+          "Arms",
+          "Back",
+          "Glutes",
+          "Chest",
+          "Midsection",
+          "Legs"
+        ]
+      },
+      {
+        "id": "q8_daily_routine",
+        "type": "single-select",
+        "title": "What best describes your daily routine?",
+        "options": [
+          "Desk-based",
+          "Very active",
+          "Train often",
+          "Home-focused"
+        ]
+      },
+      {
+        "id": "q9_energy_levels",
+        "type": "single-select",
+        "title": "How do your energy levels feel during the day?",
+        "options": [
+          "Low all day",
+          "Post-lunch slump",
+          "Tired before meals",
+          "Stable and high"
+        ]
+      },
+      {
+        "id": "q10_activity_level",
+        "type": "single-select",
+        "title": "How active are you?",
+        "options": [
+          "Never",
+          "A few times per month",
+          "A few times per week",
+          "Most days"
+        ]
+      },
+      {
+        "id": "q11_weight_pattern",
+        "type": "single-select",
+        "title": "Describe your typical weight pattern.",
+        "options": [
+          "Gain easily and lose slowly",
+          "Gain and lose easily",
+          "Struggle to gain weight or muscle"
+        ]
+      },
+      {
+        "id": "q12_last_ideal_weight",
+        "type": "single-select",
+        "title": "When did you last feel at your ideal weight?",
+        "options": [
+          "Within the past year",
+          "1-3 years ago",
+          "More than 3 years ago",
+          "Never"
+        ]
+      },
+      {
+        "id": "q13_diets_tried",
+        "type": "multi-select",
+        "title": "Which diets have you tried recently?",
+        "subtitle": "Select all that apply:",
+        "options": [
+          "Keto diet",
+          "Intermittent fasting",
+          "Vegetarian diet",
+          "Vegan diet",
+          "Low-carb diet",
+          "Gluten-free diet",
+          "Other",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "q14_primary_motivation",
+        "type": "single-select",
+        "title": "What is your primary motivation for losing weight and getting healthier?",
+        "genderVariants": {
+          "men": [
+            "Feel more confident",
+            "Increase attractiveness",
+            "Boost energy and health",
+            "Improve mental well-being",
+            "Fit clothes better",
+            "Support GLP-1 medication results",
+            "Other"
+          ],
+          "women": [
+            "Feel more confident",
+            "Increase attractiveness",
+            "Boost energy and health",
+            "Improve mental well-being",
+            "Fit clothes better",
+            "Return to shape after pregnancy",
+            "Other"
+          ]
+        }
+      },
+      {
+        "id": "q15_height",
+        "type": "number",
+        "title": "What is your height?",
+        "placeholder": "Enter height",
+        "acceptedUnits": [
+          "cm",
+          "in"
+        ]
+      },
+      {
+        "id": "q16_current_weight",
+        "type": "number",
+        "title": "What is your current weight?",
+        "placeholder": "Enter current weight",
+        "acceptedUnits": [
+          "kg",
+          "lb"
+        ]
+      },
+      {
+        "id": "q17_target_weight",
+        "type": "number",
+        "title": "What is your target weight?",
+        "placeholder": "Enter target weight",
+        "acceptedUnits": [
+          "kg",
+          "lb"
+        ]
+      },
+      {
+        "id": "q18_age",
+        "type": "number",
+        "title": "How old are you?",
+        "placeholder": "Enter age"
+      },
+      {
+        "id": "q19_meals_per_day",
+        "type": "single-select",
+        "title": "How many meals per day do you prefer?",
+        "options": [
+          "Three meals (breakfast, lunch, dinner)",
+          "Four meals (with one snack)",
+          "Five meals (with two snacks)"
+        ]
+      },
+      {
+        "id": "q20_exclude_proteins_dairy",
+        "type": "multi-select",
+        "title": "Would you like to exclude any proteins or dairy?",
+        "subtitle": "Proteins and dairy:",
+        "options": [
+          "I eat them all",
+          "Chicken",
+          "Turkey",
+          "Red meat",
+          "Eggs",
+          "Greek yogurt",
+          "Cheese",
+          "Tuna",
+          "Salmon",
+          "Shrimp",
+          "Lentils",
+          "Tofu",
+          "Edamame",
+          "Kidney beans"
+        ]
+      },
+      {
+        "id": "q21_exclude_fruits_vegetables",
+        "type": "multi-select",
+        "title": "Would you like to exclude any fruits or vegetables?",
+        "subtitle": "Fruits and vegetables:",
+        "options": [
+          "I eat them all",
+          "Olives",
+          "Avocados",
+          "Tomatoes",
+          "Cucumber",
+          "Broccoli",
+          "Spinach",
+          "Zucchini",
+          "Bell peppers",
+          "Mushrooms",
+          "Onions",
+          "Potatoes"
+        ]
+      },
+      {
+        "id": "q22_exclude_nuts_grains",
+        "type": "multi-select",
+        "title": "Would you like to exclude any nuts or grains?",
+        "subtitle": "Nuts and grains:",
+        "options": [
+          "I eat them all",
+          "Almonds",
+          "Walnuts",
+          "Peanuts",
+          "Pasta",
+          "Rice",
+          "Couscous",
+          "Quinoa",
+          "Oats",
+          "Buckwheat",
+          "Corn",
+          "Bread"
+        ]
+      }
+    ],
+    "infoBlocks": [
+      {
+        "id": "info_1_programme_explainer",
+        "insertAfterQuestionId": "q3_familiarity",
+        "title": "What is the Personalized GLP-1 Programme?",
+        "body": [
+          "If you are often hungry soon after eating, it is not a willpower issue. It is a hunger-signal issue.",
+          "The Personalized GLP-1 Programme is built around GLP-1, the hormone that tells your brain you are full. When this signal is weak, cravings stay high and dieting feels hard.",
+          "GLP-1 medications such as Ozempic proved one thing: when hunger is regulated, weight loss becomes easier.",
+          "This programme supports your body natural GLP-1 response through food and meal structure, without injections or medication.",
+          "When hunger goes down, weight loss follows."
+        ]
+      },
+      {
+        "id": "info_2_social_proof_gender",
+        "insertAfterQuestionId": "q7_body_areas",
+        "title": "Many users report visible progress within the first month.",
+        "genderVariants": {
+          "men": {
+            "headline": "Illustrative example: Lost 14 kg and finally seeing clear shape again.",
+            "quote": "I had been thinking about GLP-1 medications, but the potential side effects and the idea of lifelong treatment scared me. Then I discovered a GLP-1 approach that works through the same mechanism naturally. In about 5 weeks, I lost around 14 kg and felt in control of my eating again.",
+            "author": "Alex R., 39"
+          },
+          "women": {
+            "headline": "Illustrative example: Lost around 16 kg and felt lighter, more energized, and less bloated.",
+            "quote": "I had just over a month before my wedding and needed something that actually worked. I tried medication first but had to stop because of side effects. Then I switched to a GLP-1-focused eating approach and finally made real progress without medication.",
+            "author": "Laura M., 42"
+          }
+        }
+      },
+      {
+        "id": "info_3_expert_backing",
+        "insertAfterQuestionId": "q12_last_ideal_weight",
+        "title": "Designed by endocrinologists and nutrition experts.",
+        "body": [
+          "The Personalized GLP-1 Programme helps your body send stronger fullness signals using food and meal timing, so eating less feels natural, not forced.",
+          "Powered by AI, your plan adapts based on how your hunger actually responds.",
+          "You may feel full sooner and crave less, with more stable energy and blood sugar."
+        ]
+      },
+      {
+        "id": "info_4_weight_loss_multiplier",
+        "insertAfterQuestionId": "q13_diets_tried",
+        "title": "Lose up to 3x more weight with a personalized programme compared to standard meal plans."
+      },
+      {
+        "id": "info_5_bmi_why",
+        "insertAfterQuestionId": "q15_height",
+        "title": "Why we calculate BMI",
+        "body": [
+          "BMI helps us understand your weight range based on your height so we can better tailor your plan."
+        ]
+      },
+      {
+        "id": "info_6_bmi_feedback",
+        "insertAfterQuestionId": "q16_current_weight",
+        "title": "BMI feedback templates",
+        "templates": {
+          "underweight": {
+            "title": "Your BMI is {{bmi}}, which falls below the typical range.",
+            "body": "A good starting BMI for building a fit body."
+          },
+          "overweight": {
+            "title": "Your BMI is {{bmi}}, which is above the typical range.",
+            "body": "This means your weight is slightly higher than recommended for your height. We will use your BMI to create a personalized weight-loss plan."
+          },
+          "obese": {
+            "title": "Your BMI is {{bmi}}, which is well above the typical range.",
+            "body": "Losing some weight could bring meaningful benefits to your health and energy levels. We will use your BMI to build your personalized programme."
+          }
+        }
+      },
+      {
+        "id": "info_7_target_weight_benefits",
+        "insertAfterQuestionId": "q17_target_weight",
+        "title": "Target weight milestones",
+        "templates": {
+          "health_benefit_target": "Research shows losing 10% or more of body weight can lower risk of several weight-related health issues.",
+          "ambitious_goal_target": "People with excess weight who lose more than 20% are significantly more likely to achieve healthy metabolic markers."
+        }
+      },
+      {
+        "id": "info_8_age_context",
+        "insertAfterQuestionId": "q18_age",
+        "title": "Your age helps us tailor your programme.",
+        "body": [
+          "With age, metabolism can slow and body fat levels may increase, even at the same BMI."
+        ]
+      },
+      {
+        "id": "info_9_personal_summary",
+        "insertAfterQuestionId": "q18_age",
+        "title": "Your Personal Summary",
+        "fields": [
+          "Body Mass Index (BMI)",
+          "Body Fat",
+          "Activity Level",
+          "Energy Level",
+          "Goal"
+        ]
+      },
+      {
+        "id": "info_10_timeline_projection",
+        "insertAfterQuestionId": "q18_age",
+        "title": "Estimated target date",
+        "template": "Based on progress seen by users following the Personalized GLP-1 Programme, we estimate you can reach your target weight of {{targetWeight}} by {{targetDate}} if you stay consistent."
+      },
+      {
+        "id": "info_11_meal_personalization",
+        "insertAfterQuestionId": "q22_exclude_nuts_grains",
+        "title": "Your plan is built around your preferences.",
+        "body": [
+          "Based on your food preferences, we built 1,000+ personalized meal combinations to naturally support GLP-1.",
+          "Your plan is AI-powered and adapts to your body, goals, and preferences over time."
+        ]
+      }
+    ],
+    "emailCapture": {
+      "title": "Enter your email to receive your Personalized GLP-1 Programme.",
+      "fieldLabel": "Email",
+      "cta": "Get my plan",
+      "privacyCopy": "By continuing, you agree to our Privacy Policy. We respect your privacy and will never sell, rent, or share your email address."
+    }
+  }
+}

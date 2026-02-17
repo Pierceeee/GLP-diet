@@ -9,16 +9,23 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "keywords": ["glp-1", "diet", "quiz", "funnel", "next.js"],
+  "keywords": [
+    "glp-1",
+    "diet",
+    "quiz",
+    "funnel",
+    "next.js"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
+    "@next/swc-win32-x64-msvc": "^16.1.6",
     "@supabase/supabase-js": "^2.95.3",
     "@t3-oss/env-nextjs": "^0.13.10",
     "@tailwindcss/postcss": "^4.1.18",
     "clsx": "^2.1.1",
-    "framer-motion": "^12.34.0",
+    "framer-motion": "^11.11.17",
     "lucide-react": "^0.563.0",
     "next": "^16.1.6",
     "nuqs": "^2.8.8",
