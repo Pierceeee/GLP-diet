@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Sparkles, Zap, Sprout, BarChart3 } from "lucide-react";
+import { Search, Sparkles, Zap, Sprout, BarChart3, Brain } from "lucide-react";
 import { ContinueButton } from "./ContinueButton";
 
 interface PlanIncludesScreenProps {
@@ -10,33 +10,39 @@ interface PlanIncludesScreenProps {
 const features = [
   {
     icon: Search,
-    title: "Over 1000 GLP-1 Diet Recipes",
+    title: "1,000+ GLP-1–Aligned Recipes",
     description:
-      "Personalized plan that is the perfect fit for you and will help you boost your GLP-1 levels and lose weight in the most enjoyable way.",
+      "A fully personalized meal plan built around your preferences, designed to make weight management easier and genuinely enjoyable.",
   },
   {
     icon: Sparkles,
-    title: "100+ Workouts & Exercises",
+    title: "100+ Movement & Exercise Options",
     description:
-      "Simple workouts, yoga exercises, meditation guides, and much more to help you lose weight faster and see results sooner.",
+      "A mix of simple workouts, yoga sessions, guided movement, and relaxation practices to support progress without overwhelm.",
   },
   {
     icon: Zap,
-    title: "Motivating Challenges",
+    title: "Personalized Motivation Challenges",
     description:
-      "Tailored to your quiz answers and preferences, easy to cook, and incredibly delicious.",
+      "Light, achievable challenges matched to your quiz answers — focused on consistency, ease, and great-tasting meals.",
   },
   {
     icon: Sprout,
-    title: "Nutrition & Health Guides",
+    title: "Nutrition & Wellness Resources",
     description:
-      "In depth guides on GLP-1 weight loss drugs, nutrition, workouts, healthy lifestyle, and other useful tips written by the top nutrition experts, personal trainers, and psychologists.",
+      "Clear, practical guides covering nutrition, movement, lifestyle habits, and mental well-being, created by experienced nutrition professionals, trainers, and health specialists.",
   },
   {
     icon: BarChart3,
-    title: "Progress Tracking & Visualization",
+    title: "Progress Tracking & Insights",
     description:
-      "All the tools in your pocket to track and visualize your incredible progress and reach your weight goals on time.",
+      "Smart tools that help you monitor changes, visualize progress, and stay on track toward your goals over time.",
+  },
+  {
+    icon: Brain,
+    title: "AI-Powered Personalization & Continuous Improvement",
+    description:
+      "Your plan uses AI-driven analysis of your progress and feedback to continuously refine meal choices, recommendations, and structure — improving your plan over time as your body and needs change.",
   },
 ];
 
@@ -50,7 +56,7 @@ export function PlanIncludesScreen({ onContinue }: PlanIncludesScreenProps) {
             style={{ fontFamily: "var(--font-heading)" }}
           >
             What does your{" "}
-            <span className="text-[var(--brand)]">GLP Diet</span> plan include?
+            <span className="text-[var(--brand)]">Personalized GLP-1 Programme</span> include?
           </h2>
 
           <div className="space-y-4 mb-8">

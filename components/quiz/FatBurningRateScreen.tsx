@@ -11,21 +11,21 @@ interface FatBurningRateScreenProps {
 }
 
 const currentlyList = [
-  "Excess fat storage",
-  "Easy weight gain",
-  "Increased hunger & cravings",
-  "Digestive issues",
-  "Sleep issues & fatigue",
-  "Low GLP-1 levels",
+  "Higher fat storage",
+  "Weight gain happens easily",
+  "Strong hunger and frequent cravings",
+  "Digestive discomfort",
+  "Low energy and poor sleep",
+  "Reduced GLP-1 activity",
 ];
 
 const withGlpList = [
-  "Fast fat-burning rate",
-  "Steady weight loss",
-  "Better appetite control",
-  "Healthy gut",
-  "Highly energized",
-  "High GLP-1 levels",
+  "Improved fat-burning efficiency",
+  "Gradual, steady weight loss",
+  "Better appetite regulation",
+  "Balanced gut health",
+  "More consistent energy",
+  "Stronger GLP-1 response",
 ];
 
 function rateToPercent(rate: "Slow" | "Normal" | "Fast"): number {
@@ -53,8 +53,8 @@ export function FatBurningRateScreen({ answers, onContinue }: FatBurningRateScre
             <span className="text-red-600">{metabolism}</span>
           </h2>
           <p className="text-[14px] text-[var(--text-secondary)] leading-relaxed mb-8">
-            A slow fat-burning rate makes it harder for you to lose weight and
-            keep it off.
+            A slower fat-burning rate can make it more difficult to lose weight
+            and maintain results over time.
           </p>
 
           {/* Fat Burning Rate Gauge */}
@@ -102,7 +102,7 @@ export function FatBurningRateScreen({ answers, onContinue }: FatBurningRateScre
               <div className="flex items-center gap-2 mb-3">
                 <Check className="w-4 h-4 text-[var(--brand)] flex-shrink-0" />
                 <span className="text-[14px] font-semibold text-[var(--brand)]">
-                  With GLP Diet
+                  With a GLP-1–Focused Diet
                 </span>
               </div>
               <ul className="space-y-1.5 text-[13px] text-[var(--text-secondary)]">

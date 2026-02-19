@@ -44,13 +44,13 @@ export function SummaryAfterEmail({ answers, onContinue }: SummaryAfterEmailProp
             Your personal summary
           </h2>
           <p className="text-[14px] text-[var(--text-secondary)] leading-relaxed mb-8 max-w-lg mx-auto">
-            Based on your quiz answers, it looks like you might have an{" "}
+            Based on your quiz responses, it appears your metabolic age may be{" "}
             <span className="text-[var(--brand)] font-semibold">
-              increased metabolic age
+              higher than average
             </span>
-            , which can lead to{" "}
+            , which can contribute to{" "}
             <span className="font-semibold text-[var(--text)]">
-              excess body weight
+              carrying extra body weight
             </span>
             .
           </p>
