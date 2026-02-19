@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Check } from "lucide-react";
 import type { Gender } from "@/types";
 
@@ -16,12 +15,12 @@ interface BodyPart {
  * matching the screenshot layout.
  */
 const bodyParts: BodyPart[] = [
-  { id: "arms",  label: "Arms",  position: { top: "18%", left: "0" } },
-  { id: "chest", label: "Chest", position: { top: "18%", right: "0" } },
-  { id: "back",  label: "Back",  position: { top: "36%", left: "0" } },
-  { id: "belly", label: "Belly", position: { top: "36%", right: "0" } },
-  { id: "butt",  label: "Butt",  position: { top: "54%", left: "0" } },
-  { id: "legs",  label: "Legs",  position: { top: "54%", right: "0" } },
+  { id: "arms",  label: "Arms",  position: { top: "15%", left: "0" } },
+  { id: "chest", label: "Chest", position: { top: "15%", right: "0" } },
+  { id: "back",  label: "Back",  position: { top: "35%", left: "0" } },
+  { id: "belly", label: "Belly", position: { top: "35%", right: "0" } },
+  { id: "butt",  label: "Butt",  position: { top: "55%", left: "0" } },
+  { id: "legs",  label: "Legs",  position: { top: "55%", right: "0" } },
 ];
 
 interface BodyMapSelectorProps {
@@ -32,19 +31,18 @@ interface BodyMapSelectorProps {
 
 export function BodyMapSelector({ gender, selected, onChange }: BodyMapSelectorProps) {
   const imageSrc = gender === "female"
-    ? "/images/bodymap/female-base.png"
-    : "/images/bodymap/male-base.png";
+    ? "/images/bodymap/female-body.png"
+    : "/images/bodymap/male-body.png";
 
   return (
-    <div className="relative w-full max-w-md mx-auto" style={{ minHeight: "460px" }}>
+    <div className="relative w-full max-w-lg mx-auto" style={{ minHeight: "700px" }}>
       {/* Center image */}
-      <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[220px] h-[440px]">
-        <Image
+      <div className="flex justify-center">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={imageSrc}
           alt={`${gender} body`}
-          fill
-          className="object-contain"
-          priority
+          style={{ width: "100%", maxWidth: "500px", height: "auto" }}
         />
       </div>
 

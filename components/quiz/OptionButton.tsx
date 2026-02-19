@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Check, ChevronRight } from "lucide-react";
 
 interface OptionButtonProps {
@@ -52,7 +53,7 @@ export function OptionButton({
         {emoji && <span className="text-[24px] leading-none">{emoji}</span>}
         {image && (
           <div className="w-16 h-16 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden">
-            <span className="text-[10px] text-gray-300">IMG</span>
+            <Image src={image} alt={label} width={64} height={64} className="w-full h-full object-cover" />
           </div>
         )}
         {type === "single" && !image && !emoji && (

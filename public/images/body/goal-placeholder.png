@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="220" viewBox="0 0 160 220">
+  <rect width="160" height="220" fill="#e6f0f0" rx="8"/>
+  <text x="80" y="100" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#0f4c4c">Goal</text>
+  <text x="80" y="120" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1a6b6b">Replace image</text>
+</svg>

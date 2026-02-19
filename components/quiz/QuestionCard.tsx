@@ -9,6 +9,7 @@ import { PersonalSummary } from "./PersonalSummary";
 import { WeightPrediction } from "./WeightPrediction";
 import { MealCombinationsSummary } from "./MealCombinationsSummary";
 import { BodyMapSelector } from "./BodyMapSelector";
+import { SocialProofIntro } from "./SocialProofIntro";
 import { getQuestionWithGender } from "@/config/questions";
 
 interface QuestionCardProps {
@@ -121,6 +122,11 @@ export function QuestionCard({
   );
 
   const renderInfo = () => {
+    if (q.id === "social-proof-intro") {
+      return (
+        <SocialProofIntro gender={gender} onContinue={onContinue} />
+      );
+    }
     if (q.id === "personal-summary") {
       return (
         <div className="space-y-6">
@@ -139,7 +145,7 @@ export function QuestionCard({
     }
     return (
       <div className="space-y-6">
-        <InfoCard title={q.title} subtitle={q.subtitle} />
+        <InfoCard title={q.title} subtitle={q.subtitle} image={q.image} />
         <ContinueButton onClick={onContinue}>Continue</ContinueButton>
       </div>
     );

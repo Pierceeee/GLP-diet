@@ -135,7 +135,7 @@ export function QuizContent() {
     return <EmailCapture onSubmit={handleEmailSubmit} />;
   }
 
-  // Loading step (step 28); step 29 = meal combinations summary
+  // Loading step (step 29); step 30 = meal combinations summary
   if (isLoadingStep) {
     return (
       <div className="min-h-screen bg-white">

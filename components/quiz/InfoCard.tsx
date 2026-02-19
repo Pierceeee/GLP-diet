@@ -4,10 +4,11 @@ import Image from "next/image";
 interface InfoCardProps {
   title: string;
   subtitle?: string;
+  image?: string;
   benefits?: string[];
 }
 
-export function InfoCard({ title, subtitle, benefits }: InfoCardProps) {
+export function InfoCard({ title, subtitle, image, benefits }: InfoCardProps) {
   const defaultBenefits = [
     "Effective weight management",
     "Faster metabolism and increased GLP levels",
@@ -28,14 +29,25 @@ export function InfoCard({ title, subtitle, benefits }: InfoCardProps) {
   return (
     <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm max-w-lg mx-auto">
       {/* Image area */}
-      <div className="h-48 bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center overflow-hidden">
-        <Image
-          src="/images/info-card-bowl.png"
-          alt="Healthy food bowl"
-          width={160}
-          height={112}
-          className="rounded-xl shadow-lg transform rotate-2"
-        />
+      <div className="bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center overflow-hidden">
+        {image ? (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-auto"
+          />
+        ) : (
+          <div className="h-48 flex items-center justify-center">
+            <Image
+              src="/images/info-card-bowl.png"
+              alt="Healthy food bowl"
+              width={160}
+              height={112}
+              className="rounded-xl shadow-lg transform rotate-2"
+            />
+          </div>
+        )}
       </div>
       {/* Content */}
       <div className="px-6 py-5">
@@ -43,19 +55,23 @@ export function InfoCard({ title, subtitle, benefits }: InfoCardProps) {
           {hl(title)}
         </h3>
         {subtitle && (
-          <p className="text-[14px] text-[var(--text-secondary)] leading-relaxed mb-4">{hl(subtitle)}</p>
+          <div className="text-[14px] text-[var(--text-secondary)] leading-relaxed mb-4 whitespace-pre-line">{hl(subtitle)}</div>
         )}
-        <p className="text-[13px] font-semibold mb-3">Benefits of the GLP diet:</p>
-        <div className="space-y-2.5">
-          {items.map((b, i) => (
-            <div key={i} className="flex items-start gap-2.5">
-              <div className="w-[18px] h-[18px] rounded-full bg-[var(--success)] flex items-center justify-center flex-shrink-0 mt-0.5">
-                <Check className="w-2.5 h-2.5 text-white" strokeWidth={3} />
-              </div>
-              <span className="text-[14px] text-[var(--text-secondary)] leading-snug">{hl(b)}</span>
+        {!image && (
+          <>
+            <p className="text-[13px] font-semibold mb-3">Benefits of the GLP diet:</p>
+            <div className="space-y-2.5">
+              {items.map((b, i) => (
+                <div key={i} className="flex items-start gap-2.5">
+                  <div className="w-[18px] h-[18px] rounded-full bg-[var(--success)] flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Check className="w-2.5 h-2.5 text-white" strokeWidth={3} />
+                  </div>
+                  <span className="text-[14px] text-[var(--text-secondary)] leading-snug">{hl(b)}</span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        )}
       </div>
     </div>
   );

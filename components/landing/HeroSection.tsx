@@ -5,37 +5,41 @@ import Image from "next/image";
 
 export function HeroSection() {
   return (
-    <section className="flex-1 flex flex-col items-center justify-center px-6 pt-10 pb-16 w-full max-w-[660px] mx-auto">
-      <div className="mb-8">
+    <section className="flex-1 flex flex-col items-center px-6 pb-16 w-full max-w-[660px] mx-auto">
+      {/* Hero bowl image — cropped naturally, no circle frame */}
+      <div className="relative w-[380px] h-[300px] md:w-[440px] md:h-[340px] mb-6 overflow-hidden">
         <Image
-          src="/images/food-bowl.svg"
-          alt="Healthy food bowl"
-          width={340}
-          height={290}
-          className="w-[300px] md:w-[340px] h-auto"
+          src="/images/hero-bowl.png"
+          alt="Healthy grilled chicken quinoa bowl"
+          width={560}
+          height={560}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[48%] w-full max-w-none h-auto"
           priority
         />
       </div>
 
+      <p className="text-[14px] text-[var(--text-secondary)] text-center mb-3 leading-relaxed max-w-[400px]">
+        Your hunger hormones don&apos;t respond the same way as others. Let&apos;s see how yours work.
+      </p>
+
       <h2
-        className="text-[32px] md:text-[42px] font-bold text-center leading-[1.15] mb-5"
+        className="text-[28px] md:text-[36px] font-bold text-center leading-[1.2] mb-6"
         style={{ fontFamily: "var(--font-heading)" }}
       >
-        Manage Weight with{" "}
-        <br className="hidden sm:block" />
-        Personalized GLP Diet
+        Lose Weight More Easily with a Personalized{" "}
+        <span className="text-[var(--brand)]">GLP-1</span> Programme
       </h2>
 
-      <p className="text-[15px] text-[var(--text-secondary)] mb-8">
+      <p className="text-[15px] text-[var(--text-secondary)] mb-5">
         Select the <span className="text-[var(--brand)] font-semibold">GLP</span> diet type:
       </p>
 
-      <div className="flex gap-4 w-full max-w-[440px]">
+      <div className="flex gap-4 w-full max-w-[380px]">
         <Link
           href="/quiz?gender=male"
           className="flex-1 py-3.5 text-center text-[15px] font-semibold rounded-full
                      bg-[var(--brand)] text-white hover:bg-[var(--brand-hover)]
-                     transition-colors active:scale-[0.98]"
+                     transition-all active:scale-[0.97] shadow-sm"
         >
           Diet for men
         </Link>
@@ -44,7 +48,7 @@ export function HeroSection() {
           className="flex-1 py-3.5 text-center text-[15px] font-semibold rounded-full
                      bg-white text-gray-700 border border-gray-300
                      hover:border-[var(--brand)] hover:text-[var(--brand)]
-                     transition-colors active:scale-[0.98]"
+                     transition-all active:scale-[0.97]"
         >
           Diet for women
         </Link>

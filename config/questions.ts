@@ -1,12 +1,12 @@
 import type { Question, QuestionOption, Gender } from "@/types";
 
-/** Steps skipped for women: 16 (weight loss multiplier info card). */
-const STEPS_SKIP_FOR_FEMALE: number[] = [16];
+/** Steps skipped for women: 17 (weight loss multiplier info card). */
+const STEPS_SKIP_FOR_FEMALE: number[] = [17];
 
 /**
  * Total number of quiz steps (excluding loading and email)
  */
-export const TOTAL_STEPS = 29;
+export const TOTAL_STEPS = 30;
 
 /** For women, only these question steps are shown (in order). */
 const FEMALE_VISIBLE_STEPS: number[] = (() => {
@@ -30,10 +30,23 @@ function opt(
  * All quiz questions configuration
  */
 export const questions: Question[] = [
-  // Step 1: GLP-1 Medication Status
+  // Step 1: Social Proof Intro (Gender-specific)
+  {
+    id: "social-proof-intro",
+    step: 1,
+    type: "info",
+    title: "Over 1.7 million women have chosen our plans",
+    genderVariant: {
+      male: {
+        title: "Over 1.7 million men have chosen our plans",
+      },
+    },
+  },
+
+  // Step 2: GLP-1 Medication Status
   {
     id: "glp1-medication",
-    step: 1,
+    step: 2,
     type: "single-select",
     title: "Are you currently taking a GLP-1 medication for weight control?",
     options: [
@@ -43,10 +56,10 @@ export const questions: Question[] = [
     ],
   },
 
-  // Step 2: GLP-1 Familiarity
+  // Step 3: GLP-1 Familiarity
   {
     id: "familiarity",
-    step: 2,
+    step: 3,
     type: "single-select",
     title: "How familiar are you with hunger and satiety hormones such as GLP-1?",
     options: [
@@ -56,20 +69,20 @@ export const questions: Question[] = [
     ],
   },
 
-  // Step 3: What is the Personalized GLP-1 Programme? (Info Card)
+  // Step 4: What is the Personalized GLP-1 Programme? (Info Card)
   {
     id: "glp-intro",
-    step: 3,
+    step: 4,
     type: "info",
     title: "What is the Personalized GLP-1 Programme?",
     subtitle:
       "If you are often hungry soon after eating, it is not a willpower issue. It is a hunger-signal issue.\n\nThe Personalized GLP-1 Programme is built around GLP-1, the hormone that tells your brain you are full. When this signal is weak, cravings stay high and dieting feels hard.\n\nGLP-1 medications such as Ozempic proved one thing: when hunger is regulated, weight loss becomes easier.\n\nThis programme supports your body natural GLP-1 response through food and meal structure, without injections or medication.\n\nWhen hunger goes down, weight loss follows.",
   },
 
-  // Step 4: What would you like to focus on? (Multi-select)
+  // Step 5: What would you like to focus on? (Multi-select)
   {
     id: "goals",
-    step: 4,
+    step: 5,
     type: "multi-select",
     title: "What would you like to focus on?",
     subtitle: "Select all that apply:",
@@ -85,10 +98,10 @@ export const questions: Question[] = [
     ],
   },
 
-  // Step 5: Current Body Type (Gender-specific)
+  // Step 6: Current Body Type (Gender-specific)
   {
     id: "current-body-type",
-    step: 5,
+    step: 6,
     type: "single-select",
     title: "Which body type best describes you?",
     options: [
@@ -132,10 +145,10 @@ export const questions: Question[] = [
     },
   },
 
-  // Step 6: Target Body Type (Gender-specific)
+  // Step 7: Target Body Type (Gender-specific)
   {
     id: "target-body-type",
-    step: 6,
+    step: 7,
     type: "single-select",
     title: "How would you like to look?",
     options: [
@@ -184,10 +197,10 @@ export const questions: Question[] = [
     },
   },
 
-  // Step 7: Body Parts to Improve (Uses BodyMapSelector)
+  // Step 8: Body Parts to Improve (Uses BodyMapSelector)
   {
     id: "body-parts",
-    step: 7,
+    step: 8,
     type: "multi-select",
     title: "Are there any areas you would like to focus on?",
     subtitle: "If you are already happy with how you look, you can continue.",
@@ -201,24 +214,26 @@ export const questions: Question[] = [
     ],
   },
 
-  // Step 8: Social Proof Info Card (Gender-specific)
+  // Step 9: Social Proof Info Card (Gender-specific)
   {
     id: "social-proof",
-    step: 8,
+    step: 9,
     type: "info",
     title: "Many users report visible progress within the first month.",
-    subtitle: "Illustrative example: Lost 14 kg and finally seeing clear shape again.\n\n\"I had been thinking about GLP-1 medications, but the potential side effects and the idea of lifelong treatment scared me. Then I discovered a GLP-1 approach that works through the same mechanism naturally. In about 5 weeks, I lost around 14 kg and felt in control of my eating again.\"\n\n— Alex R., 39",
+    subtitle: "Illustrative example:\n\nLost 14 kg and finally seeing clear shape again.\n\n\"I'd been thinking about GLP-1 medications, but the potential side effects and the idea of lifelong treatment scared me. Then I discovered a GLP-1 approach that works through the same mechanism—naturally. The results were incredible. In about 5 weeks, I lost around 14 kg and finally felt in control of my eating again. Simple meals, no tracking, no intense workouts.\"\n\n— Alex R., 39",
+    image: "/images/social-proof-male.png",
     genderVariant: {
       female: {
-        subtitle: "Illustrative example: Lost around 16 kg and felt lighter, more energized, and less bloated.\n\n\"I had just over a month before my wedding and needed something that actually worked. I tried medication first but had to stop because of side effects. Then I switched to a GLP-1-focused eating approach and finally made real progress without medication.\"\n\n— Laura M., 42",
+        subtitle: "Illustrative example:\n\nLost around 16 kg and felt lighter, more energized, and less bloated.\n\n\"I had just over a month before my wedding and needed something that actually worked. I tried medication first, but I had to stop because of the side effects. That's when I turned to a GLP-1–focused eating approach—and finally started making real progress without medication. Over the next few weeks, I lost about 16 kg, my bloating eased, cravings settled down, and my energy noticeably improved. The best part was that I didn't have to give up the foods I enjoy.\"\n\n— Laura M., 42",
+        image: "/images/social-proof-female.png",
       },
     },
   },
 
-  // Step 9: Day-to-Day Activity
+  // Step 10: Day-to-Day Activity
   {
     id: "daily-activity",
-    step: 9,
+    step: 10,
     type: "single-select",
     title: "What best describes your daily routine?",
     options: [
@@ -229,10 +244,10 @@ export const questions: Question[] = [
     ],
   },
 
-  // Step 10: Energy Level
+  // Step 11: Energy Level
   {
     id: "energy-level",
-    step: 10,
+    step: 11,
     type: "single-select",
     title: "How do your energy levels feel during the day?",
     options: [
@@ -243,10 +258,10 @@ export const questions: Question[] = [
     ],
   },
 
-  // Step 11: Exercise Frequency
+  // Step 12: Exercise Frequency
   {
     id: "exercise-frequency",
-    step: 11,
+    step: 12,
     type: "single-select",
     title: "How active are you?",
     options: [
@@ -257,10 +272,10 @@ export const questions: Question[] = [
     ],
   },
 
-  // Step 12: Weight Change Pattern
+  // Step 13: Weight Change Pattern
   {
     id: "weight-change",
-    step: 12,
+    step: 13,
     type: "single-select",
     title: "Describe your typical weight pattern.",
     options: [
@@ -270,10 +285,10 @@ export const questions: Question[] = [
     ],
   },
 
-  // Step 13: Last Ideal Weight
+  // Step 14: Last Ideal Weight
   {
     id: "last-ideal-weight",
-    step: 13,
+    step: 14,
     type: "single-select",
     title: "When did you last feel at your ideal weight?",
     options: [
@@ -284,20 +299,20 @@ export const questions: Question[] = [
     ],
   },
 
-  // Step 14: Expert Backing Info Card
+  // Step 15: Expert Backing Info Card
   {
     id: "glp-benefits",
-    step: 14,
+    step: 15,
     type: "info",
     title: "Designed by endocrinologists and nutrition experts.",
     subtitle:
       "The Personalized GLP-1 Programme helps your body send stronger fullness signals using food and meal timing, so eating less feels natural, not forced.\n\nPowered by AI, your plan adapts based on how your hunger actually responds.\n\nYou may feel full sooner and crave less, with more stable energy and blood sugar.",
   },
 
-  // Step 15: Previous Diet Attempts
+  // Step 16: Previous Diet Attempts
   {
     id: "previous-attempts",
-    step: 15,
+    step: 16,
     type: "multi-select",
     title: "Which diets have you tried recently?",
     subtitle: "Select all that apply:",
@@ -313,18 +328,18 @@ export const questions: Question[] = [
     ],
   },
 
-  // Step 16: Weight Loss Multiplier Info Card
+  // Step 17: Weight Loss Multiplier Info Card
   {
     id: "weight-loss-multiplier",
-    step: 16,
+    step: 17,
     type: "info",
     title: "Lose up to 3x more weight with a personalized programme compared to standard meal plans.",
   },
 
-  // Step 17: Motivation (Gender-specific)
+  // Step 18: Motivation (Gender-specific)
   {
     id: "motivation",
-    step: 17,
+    step: 18,
     type: "single-select",
     title: "What is your primary motivation for losing weight and getting healthier?",
     options: [
@@ -351,10 +366,10 @@ export const questions: Question[] = [
     },
   },
 
-  // Step 18: Height
+  // Step 19: Height
   {
     id: "height",
-    step: 18,
+    step: 19,
     type: "number",
     title: "What is your height?",
     subtitle: "Calculating your body mass index",
@@ -368,10 +383,10 @@ export const questions: Question[] = [
     },
   },
 
-  // Step 19: Current Weight
+  // Step 20: Current Weight
   {
     id: "weight",
-    step: 19,
+    step: 20,
     type: "number",
     title: "What is your current weight?",
     placeholder: "70",
@@ -384,10 +399,10 @@ export const questions: Question[] = [
     },
   },
 
-  // Step 20: Target Weight
+  // Step 21: Target Weight
   {
     id: "target-weight",
-    step: 20,
+    step: 21,
     type: "number",
     title: "What is your target weight?",
     placeholder: "65",
@@ -400,10 +415,10 @@ export const questions: Question[] = [
     },
   },
 
-  // Step 21: Age
+  // Step 22: Age
   {
     id: "age",
-    step: 21,
+    step: 22,
     type: "number",
     title: "How old are you?",
     placeholder: "30",
@@ -416,28 +431,28 @@ export const questions: Question[] = [
     },
   },
 
-  // Step 22: Personal Summary (Dynamic Display)
+  // Step 23: Personal Summary (Dynamic Display)
   {
     id: "personal-summary",
-    step: 22,
+    step: 23,
     type: "info",
     title: "Your Personal Summary",
     subtitle: "Based on your answers, here's what we know about you.",
   },
 
-  // Step 23: Weight Prediction (target date + graph + good news)
+  // Step 24: Weight Prediction (target date + graph + good news)
   {
     id: "weight-prediction",
-    step: 23,
+    step: 24,
     type: "info",
     title: "Your weight prediction",
     subtitle: "Based on similar users, we estimate when you could reach your goal.",
   },
 
-  // Step 24: Meals Per Day
+  // Step 25: Meals Per Day
   {
     id: "meals-per-day",
-    step: 24,
+    step: 25,
     type: "single-select",
     title: "How many meals per day do you prefer?",
     options: [
@@ -447,10 +462,10 @@ export const questions: Question[] = [
     ],
   },
 
-  // Step 25: Exclude Proteins/Dairy
+  // Step 26: Exclude Proteins/Dairy
   {
     id: "exclude-proteins",
-    step: 25,
+    step: 26,
     type: "multi-select",
     title: "Would you like to exclude any proteins or dairy?",
     subtitle: "Proteins and dairy:",
@@ -472,10 +487,10 @@ export const questions: Question[] = [
     ],
   },
 
-  // Step 26: Exclude Fruits and Vegetables
+  // Step 27: Exclude Fruits and Vegetables
   {
     id: "exclude-vegetables",
-    step: 26,
+    step: 27,
     type: "multi-select",
     title: "Would you like to exclude any fruits or vegetables?",
     subtitle: "Fruits and vegetables:",
@@ -495,10 +510,10 @@ export const questions: Question[] = [
     ],
   },
 
-  // Step 27: Exclude Nuts and Grains
+  // Step 28: Exclude Nuts and Grains
   {
     id: "exclude-fruits",
-    step: 27,
+    step: 28,
     type: "multi-select",
     title: "Would you like to exclude any nuts or grains?",
     subtitle: "Nuts and grains:",
@@ -518,19 +533,19 @@ export const questions: Question[] = [
     ],
   },
 
-  // Step 28: Loading/Calculating (Special Type)
+  // Step 29: Loading/Calculating (Special Type)
   {
     id: "calculating",
-    step: 28,
+    step: 29,
     type: "loading",
     title: "Generating...",
     subtitle: "Creating your personalized GLP diet plan",
   },
 
-  // Step 29: Meal combinations summary (after generating)
+  // Step 30: Meal combinations summary (after generating)
   {
     id: "meal-combinations",
-    step: 29,
+    step: 30,
     type: "info",
     title: "Your personalized meal plan",
     subtitle: "We've created over 1000 meal combinations just for you.",
