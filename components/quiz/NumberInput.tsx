@@ -91,31 +91,6 @@ export function NumberInput({
         </p>
       )}
 
-      {showBMI && bmi && bmiCat && (
-        <div className="bg-[var(--danger-bg)] rounded-2xl px-5 py-4">
-          <p className="text-[14px]">
-            <span className="text-red-600 font-bold mr-1.5">!</span>
-            <span className="font-semibold">Your BMI is {bmi.toFixed(1)}</span>
-            <span className="text-[var(--text-secondary)]">, which is considered </span>
-            <span className="font-semibold">{bmiCat.toLowerCase()}</span>
-          </p>
-          <p className="text-[13px] text-[var(--text-secondary)] mt-1.5 leading-relaxed">
-            There&apos;s a lot you could gain by losing a little weight. We&apos;ll use your BMI to create the weight loss program you need.
-          </p>
-        </div>
-      )}
-
-      {showWeightLossPercent && lossPct !== null && lossPct > 0 && (
-        <div className="bg-[var(--info-bg)] rounded-2xl px-5 py-4">
-          <p className="text-[14px]">
-            <span className="mr-1.5">👆</span>
-            <span className="font-semibold text-[var(--info-text)]">
-              {lossPct > 20 ? "Challenging goal" : "Achievable goal"}:
-            </span>
-            <span className="text-[var(--text-secondary)]"> lose {lossPct}% of your weight</span>
-          </p>
-        </div>
-      )}
     </div>
   );
 }

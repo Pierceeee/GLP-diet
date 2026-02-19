@@ -1,7 +1,7 @@
 import type { Question, QuestionOption, Gender } from "@/types";
 
-/** Steps skipped for women: 17 (weight loss multiplier info card). */
-const STEPS_SKIP_FOR_FEMALE: number[] = [17];
+/** No steps skipped for women. */
+const STEPS_SKIP_FOR_FEMALE: number[] = [];
 
 /**
  * Total number of quiz steps (excluding loading and email)
@@ -306,7 +306,8 @@ export const questions: Question[] = [
     type: "info",
     title: "Designed by endocrinologists and nutrition experts.",
     subtitle:
-      "The Personalized GLP-1 Programme helps your body send stronger fullness signals using food and meal timing, so eating less feels natural, not forced.\n\nPowered by AI, your plan adapts based on how your hunger actually responds.\n\nYou may feel full sooner and crave less, with more stable energy and blood sugar.",
+      "The Personalized GLP-1 Programme helps your body send stronger fullness signals using food and meal timing — so eating less feels natural, not forced.\n\nPowered by AI, your plan adapts based on how your hunger actually responds, removing guesswork and effort.\n\nWhat this means for you:\n\n• You feel full sooner and crave less — without medication or injections\n• Energy and blood sugar stay more stable\n• Weight loss feels easier, similar to what people associate with GLP-1 medications — without their side effects",
+    image: "/images/expert-backing.png",
   },
 
   // Step 16: Previous Diet Attempts
@@ -341,12 +342,12 @@ export const questions: Question[] = [
     id: "motivation",
     step: 18,
     type: "single-select",
-    title: "What is your primary motivation for losing weight and getting healthier?",
+    title: "What's your primary motivation for losing weight and getting healthier?",
     options: [
       opt("confidence", "Feel more confident"),
       opt("attractiveness", "Increase attractiveness"),
-      opt("energy-health", "Boost energy and health"),
-      opt("mental-wellbeing", "Improve mental well-being"),
+      opt("energy-health", "Boost energy & health"),
+      opt("mental-wellbeing", "Improve mental well‑being"),
       opt("clothes", "Fit clothes better"),
       opt("medication-support", "Support GLP-1 medication results"),
       opt("other", "Other"),
@@ -356,8 +357,8 @@ export const questions: Question[] = [
         options: [
           opt("confidence", "Feel more confident"),
           opt("attractiveness", "Increase attractiveness"),
-          opt("energy-health", "Boost energy and health"),
-          opt("mental-wellbeing", "Improve mental well-being"),
+          opt("energy-health", "Boost energy & health"),
+          opt("mental-wellbeing", "Improve mental well‑being"),
           opt("clothes", "Fit clothes better"),
           opt("post-pregnancy", "Return to shape after pregnancy"),
           opt("other", "Other"),

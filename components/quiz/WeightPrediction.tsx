@@ -3,7 +3,6 @@
 import type { QuizAnswers } from "@/types";
 import { getTargetWeightDate, formatTargetDate } from "@/lib/utils";
 import { ContinueButton } from "./ContinueButton";
-import { PartyPopper } from "lucide-react";
 
 interface WeightPredictionProps {
   answers: QuizAnswers;
@@ -57,12 +56,12 @@ export function WeightPrediction({ answers, onContinue }: WeightPredictionProps)
     <div className="space-y-6 text-center">
       {/* Main heading */}
       <h2
-        className="text-[22px] sm:text-[26px] font-bold leading-tight text-[var(--brand)]"
+        className="text-[22px] sm:text-[26px] font-bold leading-tight"
         style={{ fontFamily: "var(--font-heading)" }}
       >
-        We predict that you&apos;ll weigh{" "}
+        We estimate you could reach{" "}
         <span className="text-[var(--brand)]">{targetWeight} kg</span> by{" "}
-        <span className="text-[var(--brand)]">{targetDateStr}</span>!
+        <span className="text-[var(--brand)]">{targetDateStr}</span>
       </h2>
 
       {/* Weight loss graph */}
@@ -174,12 +173,14 @@ export function WeightPrediction({ answers, onContinue }: WeightPredictionProps)
       {/* Good news box */}
       <div className="bg-[var(--brand-light)] rounded-2xl px-5 py-4 text-left max-w-[340px] mx-auto">
         <p className="text-[15px] font-semibold text-[var(--brand)] flex items-center gap-2 mb-1">
-          <PartyPopper className="w-5 h-5 flex-shrink-0" aria-hidden />
+          <span className="text-[18px]">🙌</span>
           Good news!
         </p>
         <p className="text-[14px] text-[var(--text-secondary)] leading-relaxed">
-          Based on similar GLP Diet users, we predict that you&apos;ll achieve
-          your goal weight of {targetWeight} kg before {targetDateStr}.
+          Based on progress seen by users following the{" "}
+          <span className="font-semibold">Personalized GLP-1 Programme</span>, we estimate you can reach your target weight of{" "}
+          <span className="font-semibold">{targetWeight} kg</span> by{" "}
+          <span className="font-semibold">{targetDateStr}</span>, if you stay consistent with your plan.
         </p>
       </div>
 

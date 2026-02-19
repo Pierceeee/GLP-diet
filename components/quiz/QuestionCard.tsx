@@ -92,7 +92,66 @@ export function QuestionCard({
     );
   };
 
-  const renderNumber = () => (
+  const getBmiInfo = () => {
+    const height = allAnswers.height as number;
+    const weight = currentAnswer as number;
+    if (!height || !weight) return null;
+    const heightM = height / 100;
+    const bmi = weight / (heightM * heightM);
+    const bmiVal = bmi.toFixed(1);
+
+    if (bmi < 18.5) {
+      return {
+        emoji: "❗",
+        title: `Your BMI is ${bmiVal}, which falls below the typical range`,
+        description: null,
+      };
+    } else if (bmi < 25) {
+      return {
+        emoji: "👌",
+        title: `A good starting BMI for building a fit body`,
+        description: "Research shows that a GLP-1–focused diet can support metabolism, promote weight loss, improve muscle strength, and contribute to better overall health.",
+      };
+    } else if (bmi < 30) {
+      return {
+        emoji: "❗",
+        title: `Your BMI is ${bmiVal}, which is above the typical range`,
+        description: "This means your weight is slightly higher than recommended for your height.\n\nWe'll use your BMI to create a personalized weight-loss plan designed specifically for you.",
+      };
+    } else {
+      return {
+        emoji: "❗",
+        title: `Your BMI is ${bmiVal}, which is well above the typical range`,
+        description: "Losing some weight could bring meaningful benefits to your health and energy levels.\n\nWe'll use your BMI to build the personalized weight-loss programme that best fits your needs.",
+      };
+    }
+  };
+
+  const getTargetWeightInfo = () => {
+    const currentWeight = allAnswers.weight as number;
+    const targetWeight = currentAnswer as number;
+    if (!currentWeight || !targetWeight || targetWeight >= currentWeight) return null;
+    const lossPct = Math.round(((currentWeight - targetWeight) / currentWeight) * 100);
+
+    if (lossPct <= 20) {
+      return {
+        emoji: "☝️",
+        title: `HEALTH BENEFIT TARGET: lose ${lossPct}% of your body weight`,
+        description: "Research shows that losing 10% or more of your body weight can lower the risk of several weight-related health issues, including heart disease, elevated blood sugar, and inflammation in blood vessels.",
+      };
+    } else {
+      return {
+        emoji: "☝️",
+        title: `MORE AMBITIOUS GOAL: lose ${lossPct}% of your body weight`,
+        description: "According to studies, people with excess weight who lose more than 20% of their body weight are nearly 2.5× more likely to achieve healthy metabolic markers compared to those who lose 5–10%.",
+      };
+    }
+  };
+
+  const renderNumber = () => {
+    const bmiInfo = q.id === "weight" ? getBmiInfo() : null;
+    const targetInfo = q.id === "target-weight" ? getTargetWeightInfo() : null;
+    return (
     <div className="space-y-6">
       <NumberInput
         value={currentAnswer as number | null}
@@ -109,17 +168,49 @@ export function QuestionCard({
       {q.id === "height" && (
         <div className="bg-[var(--info-bg)] rounded-2xl px-5 py-4">
           <p className="text-[14px]">
-            <span className="mr-1.5">👆</span>
-            <span className="font-semibold text-[var(--info-text)]">Calculating your body mass index</span>
+            <span className="mr-1.5">☝️</span>
+            <span className="font-semibold text-[var(--info-text)]">Why we calculate BMI</span>
           </p>
           <p className="text-[13px] text-[var(--text-secondary)] mt-1 leading-relaxed">
-            The body mass index (BMI) is a measure that uses your height and weight to work out if your weight is healthy.
+            BMI helps us understand your weight range based on your height, so we can better tailor your plan.
           </p>
+        </div>
+      )}
+      {q.id === "age" && (
+        <div className="bg-[var(--info-bg)] rounded-2xl px-5 py-4">
+          <p className="text-[14px]">
+            <span className="mr-1.5">☝️</span>
+            <span className="font-semibold text-[var(--info-text)]">Your age helps us tailor your programme.</span>
+          </p>
+          <p className="text-[13px] text-[var(--text-secondary)] mt-1 leading-relaxed">
+            With age, metabolism can slow and body fat levels may increase, even at the same BMI.
+          </p>
+        </div>
+      )}
+      {bmiInfo && (
+        <div className="bg-[var(--info-bg)] rounded-2xl px-5 py-4">
+          <p className="text-[14px]">
+            <span className="mr-1.5">{bmiInfo.emoji}</span>
+            <span className="font-semibold text-[var(--info-text)]">{bmiInfo.title}</span>
+          </p>
+          {bmiInfo.description && (
+            <p className="text-[13px] text-[var(--text-secondary)] mt-1 leading-relaxed whitespace-pre-line">{bmiInfo.description}</p>
+          )}
+        </div>
+      )}
+      {targetInfo && (
+        <div className="bg-[var(--info-bg)] rounded-2xl px-5 py-4">
+          <p className="text-[14px]">
+            <span className="mr-1.5">{targetInfo.emoji}</span>
+            <span className="font-semibold text-[var(--info-text)]">{targetInfo.title}</span>
+          </p>
+          <p className="text-[13px] text-[var(--text-secondary)] mt-1 leading-relaxed">{targetInfo.description}</p>
         </div>
       )}
       <ContinueButton onClick={onContinue} disabled={!canContinue()} />
     </div>
-  );
+    );
+  };
 
   const renderInfo = () => {
     if (q.id === "social-proof-intro") {
