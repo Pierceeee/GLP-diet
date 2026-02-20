@@ -15,15 +15,41 @@ export function InfoCard({ title, subtitle, image, benefits }: InfoCardProps) {
     "Reduced hunger and cravings",
     "Improved sleep, mood, and energy levels",
   ];
-  const items = benefits || defaultBenefits;
 
+  // Use provided benefits, or default benefits only when no image is present
+  const items = benefits || (!image ? defaultBenefits : undefined);
+
+  /**
+   * Highlights "GLP" in brand colour and renders **bold** markdown syntax.
+   */
   const hl = (text: string) => {
-    const parts = text.split(/(GLP)/gi);
-    return parts.map((p, i) =>
-      p.toLowerCase() === "glp"
-        ? <span key={i} className="text-[var(--brand)] font-semibold">{p}</span>
-        : <span key={i}>{p}</span>
-    );
+    // First split on **bold** markers, then highlight GLP within each part
+    const boldParts = text.split(/(\*\*[^*]+\*\*)/g);
+    return boldParts.map((segment, i) => {
+      const isBold = segment.startsWith("**") && segment.endsWith("**");
+      const clean = isBold ? segment.slice(2, -2) : segment;
+
+      // Highlight GLP within the segment
+      const glpParts = clean.split(/(GLP(?:-1)?)/gi);
+      const rendered = glpParts.map((p, j) =>
+        /^GLP(-1)?$/i.test(p) ? (
+          <span key={j} className="text-[var(--brand)] font-semibold">
+            {p}
+          </span>
+        ) : (
+          <span key={j}>{p}</span>
+        )
+      );
+
+      if (isBold) {
+        return (
+          <strong key={i} className="font-bold">
+            {rendered}
+          </strong>
+        );
+      }
+      return <span key={i}>{rendered}</span>;
+    });
   };
 
   return (
@@ -51,22 +77,31 @@ export function InfoCard({ title, subtitle, image, benefits }: InfoCardProps) {
       </div>
       {/* Content */}
       <div className="px-6 py-5">
-        <h3 className="text-[20px] font-bold mb-2 leading-tight" style={{ fontFamily: "var(--font-heading)" }}>
+        <h3
+          className="text-[22px] font-extrabold mb-2 leading-tight"
+          style={{ fontFamily: "var(--font-heading)" }}
+        >
           {hl(title)}
         </h3>
         {subtitle && (
-          <div className="text-[15px] font-semibold text-[var(--text-primary)] leading-relaxed mb-4 whitespace-pre-line">{hl(subtitle)}</div>
+          <div className="text-[15px] font-semibold text-[var(--text-primary)] leading-relaxed mb-4 whitespace-pre-line">
+            {hl(subtitle)}
+          </div>
         )}
-        {!image && (
+        {items && items.length > 0 && (
           <>
-            <p className="text-[13px] font-semibold mb-3">Benefits of the GLP diet:</p>
+            {!benefits && (
+              <p className="text-[13px] font-semibold mb-3">Benefits of the GLP diet:</p>
+            )}
             <div className="space-y-2.5">
               {items.map((b, i) => (
                 <div key={i} className="flex items-start gap-2.5">
                   <div className="w-[18px] h-[18px] rounded-full bg-[var(--success)] flex items-center justify-center flex-shrink-0 mt-0.5">
                     <Check className="w-2.5 h-2.5 text-white" strokeWidth={3} />
                   </div>
-                  <span className="text-[14px] text-[var(--text-secondary)] leading-snug">{hl(b)}</span>
+                  <span className="text-[14px] font-semibold text-[var(--text-secondary)] leading-snug">
+                    {hl(b)}
+                  </span>
                 </div>
               ))}
             </div>

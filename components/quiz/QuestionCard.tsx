@@ -236,7 +236,7 @@ export function QuestionCard({
     }
     return (
       <div className="space-y-6">
-        <InfoCard title={q.title} subtitle={q.subtitle} image={q.image} />
+        <InfoCard title={q.title} subtitle={q.subtitle} image={q.image} benefits={q.benefits} />
         <ContinueButton onClick={onContinue}>Continue</ContinueButton>
       </div>
     );

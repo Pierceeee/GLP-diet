@@ -47,6 +47,7 @@ export interface Question {
   title: string;
   subtitle?: string;
   image?: string;
+  benefits?: string[];
   options?: QuestionOption[];
   validation?: ValidationRule;
   placeholder?: string;

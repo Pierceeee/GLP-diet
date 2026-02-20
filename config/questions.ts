@@ -69,14 +69,20 @@ export const questions: Question[] = [
     ],
   },
 
-  // Step 4: What is the Personalized GLP-1 Programme? (Info Card)
+  // Step 4: Why Weight Loss Feels Hard (Info Card)
   {
     id: "glp-intro",
     step: 4,
     type: "info",
-    title: "What is the Personalized GLP-1 Programme?",
+    title: "Why Weight Loss Feels Hard",
     subtitle:
-      "If you are often hungry soon after eating, it is not a willpower issue. It is a hunger-signal issue.\n\nThe Personalized GLP-1 Programme is built around GLP-1, the hormone that tells your brain you are full. When this signal is weak, cravings stay high and dieting feels hard.\n\nGLP-1 medications such as Ozempic proved one thing: when hunger is regulated, weight loss becomes easier.\n\nThis programme supports your body natural GLP-1 response through food and meal structure, without injections or medication.\n\nWhen hunger goes down, weight loss follows.",
+      "It's not willpower.\n\nIt's your hunger hormone — **GLP-1**.\n\nWhen your GLP-1 fullness signal is weak, you feel hungry sooner, cravings stay high, and dieting becomes a daily battle.\n\nOur AI Coach is designed to naturally support and increase your GLP-1 response through smart meal structure and timing — so:",
+    benefits: [
+      "Hunger decreases",
+      "Cravings calm down",
+      "Fat burning becomes more efficient",
+      "Weight loss feels easier and more sustainable",
+    ],
   },
 
   // Step 5: What would you like to focus on? (Multi-select)
