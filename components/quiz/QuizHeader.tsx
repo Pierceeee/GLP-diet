@@ -31,7 +31,7 @@ export function QuizHeader({ currentStep, onBack, showBack = true, showStepCount
           </div>
           {/* Title */}
           <span className="text-[16px] font-bold" style={{ fontFamily: "var(--font-heading)" }}>
-            GLP Diet
+            GLP Coaching Program
           </span>
           {/* Step */}
           <div className="absolute right-0">

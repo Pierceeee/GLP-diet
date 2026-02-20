@@ -52,7 +52,7 @@ export function FatBurningRateScreen({ answers, onContinue }: FatBurningRateScre
             Your fat-burning rate is:{" "}
             <span className="text-red-600">{metabolism}</span>
           </h2>
-          <p className="text-[14px] text-[var(--text-secondary)] leading-relaxed mb-8">
+          <p className="text-[15px] font-semibold text-[var(--text-primary)] leading-relaxed mb-8">
             A slower fat-burning rate can make it more difficult to lose weight
             and maintain results over time.
           </p>

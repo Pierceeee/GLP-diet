@@ -55,7 +55,7 @@ export function InfoCard({ title, subtitle, image, benefits }: InfoCardProps) {
           {hl(title)}
         </h3>
         {subtitle && (
-          <div className="text-[14px] text-[var(--text-secondary)] leading-relaxed mb-4 whitespace-pre-line">{hl(subtitle)}</div>
+          <div className="text-[15px] font-semibold text-[var(--text-primary)] leading-relaxed mb-4 whitespace-pre-line">{hl(subtitle)}</div>
         )}
         {!image && (
           <>

@@ -263,7 +263,7 @@ export function QuestionCard({
             {q.title}
           </h2>
           {q.subtitle && (
-            <p className="text-[14px] text-[var(--text-muted)]">{q.subtitle}</p>
+            <p className="text-[15px] font-semibold text-[var(--text-primary)]">{q.subtitle}</p>
           )}
         </div>
       )}

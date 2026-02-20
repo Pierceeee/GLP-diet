@@ -18,7 +18,7 @@ export function HeroSection() {
         />
       </div>
 
-      <p className="text-[14px] text-[var(--text-secondary)] text-center mb-3 leading-relaxed max-w-[400px]">
+      <p className="text-[15px] font-semibold text-[var(--text-primary)] text-center mb-3 leading-relaxed max-w-[400px]">
         Your hunger hormones don&apos;t respond the same way as others. Let&apos;s see how yours work.
       </p>
 

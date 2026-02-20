@@ -13,7 +13,7 @@ export function Header() {
           className="text-[18px] font-bold tracking-tight"
           style={{ fontFamily: "var(--font-heading)" }}
         >
-          GLP Diet
+          GLP Coaching Program
         </span>
         <button
           onClick={() => setOpen(!open)}
