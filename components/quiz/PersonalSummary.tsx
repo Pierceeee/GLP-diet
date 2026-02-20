@@ -81,7 +81,7 @@ export function PersonalSummary({ answers, gender }: PersonalSummaryProps) {
   const getBodyFat = () => {
     const isMale = gender === "male";
     const fat = 1.2 * bmi + 0.23 * age - (isMale ? 16.2 : 5.4);
-    return Math.max(5, Math.min(55, fat.toFixed(2)));
+    return Math.max(5, Math.min(55, parseFloat(fat.toFixed(2))));
   };
 
   const activityLabels: Record<string, string> = {
