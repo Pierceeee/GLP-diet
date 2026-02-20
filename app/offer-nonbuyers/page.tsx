@@ -351,24 +351,41 @@ function SuccessStoriesSection() {
         {successStories.map((story) => (
           <div
             key={story.name}
-            className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm"
+            className="bg-white rounded-2xl overflow-hidden"
           >
-            <div className="w-full h-[280px] bg-gray-100 flex items-center justify-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10" />
-              <div className="text-center text-gray-400">
-                <div className="w-16 h-16 rounded-full bg-gray-200 mx-auto mb-2 flex items-center justify-center">
-                  <span className="text-2xl font-bold text-gray-300">{story.name[0]}</span>
-                </div>
-                <p className="text-[12px]">Image placeholder</p>
-                <p className="text-[10px] text-gray-300">{story.image}</p>
-              </div>
+            {/* Before / After photo */}
+            <div className="w-full aspect-square relative overflow-hidden">
+              <Image
+                src={story.image}
+                alt={`${story.name} before and after`}
+                fill
+                className="object-cover object-top"
+              />
             </div>
-            <div className="p-5">
-              <h3 className="text-[16px] font-bold mb-3">{story.headline}</h3>
-              <blockquote className="text-[14px] text-[var(--text-secondary)] leading-relaxed mb-4 italic border-l-3 border-[var(--brand)] pl-4">
+
+            <div className="px-2 pt-5 pb-6 text-center">
+              <h3
+                className="text-[20px] font-bold mb-3"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                {story.headline}
+              </h3>
+              <p className="text-[14px] text-[var(--text-secondary)] leading-relaxed mb-4">
                 &ldquo;{story.quote}&rdquo;
-              </blockquote>
-              <p className="text-[14px] font-bold">{story.name}</p>
+              </p>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[14px] font-semibold">{story.name}</span>
+                  <span className="w-5 h-5 rounded-full bg-[#1a8917] flex items-center justify-center">
+                    <Check className="w-3 h-3 text-white" strokeWidth={3} />
+                  </span>
+                </div>
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className="text-[22px] leading-none text-[#FFD700]">★</span>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         ))}
@@ -441,58 +458,15 @@ function GuaranteeSection() {
 // =============== NOW VS GOAL ===============
 function NowVsGoal() {
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
-      <div className="grid grid-cols-2">
-        <div className="text-center pt-5 pb-2 border-r border-gray-100">
-          <p className="text-[16px] font-bold text-red-500 mb-3">Now</p>
-          <div className="h-[220px] flex items-end justify-center overflow-hidden">
-            <Image src="/images/body/now-placeholder.png" alt="Current body" width={160} height={220} className="object-contain grayscale opacity-80" />
-          </div>
-        </div>
-        <div className="text-center pt-5 pb-2 relative">
-          <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full border border-gray-200 flex items-center justify-center shadow-sm">
-            <ChevronDown className="w-4 h-4 text-[var(--brand)] -rotate-90" />
-          </div>
-          <p className="text-[16px] font-bold text-[var(--brand)] mb-3">Goal</p>
-          <div className="h-[220px] flex items-end justify-center overflow-hidden">
-            <Image src="/images/body/goal-placeholder.png" alt="Goal body" width={160} height={220} className="object-contain" />
-          </div>
-        </div>
-      </div>
-      <div className="grid grid-cols-2 border-t border-gray-100">
-        <div className="p-4 border-r border-gray-100">
-          <p className="text-[13px] text-[var(--text-secondary)]">Body fat:</p>
-          <p className="text-[22px] font-bold text-[#1a1a1a]">15.67%</p>
-          <div className="border-t border-gray-100 mt-3 pt-3">
-            <p className="text-[13px] text-[var(--text-secondary)]">BMI:</p>
-            <p className="text-[22px] font-bold text-[#1a1a1a]">22.34</p>
-          </div>
-          <div className="border-t border-gray-100 mt-3 pt-3">
-            <p className="text-[13px] text-[var(--text-secondary)] mb-2">Fitness level:</p>
-            <div className="flex gap-1">
-              <div className="h-2 w-8 rounded-full bg-red-500" />
-              <div className="h-2 w-8 rounded-full bg-red-300" />
-              <div className="h-2 w-8 rounded-full bg-red-100" />
-            </div>
-          </div>
-        </div>
-        <div className="p-4">
-          <p className="text-[13px] text-[var(--text-secondary)]">Body fat:</p>
-          <p className="text-[22px] font-bold text-[#1a1a1a]">11.84%</p>
-          <div className="border-t border-gray-100 mt-3 pt-3">
-            <p className="text-[13px] text-[var(--text-secondary)]">BMI:</p>
-            <p className="text-[22px] font-bold text-[#1a1a1a]">19.15</p>
-          </div>
-          <div className="border-t border-gray-100 mt-3 pt-3">
-            <p className="text-[13px] text-[var(--text-secondary)] mb-2">Fitness level:</p>
-            <div className="flex gap-1">
-              <div className="h-2 w-8 rounded-full bg-green-500" />
-              <div className="h-2 w-8 rounded-full bg-green-500" />
-              <div className="h-2 w-8 rounded-full bg-green-500" />
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="w-full rounded-2xl overflow-hidden shadow-sm border border-gray-200">
+      <Image
+        src="/images/checkout-step.png"
+        alt="Now vs Goal comparison"
+        width={660}
+        height={660}
+        className="w-full h-auto"
+        priority
+      />
     </div>
   );
 }
