@@ -154,7 +154,7 @@ function DiscountBanner({ onGetPlan }: { onGetPlan: () => void }) {
     <div className="sticky top-0 z-50 bg-[#d4edda] border-b border-[#b8dabd]">
       <div className="w-full max-w-[660px] mx-auto px-4 py-3 flex items-center justify-between">
         <div>
-          <p className="text-[13px] text-[#0f4c4c]">Your {DISCOUNT_LABEL} is locked in</p>
+          <p className="text-[13px] text-[#0097b2]">Your {DISCOUNT_LABEL} is locked in</p>
           <p className="text-[28px] font-bold text-[#1a1a1a] leading-tight">{countdown}</p>
         </div>
         <button

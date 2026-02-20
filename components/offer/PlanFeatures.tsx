@@ -48,8 +48,8 @@ export function PlanFeatures() {
             key={index}
             className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm"
           >
-            <div className="w-10 h-10 bg-[#e6f0f0] rounded-lg flex items-center justify-center mb-3">
-              <feature.icon className="w-5 h-5 text-[#0f4c4c]" />
+            <div className="w-10 h-10 bg-[#e6f5f8] rounded-lg flex items-center justify-center mb-3">
+              <feature.icon className="w-5 h-5 text-[#0097b2]" />
             </div>
             <h3 className="font-semibold text-gray-900 text-sm mb-1">
               {feature.title}

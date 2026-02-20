@@ -2,10 +2,10 @@
 @import "tailwindcss";
 
 :root {
-  --brand: #0f4c4c;
-  --brand-hover: #0a3535;
-  --brand-light: #e6f0f0;
-  --brand-muted: #1a6b6b;
+  --brand: #0097b2;
+  --brand-hover: #007f96;
+  --brand-light: #e6f5f8;
+  --brand-muted: #00b0d0;
   --text: #1a1a1a;
   --text-secondary: #6b7280;
   --text-muted: #9ca3af;

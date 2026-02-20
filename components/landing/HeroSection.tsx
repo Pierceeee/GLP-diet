@@ -27,18 +27,18 @@ export function HeroSection() {
         style={{ fontFamily: "var(--font-heading)" }}
       >
         Lose Weight More Easily with a Personalized{" "}
-        <span className="text-[var(--brand)]">GLP-1</span> Programme
+        <span className="text-[#0097b2]">GLP-1</span> Programme
       </h2>
 
       <p className="text-[15px] text-[var(--text-secondary)] mb-5">
-        Select the <span className="text-[var(--brand)] font-semibold">GLP</span> diet type:
+        Select the <span className="text-[#0097b2] font-semibold">GLP</span> diet type:
       </p>
 
       <div className="flex gap-4 w-full max-w-[380px]">
         <Link
           href="/quiz?gender=male"
           className="flex-1 py-3.5 text-center text-[15px] font-semibold rounded-full
-                     bg-[var(--brand)] text-white hover:bg-[var(--brand-hover)]
+                     bg-[#0097b2] text-white hover:bg-[#007f96]
                      transition-all active:scale-[0.97] shadow-sm"
         >
           Diet for men
@@ -46,8 +46,8 @@ export function HeroSection() {
         <Link
           href="/quiz?gender=female"
           className="flex-1 py-3.5 text-center text-[15px] font-semibold rounded-full
-                     bg-white text-gray-700 border border-gray-300
-                     hover:border-[var(--brand)] hover:text-[var(--brand)]
+                     bg-[#f6faff] text-[#0097b2] border border-[#0097b2]
+                     hover:bg-[#eaf3fc] hover:text-[#007f96]
                      transition-all active:scale-[0.97]"
         >
           Diet for women

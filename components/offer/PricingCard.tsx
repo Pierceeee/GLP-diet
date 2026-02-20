@@ -72,14 +72,14 @@ export function PricingCard() {
               w-full p-4 rounded-xl border-2 transition-all duration-200 text-left relative
               ${
                 selectedPlan === plan.id
-                  ? "border-[#0f4c4c] bg-[#e6f0f0]"
+                  ? "border-[#0097b2] bg-[#e6f5f8]"
                   : "border-gray-200 bg-white hover:border-gray-300"
               }
             `}
           >
             {/* Popular Badge */}
             {plan.popular && (
-              <div className="absolute -top-3 left-4 px-3 py-1 bg-[#0f4c4c] text-white text-xs font-semibold rounded-full">
+              <div className="absolute -top-3 left-4 px-3 py-1 bg-[#0097b2] text-white text-xs font-semibold rounded-full">
                 Most Popular
               </div>
             )}
@@ -92,7 +92,7 @@ export function PricingCard() {
                     w-5 h-5 rounded-full border-2 flex items-center justify-center
                     ${
                       selectedPlan === plan.id
-                        ? "border-[#0f4c4c] bg-[#0f4c4c]"
+                        ? "border-[#0097b2] bg-[#0097b2]"
                         : "border-gray-300"
                     }
                   `}
@@ -108,7 +108,7 @@ export function PricingCard() {
                   <p className="text-sm text-gray-500">
                     ${plan.perMonth.toFixed(2)}/month
                     {plan.savings && (
-                      <span className="ml-2 text-[#0f4c4c] font-medium">
+                      <span className="ml-2 text-[#0097b2] font-medium">
                         {plan.savings}
                       </span>
                     )}
@@ -133,10 +133,10 @@ export function PricingCard() {
       {/* Checkout Button */}
       <button
         onClick={handleCheckout}
-        className="w-full py-4 bg-[#0f4c4c] hover:bg-[#0a3a3a] text-white 
+        className="w-full py-4 bg-[#0097b2] hover:bg-[#007f96] text-white 
                    font-semibold rounded-full transition-all duration-200
                    active:scale-[0.99] focus:outline-none focus:ring-2 
-                   focus:ring-offset-2 focus:ring-[#0f4c4c]/50"
+                   focus:ring-offset-2 focus:ring-[#0097b2]/50"
       >
         Get My Plan - ${currentPlan?.price.toFixed(2)}
       </button>

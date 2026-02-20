@@ -10,9 +10,9 @@ export function AIAnalysis({ analysis }: AIAnalysisProps) {
     <div className="space-y-5">
       {/* Header */}
       <div className="text-center">
-        <div className="inline-flex items-center gap-2 bg-[#e6f0f0] px-4 py-2 rounded-full mb-3">
-          <Sparkles className="w-4 h-4 text-[#0f4c4c]" />
-          <span className="text-sm font-semibold text-[#0f4c4c]">
+        <div className="inline-flex items-center gap-2 bg-[#e6f5f8] px-4 py-2 rounded-full mb-3">
+          <Sparkles className="w-4 h-4 text-[#0097b2]" />
+          <span className="text-sm font-semibold text-[#0097b2]">
             AI Analysis Complete
           </span>
         </div>
@@ -51,15 +51,15 @@ export function AIAnalysis({ analysis }: AIAnalysisProps) {
 
       {/* Recommendations */}
       {analysis.recommendations && analysis.recommendations.length > 0 && (
-        <div className="bg-[#e6f0f0] rounded-2xl p-5">
+        <div className="bg-[#e6f5f8] rounded-2xl p-5">
           <div className="flex items-center gap-2 mb-3">
-            <AlertCircle className="w-5 h-5 text-[#0f4c4c]" />
+            <AlertCircle className="w-5 h-5 text-[#0097b2]" />
             <h3 className="font-semibold text-gray-900">Recommendations</h3>
           </div>
           <ul className="space-y-2">
             {analysis.recommendations.map((rec, index) => (
               <li key={index} className="flex items-start gap-2">
-                <span className="text-[#0f4c4c] font-bold">•</span>
+                <span className="text-[#0097b2] font-bold">•</span>
                 <span className="text-[14px] text-gray-700">{rec}</span>
               </li>
             ))}
@@ -69,7 +69,7 @@ export function AIAnalysis({ analysis }: AIAnalysisProps) {
 
       {/* Suggested Timeline */}
       {analysis.timeline && (
-        <div className="bg-gradient-to-r from-[#0f4c4c] to-[#1a6b6b] rounded-2xl p-5 text-white">
+        <div className="bg-gradient-to-r from-[#0097b2] to-[#00b0d0] rounded-2xl p-5 text-white">
           <h3 className="font-semibold mb-2">Your Timeline</h3>
           <p className="text-white/90 text-sm leading-relaxed">
             {analysis.timeline}

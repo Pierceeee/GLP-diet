@@ -45,12 +45,12 @@ export function BMIDisplay({
         </div>
 
         {/* Target */}
-        <div className="bg-[#e6f0f0] rounded-xl p-4 text-center">
-          <p className="text-sm text-[#0f4c4c] mb-1">Target</p>
-          <p className="text-2xl font-bold text-[#0f4c4c]">{targetWeight}</p>
-          <p className="text-sm text-[#0f4c4c]/60">kg</p>
-          <div className="mt-2 px-2 py-1 bg-[#0f4c4c]/10 rounded-full inline-block">
-            <span className="text-xs font-medium text-[#0f4c4c]">
+        <div className="bg-[#e6f5f8] rounded-xl p-4 text-center">
+          <p className="text-sm text-[#0097b2] mb-1">Target</p>
+          <p className="text-2xl font-bold text-[#0097b2]">{targetWeight}</p>
+          <p className="text-sm text-[#0097b2]/60">kg</p>
+          <div className="mt-2 px-2 py-1 bg-[#0097b2]/10 rounded-full inline-block">
+            <span className="text-xs font-medium text-[#0097b2]">
               BMI {targetBMI.toFixed(1)}
             </span>
           </div>
@@ -58,7 +58,7 @@ export function BMIDisplay({
       </div>
 
       {/* Weight Loss Summary */}
-      <div className="bg-gradient-to-r from-[#0f4c4c] to-[#1a6b6b] rounded-xl p-4 flex items-center justify-between">
+      <div className="bg-gradient-to-r from-[#0097b2] to-[#00b0d0] rounded-xl p-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
             <TrendingDown className="w-5 h-5 text-white" />
