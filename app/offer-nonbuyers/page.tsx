@@ -341,52 +341,16 @@ function FeaturesSection({ onGetPlan }: { onGetPlan: () => void }) {
 function SuccessStoriesSection() {
   return (
     <div>
-      <h2
-        className="text-[22px] font-bold text-center leading-tight mb-8"
-        style={{ fontFamily: "var(--font-heading)" }}
-      >
-        Real User Success Stories
-      </h2>
       <div className="space-y-6">
         {successStories.map((story) => (
-          <div
-            key={story.name}
-            className="bg-white rounded-2xl overflow-hidden"
-          >
-            {/* Before / After photo */}
-            <div className="w-full aspect-square relative overflow-hidden">
-              <Image
-                src={story.image}
-                alt={`${story.name} before and after`}
-                fill
-                className="object-cover object-top"
-              />
-            </div>
-
-            <div className="px-2 pt-5 pb-6 text-center">
-              <h3
-                className="text-[20px] font-bold mb-3"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                {story.headline}
-              </h3>
-              <p className="text-[14px] text-[var(--text-secondary)] leading-relaxed mb-4">
-                &ldquo;{story.quote}&rdquo;
-              </p>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1.5">
-                  <span className="text-[14px] font-semibold">{story.name}</span>
-                  <span className="w-5 h-5 rounded-full bg-[#1a8917] flex items-center justify-center">
-                    <Check className="w-3 h-3 text-white" strokeWidth={3} />
-                  </span>
-                </div>
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} className="text-[22px] leading-none text-[#FFD700]">★</span>
-                  ))}
-                </div>
-              </div>
-            </div>
+          <div key={story.name}>
+            <Image
+              src={story.image}
+              alt={`${story.name} — ${story.headline}`}
+              width={660}
+              height={660}
+              className="w-full h-auto rounded-2xl"
+            />
           </div>
         ))}
       </div>
