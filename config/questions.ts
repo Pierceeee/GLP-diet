@@ -226,11 +226,11 @@ export const questions: Question[] = [
     step: 9,
     type: "info",
     title: "Many users report visible progress within the first month.",
-    subtitle: "Illustrative example:\n\nLost 14 kg and finally seeing clear shape again.\n\n\"I'd been thinking about GLP-1 medications, but the potential side effects and the idea of lifelong treatment scared me. Then I discovered a GLP-1 approach that works through the same mechanism—naturally. The results were incredible. In about 5 weeks, I lost around 14 kg and finally felt in control of my eating again. Simple meals, no tracking, no intense workouts.\"\n\n— Alex R., 39",
+    subtitle: "Lost 14 kg and finally seeing clear shape again.\n\n\"I'd been thinking about GLP-1 medications, but the potential side effects and the idea of lifelong treatment scared me. Then I discovered a GLP-1 approach that works through the same mechanism—naturally. The results were incredible. In about 5 weeks, I lost around 14 kg and finally felt in control of my eating again. Simple meals, no tracking, no intense workouts.\"\n\n— Alex R., 39",
     image: "/images/social-proof-male.png",
     genderVariant: {
       female: {
-        subtitle: "Illustrative example:\n\nLost around 16 kg and felt lighter, more energized, and less bloated.\n\n\"I had just over a month before my wedding and needed something that actually worked. I tried medication first, but I had to stop because of the side effects. That's when I turned to a GLP-1–focused eating approach—and finally started making real progress without medication. Over the next few weeks, I lost about 16 kg, my bloating eased, cravings settled down, and my energy noticeably improved. The best part was that I didn't have to give up the foods I enjoy.\"\n\n— Laura M., 42",
+        subtitle: "Lost around 16 kg and felt lighter, more energized, and less bloated.\n\n\"I had just over a month before my wedding and needed something that actually worked. I tried medication first, but I had to stop because of the side effects. That's when I turned to a GLP-1–focused eating approach—and finally started making real progress without medication. Over the next few weeks, I lost about 16 kg, my bloating eased, cravings settled down, and my energy noticeably improved. The best part was that I didn't have to give up the foods I enjoy.\"\n\n— Laura M., 42",
         image: "/images/social-proof-female.png",
       },
     },
@@ -310,9 +310,14 @@ export const questions: Question[] = [
     id: "glp-benefits",
     step: 15,
     type: "info",
-    title: "Designed by endocrinologists and nutrition experts.",
+    title: "Designed by hormone and nutrition experts",
     subtitle:
-      "The Personalized GLP-1 Programme helps your body send stronger fullness signals using food and meal timing — so eating less feels natural, not forced.\n\nPowered by AI, your plan adapts based on how your hunger actually responds, removing guesswork and effort.\n\nWhat this means for you:\n\n• You feel full sooner and crave less — without medication or injections\n• Energy and blood sugar stay more stable\n• Weight loss feels easier, similar to what people associate with GLP-1 medications — without their side effects",
+      "The Personalized **GLP-1 Programme** helps your body send stronger fullness signals through smart food timing and structure — so eating less feels natural, not forced.\n\nPowered by AI, your plan adapts to your real hunger patterns.\n\n**What this means for you:**",
+    benefits: [
+      "Feel full sooner and crave less — without injections",
+      "More stable energy and blood sugar",
+      "Easier, more sustainable fat loss",
+    ],
     image: "/images/expert-backing.png",
   },
 
