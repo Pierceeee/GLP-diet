@@ -8,6 +8,7 @@ import { ContinueButton } from "./ContinueButton";
 import { PersonalSummary } from "./PersonalSummary";
 import { WeightPrediction } from "./WeightPrediction";
 import { MealCombinationsSummary } from "./MealCombinationsSummary";
+import { WeightLossMultiplierChart } from "./WeightLossMultiplierChart";
 import { BodyMapSelector } from "./BodyMapSelector";
 import { SocialProofIntro } from "./SocialProofIntro";
 import { getQuestionWithGender } from "@/config/questions";
@@ -233,6 +234,9 @@ export function QuestionCard({
     }
     if (q.id === "meal-combinations") {
       return <MealCombinationsSummary onContinue={onContinue} />;
+    }
+    if (q.id === "weight-loss-multiplier") {
+      return <WeightLossMultiplierChart onContinue={onContinue} />;
     }
     return (
       <div className="space-y-6">

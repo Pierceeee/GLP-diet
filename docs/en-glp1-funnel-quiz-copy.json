@@ -325,14 +325,21 @@
       {
         "id": "info_1_programme_explainer",
         "insertAfterQuestionId": "q3_familiarity",
-        "title": "What is the Personalized GLP-1 Programme?",
+        "title": "Why Weight Loss Feels Hard",
+        "fontWeight": "bold",
         "body": [
-          "If you are often hungry soon after eating, it is not a willpower issue. It is a hunger-signal issue.",
-          "The Personalized GLP-1 Programme is built around GLP-1, the hormone that tells your brain you are full. When this signal is weak, cravings stay high and dieting feels hard.",
-          "GLP-1 medications such as Ozempic proved one thing: when hunger is regulated, weight loss becomes easier.",
-          "This programme supports your body natural GLP-1 response through food and meal structure, without injections or medication.",
-          "When hunger goes down, weight loss follows."
-        ]
+          "It's not willpower.",
+          "It's your hunger hormone — **GLP-1**.",
+          "When your GLP-1 fullness signal is weak, you feel hungry sooner, cravings stay high, and dieting becomes a daily battle.",
+          "Our AI Coach is designed to naturally support and increase your GLP-1 response through smart meal structure and timing — so:"
+        ],
+        "bullets": [
+          "Hunger decreases",
+          "Cravings calm down",
+          "Fat burning becomes more efficient",
+          "Weight loss feels easier and more sustainable"
+        ],
+        "cta": "👉 Continue"
       },
       {
         "id": "info_2_social_proof_gender",
@@ -340,12 +347,12 @@
         "title": "Many users report visible progress within the first month.",
         "genderVariants": {
           "men": {
-            "headline": "Illustrative example: Lost 14 kg and finally seeing clear shape again.",
+            "headline": "Lost 14 kg and finally seeing clear shape again.",
             "quote": "I had been thinking about GLP-1 medications, but the potential side effects and the idea of lifelong treatment scared me. Then I discovered a GLP-1 approach that works through the same mechanism naturally. In about 5 weeks, I lost around 14 kg and felt in control of my eating again.",
             "author": "Alex R., 39"
           },
           "women": {
-            "headline": "Illustrative example: Lost around 16 kg and felt lighter, more energized, and less bloated.",
+            "headline": "Lost around 16 kg and felt lighter, more energized, and less bloated.",
             "quote": "I had just over a month before my wedding and needed something that actually worked. I tried medication first but had to stop because of side effects. Then I switched to a GLP-1-focused eating approach and finally made real progress without medication.",
             "author": "Laura M., 42"
           }
@@ -354,17 +361,47 @@
       {
         "id": "info_3_expert_backing",
         "insertAfterQuestionId": "q12_last_ideal_weight",
-        "title": "Designed by endocrinologists and nutrition experts.",
+        "title": "Designed by hormone and nutrition experts",
+        "fontWeight": "bold",
         "body": [
-          "The Personalized GLP-1 Programme helps your body send stronger fullness signals using food and meal timing, so eating less feels natural, not forced.",
-          "Powered by AI, your plan adapts based on how your hunger actually responds.",
-          "You may feel full sooner and crave less, with more stable energy and blood sugar."
-        ]
+          "The Personalized **GLP-1 Programme** helps your body send stronger fullness signals through smart food timing and structure — so eating less feels natural, not forced.",
+          "Powered by AI, your plan adapts to your real hunger patterns."
+        ],
+        "subheading": "What this means for you:",
+        "bullets": [
+          "Feel full sooner and crave less — without injections",
+          "More stable energy and blood sugar",
+          "Easier, more sustainable fat loss"
+        ],
+        "cta": "👉 Continue"
       },
       {
         "id": "info_4_weight_loss_multiplier",
         "insertAfterQuestionId": "q13_diets_tried",
-        "title": "Lose up to 3x more weight with a personalized programme compared to standard meal plans."
+        "title": "Lose up to 3x more weight with a personalized programme compared to standard meal plans.",
+        "animation": {
+          "type": "barChart",
+          "chartTitle": "Weight loss rate",
+          "footnote": "Based on a 4 week study of GLP Diet users",
+          "bars": [
+            {
+              "label": "Other diets",
+              "value": 33,
+              "color": "#E57373",
+              "animationDelay": 0
+            },
+            {
+              "label": "GLP Diet",
+              "value": 100,
+              "color": "#4CAF50",
+              "animationDelay": 300,
+              "badge": "3x 🎉"
+            }
+          ],
+          "animationDuration": 1200,
+          "animationEasing": "easeOutCubic"
+        },
+        "cta": "Continue"
       },
       {
         "id": "info_5_bmi_why",
