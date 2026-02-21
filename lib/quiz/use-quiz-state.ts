@@ -5,6 +5,27 @@ import { useCallback, useState, useEffect } from "react";
 import type { QuizAnswers, Gender, AnswerValue } from "@/types";
 import { getQuestionByStep, getTotalSteps } from "@/config/questions";
 
+const ANSWERS_STORAGE_KEY = "glp-quiz-answers";
+
+function loadAnswersFromStorage(): QuizAnswers {
+  if (typeof window === "undefined") return {};
+  try {
+    const stored = localStorage.getItem(ANSWERS_STORAGE_KEY);
+    return stored ? JSON.parse(stored) : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveAnswersToStorage(answers: QuizAnswers): void {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(ANSWERS_STORAGE_KEY, JSON.stringify(answers));
+  } catch {
+    // Storage might be full or disabled
+  }
+}
+
 /**
  * Custom hook for managing quiz state with URL persistence
  */
@@ -23,8 +44,8 @@ export function useQuizState() {
     parseAsString.withDefault("")
   );
 
-  // Local state for answers (would be persisted to Supabase in production)
-  const [answers, setAnswers] = useState<QuizAnswers>({});
+  // Local state for answers - initialized from localStorage
+  const [answers, setAnswers] = useState<QuizAnswers>(() => loadAnswersFromStorage());
   const [isLoading, setIsLoading] = useState(false);
 
   // Derive gender from URL or answers (normalize to lowercase for comparison)
@@ -48,10 +69,14 @@ export function useQuizState() {
     (value: AnswerValue) => {
       if (!currentQuestion) return;
 
-      setAnswers((prev) => ({
-        ...prev,
-        [currentQuestion.id]: value,
-      }));
+      setAnswers((prev) => {
+        const updated = {
+          ...prev,
+          [currentQuestion.id]: value,
+        };
+        saveAnswersToStorage(updated);
+        return updated;
+      });
     },
     [currentQuestion]
   );
@@ -93,7 +118,11 @@ export function useQuizState() {
   const setGender = useCallback(
     (newGender: Gender) => {
       setGenderParam(newGender);
-      setAnswers((prev) => ({ ...prev, gender: newGender }));
+      setAnswers((prev) => {
+        const updated = { ...prev, gender: newGender };
+        saveAnswersToStorage(updated);
+        return updated;
+      });
     },
     [setGenderParam]
   );
@@ -128,12 +157,24 @@ export function useQuizState() {
    */
   const progressPercentage = (step / totalSteps) * 100;
 
-  // Initialize on mount
+  // Initialize on mount - sync gender from URL to answers
   useEffect(() => {
     if (genderParam && !answers.gender) {
-      setAnswers((prev) => ({ ...prev, gender: genderParam }));
+      setAnswers((prev) => {
+        const updated = { ...prev, gender: genderParam };
+        saveAnswersToStorage(updated);
+        return updated;
+      });
     }
   }, [genderParam, answers.gender]);
+
+  // Load answers from localStorage on mount (client-side only)
+  useEffect(() => {
+    const stored = loadAnswersFromStorage();
+    if (Object.keys(stored).length > 0) {
+      setAnswers(stored);
+    }
+  }, []);
 
   return {
     // State

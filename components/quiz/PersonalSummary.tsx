@@ -187,16 +187,16 @@ export function PersonalSummary({ answers, gender }: PersonalSummaryProps) {
 
       {/* Stats + Body Image Card */}
       <div
-        className="bg-white rounded-2xl border border-gray-200 shadow-sm px-6 py-5 w-full mx-auto"
+        className="bg-white rounded-2xl border border-gray-200 shadow-sm px-6 py-5 w-full mx-auto overflow-hidden"
         style={{
           opacity: showStats ? 1 : 0,
           transform: showStats ? "translateY(0)" : "translateY(12px)",
           transition: "opacity 0.4s ease, transform 0.4s ease",
         }}
       >
-        <div className="flex items-start">
+        <div className="flex items-center">
           {/* Left: Stats */}
-          <div className="flex-1 space-y-5">
+          <div className="flex-1 space-y-4">
             {/* Body Fat */}
             <div>
               <p className="text-[12px] text-[var(--text-muted)] mb-0.5">Body fat</p>
@@ -235,12 +235,12 @@ export function PersonalSummary({ answers, gender }: PersonalSummaryProps) {
           </div>
 
           {/* Right: Body Image */}
-          <div className="flex-shrink-0 ml-4">
+          <div className="flex-shrink-0 ml-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={getBodyImage()}
               alt={`${gender} body`}
-              className="w-36 h-auto rounded-xl"
+              className="w-40 sm:w-52 h-auto rounded-xl object-contain"
             />
           </div>
         </div>

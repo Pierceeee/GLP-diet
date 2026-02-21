@@ -14,10 +14,36 @@ import {
   Sparkles,
   Zap,
   Sprout,
-  BarChart3,
   Brain,
   ShieldCheck,
 } from "lucide-react";
+
+const ANSWERS_STORAGE_KEY = "glp-quiz-answers";
+
+interface QuizAnswers {
+  [key: string]: string | number | string[] | null | undefined;
+}
+
+function loadAnswersFromStorage(): QuizAnswers {
+  if (typeof window === "undefined") return {};
+  try {
+    const stored = localStorage.getItem(ANSWERS_STORAGE_KEY);
+    return stored ? JSON.parse(stored) : {};
+  } catch {
+    return {};
+  }
+}
+
+const goalLabels: Record<string, string> = {
+  "weight-control": "Weight control",
+  "body-toning": "Body toning",
+  "overall-health": "Overall health",
+  "natural-glp1": "Natural GLP-1 support",
+  "medication-support": "Medication support",
+  "metabolic-health": "Metabolic health",
+  "energy-levels": "Energy levels",
+  "gut-health": "Gut health",
+};
 
 // --------------- PRICING DATA ---------------
 interface PlanTier {
@@ -57,11 +83,6 @@ const features = [
     icon: Sprout,
     title: "Nutrition & Wellness Resources",
     desc: "Clear, practical guides covering nutrition, movement, lifestyle habits, and mental well-being, created by experienced nutrition professionals, trainers, and health specialists.",
-  },
-  {
-    icon: BarChart3,
-    title: "Progress Tracking & Insights",
-    desc: "Smart tools that help you monitor changes, visualize progress, and stay on track toward your goals over time.",
   },
   {
     icon: Brain,
@@ -173,13 +194,23 @@ function DiscountBanner({ onGetPlan }: { onGetPlan: () => void }) {
 function PricingSection({
   onGetPlan,
   countdown,
+  answers,
 }: {
   onGetPlan: (planId: string) => void;
   countdown: string;
+  answers: QuizAnswers;
 }) {
   const [selected, setSelected] = useState("1mo");
   const sel = PLANS.find((p) => p.id === selected)!;
   const [agreed, setAgreed] = useState(false);
+
+  // Get goal from answers
+  const goals = (answers.goals as string[]) || [];
+  const primaryGoal = goals.length > 0 ? (goalLabels[goals[0]] || goals[0]) : "Support weight loss";
+  
+  // Get target weight from answers
+  const targetWeight = (answers["target-weight"] as number) || 0;
+  const targetWeightDisplay = targetWeight > 0 ? `${targetWeight} kg` : "—";
 
   return (
     <div>
@@ -199,7 +230,7 @@ function PricingSection({
           </div>
           <div>
             <p className="text-[11px] text-[var(--text-muted)]">Goal</p>
-            <p className="text-[13px] font-semibold">Support weight loss</p>
+            <p className="text-[13px] font-semibold">{primaryGoal}</p>
           </div>
         </div>
         <div className="w-px h-8 bg-gray-200" />
@@ -209,7 +240,7 @@ function PricingSection({
           </div>
           <div>
             <p className="text-[11px] text-[var(--text-muted)]">Target weight</p>
-            <p className="text-[13px] font-semibold">60 kg</p>
+            <p className="text-[13px] font-semibold">{targetWeightDisplay}</p>
           </div>
         </div>
       </div>
@@ -476,6 +507,15 @@ function OfferContent() {
   const pricingRef = useRef<HTMLDivElement>(null);
   const pricingRef2 = useRef<HTMLDivElement>(null);
   const countdown = useCountdown(15);
+  const [answers, setAnswers] = useState<QuizAnswers>({});
+
+  // Load answers from localStorage on mount
+  useEffect(() => {
+    const stored = loadAnswersFromStorage();
+    if (Object.keys(stored).length > 0) {
+      setAnswers(stored);
+    }
+  }, []);
 
   const scrollToPricing = useCallback(() => {
     pricingRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -513,7 +553,7 @@ function OfferContent() {
 
         {/* Section 2 — First Pricing Section */}
         <div ref={pricingRef}>
-          <PricingSection onGetPlan={handleGetPlan} countdown={countdown} />
+          <PricingSection onGetPlan={handleGetPlan} countdown={countdown} answers={answers} />
         </div>
 
         {/* Divider */}
@@ -533,7 +573,7 @@ function OfferContent() {
 
         {/* Section 5 — Second Pricing Section */}
         <div ref={pricingRef2}>
-          <PricingSection onGetPlan={handleGetPlan} countdown={countdown} />
+          <PricingSection onGetPlan={handleGetPlan} countdown={countdown} answers={answers} />
         </div>
 
         {/* Divider */}

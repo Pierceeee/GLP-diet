@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import type { QuizAnswers } from "@/types";
 import { ContinueButton } from "./ContinueButton";
 
@@ -8,37 +9,71 @@ interface PlanReadyScreenProps {
   onContinue: () => void;
 }
 
-export function PlanReadyScreen({ answers, onContinue }: PlanReadyScreenProps) {
-  const currentWeight = (answers.weight as number) ?? 70;
-  const targetWeight = (answers["target-weight"] as number) ?? 65;
-  const week4Weight = currentWeight - (currentWeight - targetWeight) * 0.4;
-  const points = [
-    { week: 1, weight: currentWeight },
-    { week: 2, weight: currentWeight - (currentWeight - targetWeight) * 0.15 },
-    { week: 3, weight: currentWeight - (currentWeight - targetWeight) * 0.28 },
-    { week: 4, weight: week4Weight },
-  ];
+const ANSWERS_STORAGE_KEY = "glp-quiz-answers";
 
-  const chartWidth = 280;
-  const chartHeight = 120;
-  const padding = { top: 32, right: 48, bottom: 28, left: 40 };
+function loadAnswersFromStorage(): QuizAnswers {
+  if (typeof window === "undefined") return {};
+  try {
+    const stored = localStorage.getItem(ANSWERS_STORAGE_KEY);
+    return stored ? JSON.parse(stored) : {};
+  } catch {
+    return {};
+  }
+}
+
+export function PlanReadyScreen({ answers: propAnswers, onContinue }: PlanReadyScreenProps) {
+  const [animate, setAnimate] = useState(false);
+  const [showNowBadge, setShowNowBadge] = useState(false);
+  const [showAfterBadge, setShowAfterBadge] = useState(false);
+  const [localAnswers, setLocalAnswers] = useState<QuizAnswers>({});
+
+  useEffect(() => {
+    const stored = loadAnswersFromStorage();
+    if (Object.keys(stored).length > 0) {
+      setLocalAnswers(stored);
+    }
+  }, []);
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setAnimate(true), 100);
+    const t2 = setTimeout(() => setShowNowBadge(true), 400);
+    const t3 = setTimeout(() => setShowAfterBadge(true), 1200);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+    };
+  }, []);
+
+  const answers = { ...propAnswers, ...localAnswers };
+  const currentWeight = (answers.weight as number) || 70;
+  const targetWeight = (answers["target-weight"] as number) || 65;
+  const week4Weight = currentWeight - (currentWeight - targetWeight) * 0.4;
+
+  const chartWidth = 340;
+  const chartHeight = 180;
+  const padding = { top: 48, right: 24, bottom: 36, left: 24 };
   const innerW = chartWidth - padding.left - padding.right;
   const innerH = chartHeight - padding.top - padding.bottom;
   const minW = Math.min(currentWeight, week4Weight) - 2;
   const maxW = Math.max(currentWeight, week4Weight) + 2;
-  const range = maxW - minW;
+  const range = Math.max(maxW - minW, 1);
 
-  const x = (week: number) =>
-    padding.left + ((week - 1) / 3) * innerW;
-  const y = (w: number) =>
-    padding.top +
-    innerH -
-    ((w - minW) / range) * innerH;
+  const x = (week: number) => padding.left + ((week - 1) / 3) * innerW;
+  const y = (w: number) => padding.top + innerH - ((w - minW) / range) * innerH;
 
-  const pathD = points
-    .map((p, i) => `${i === 0 ? "M" : "L"} ${x(p.week)} ${y(p.weight)}`)
-    .join(" ");
-  const areaD = `${pathD} L ${x(4)} ${padding.top + innerH} L ${x(1)} ${padding.top + innerH} Z`;
+  // Curved path using quadratic bezier
+  const startX = x(1);
+  const startY = y(currentWeight);
+  const endX = x(4);
+  const endY = y(week4Weight);
+  const controlX = startX + innerW * 0.5;
+  const controlY = startY + (endY - startY) * 0.3;
+  
+  const pathD = `M ${startX} ${startY} Q ${controlX} ${controlY} ${endX} ${endY}`;
+  const areaD = `${pathD} L ${endX} ${padding.top + innerH} L ${startX} ${padding.top + innerH} Z`;
+
+  const pathLength = 500;
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -55,7 +90,7 @@ export function PlanReadyScreen({ answers, onContinue }: PlanReadyScreenProps) {
           </p>
 
           <p className="text-[15px] font-semibold text-left mb-2">Your weight</p>
-          <div className="bg-white rounded-2xl border border-[var(--border)] shadow-sm p-4 mb-8 overflow-hidden">
+          <div className="bg-white rounded-2xl border border-[var(--border)] shadow-sm p-5 mb-8 overflow-hidden">
             <svg
               width={chartWidth}
               height={chartHeight}
@@ -71,82 +106,126 @@ export function PlanReadyScreen({ answers, onContinue }: PlanReadyScreenProps) {
                   y2="0"
                   gradientUnits="objectBoundingBox"
                 >
-                  <stop offset="0%" stopColor="#dc2626" />
-                  <stop offset="50%" stopColor="#eab308" />
-                  <stop offset="100%" stopColor="#16a34a" />
+                  <stop offset="0%" stopColor="#fca5a5" />
+                  <stop offset="50%" stopColor="#fde047" />
+                  <stop offset="100%" stopColor="#86efac" />
                 </linearGradient>
+                <clipPath id="areaClip">
+                  <rect
+                    x={padding.left}
+                    y={0}
+                    width={animate ? innerW : 0}
+                    height={chartHeight}
+                    style={{
+                      transition: "width 1s cubic-bezier(0.4, 0, 0.2, 1)",
+                    }}
+                  />
+                </clipPath>
               </defs>
-              <path d={areaD} fill="url(#planGradient)" opacity={0.3} />
+
+              {/* Animated gradient area */}
+              <g clipPath="url(#areaClip)">
+                <path d={areaD} fill="url(#planGradient)" opacity={0.7} />
+              </g>
+
+              {/* Animated line */}
               <path
                 d={pathD}
                 fill="none"
-                stroke="var(--brand)"
-                strokeWidth="2"
+                stroke="#0d9488"
+                strokeWidth="3"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                strokeDasharray={pathLength}
+                strokeDashoffset={animate ? 0 : pathLength}
+                style={{
+                  transition: "stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1)",
+                }}
               />
-              <circle
-                cx={x(1)}
-                cy={y(currentWeight)}
-                r="6"
-                fill="#dc2626"
-                stroke="white"
-                strokeWidth="2"
-              />
-              <g transform={`translate(${x(1)},${y(currentWeight) - 22})`}>
-                <rect
-                  x="-24"
-                  y="0"
-                  width="48"
-                  height="20"
-                  rx="4"
+
+              {/* Now marker - animated */}
+              <g
+                style={{
+                  opacity: showNowBadge ? 1 : 0,
+                  transform: showNowBadge ? "translateY(0)" : "translateY(-8px)",
+                  transition: "opacity 0.4s ease, transform 0.4s ease",
+                }}
+              >
+                <circle
+                  cx={startX}
+                  cy={startY}
+                  r="7"
                   fill="#dc2626"
+                  stroke="white"
+                  strokeWidth="3"
                 />
-                <text
-                  x="0"
-                  y="14"
-                  textAnchor="middle"
-                  fill="white"
-                  style={{ fontSize: 10, fontWeight: 600 }}
-                >
-                  Now
-                </text>
+                <g transform={`translate(${startX + 8},${startY - 28})`}>
+                  <rect
+                    x="0"
+                    y="0"
+                    width="48"
+                    height="26"
+                    rx="6"
+                    fill="#dc2626"
+                  />
+                  <text
+                    x="24"
+                    y="18"
+                    textAnchor="middle"
+                    fill="white"
+                    style={{ fontSize: 13, fontWeight: 600 }}
+                  >
+                    Now
+                  </text>
+                </g>
               </g>
-              <circle
-                cx={x(4)}
-                cy={y(week4Weight)}
-                r="6"
-                fill="#16a34a"
-                stroke="white"
-                strokeWidth="2"
-              />
-              <g transform={`translate(${x(4)},${y(week4Weight) - 22})`}>
-                <rect
-                  x="-52"
-                  y="0"
-                  width="104"
-                  height="20"
-                  rx="4"
+
+              {/* After 4 weeks marker - animated */}
+              <g
+                style={{
+                  opacity: showAfterBadge ? 1 : 0,
+                  transform: showAfterBadge ? "translateY(0)" : "translateY(-8px)",
+                  transition: "opacity 0.4s ease, transform 0.4s ease",
+                }}
+              >
+                <circle
+                  cx={endX}
+                  cy={endY}
+                  r="7"
                   fill="#16a34a"
+                  stroke="white"
+                  strokeWidth="3"
                 />
-                <text
-                  x="0"
-                  y="14"
-                  textAnchor="middle"
-                  fill="white"
-                  style={{ fontSize: 10, fontWeight: 600 }}
-                >
-                  After 4 weeks
-                </text>
+                <g transform={`translate(${endX - 100},${endY - 28})`}>
+                  <rect
+                    x="0"
+                    y="0"
+                    width="108"
+                    height="26"
+                    rx="6"
+                    fill="#16a34a"
+                  />
+                  <text
+                    x="54"
+                    y="18"
+                    textAnchor="middle"
+                    fill="white"
+                    style={{ fontSize: 13, fontWeight: 600 }}
+                  >
+                    After 4 weeks
+                  </text>
+                </g>
               </g>
+
+              {/* Week labels */}
               {[1, 2, 3, 4].map((w) => (
                 <text
                   key={w}
                   x={x(w)}
-                  y={chartHeight - 6}
+                  y={chartHeight - 8}
                   textAnchor="middle"
                   className="fill-[var(--text-muted)]"
-                  style={{ fontSize: 11 }}
+                  style={{ fontSize: 13, fontWeight: 500 }}
                 >
                   Week {w}
                 </text>

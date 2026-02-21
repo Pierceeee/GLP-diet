@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Sparkles, Zap, Sprout, BarChart3, Brain } from "lucide-react";
+import { Search, Sparkles, Zap, Sprout, Brain } from "lucide-react";
 import { ContinueButton } from "./ContinueButton";
 
 interface PlanIncludesScreenProps {
@@ -31,12 +31,6 @@ const features = [
     title: "Nutrition & Wellness Resources",
     description:
       "Clear, practical guides covering nutrition, movement, lifestyle habits, and mental well-being, created by experienced nutrition professionals, trainers, and health specialists.",
-  },
-  {
-    icon: BarChart3,
-    title: "Progress Tracking & Insights",
-    description:
-      "Smart tools that help you monitor changes, visualize progress, and stay on track toward your goals over time.",
   },
   {
     icon: Brain,

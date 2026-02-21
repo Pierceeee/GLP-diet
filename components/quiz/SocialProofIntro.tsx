@@ -25,9 +25,9 @@ export function SocialProofIntro({ gender, onContinue }: SocialProofIntroProps) 
         <Image
           src={imageSrc}
           alt={imageAlt}
-          width={400}
-          height={400}
-          className="object-contain"
+          width={520}
+          height={520}
+          className="object-contain w-full max-w-[520px]"
           priority
         />
       </div>
