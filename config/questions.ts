@@ -77,6 +77,7 @@ export const questions: Question[] = [
     title: "Why Weight Loss Feels Hard",
     subtitle:
       "It's not willpower.\n\nIt's your hunger hormone — **GLP-1**.\n\nWhen your GLP-1 fullness signal is weak, you feel hungry sooner, cravings stay high, and dieting becomes a daily battle.\n\nOur AI Coach is designed to naturally support and increase your GLP-1 response through smart meal structure and timing — so:",
+    image: "/images/salmon-salad.png",
     benefits: [
       "Hunger decreases",
       "Cravings calm down",
