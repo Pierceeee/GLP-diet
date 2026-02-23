@@ -138,12 +138,12 @@ export function PersonalSummary({ answers, gender }: PersonalSummaryProps) {
             </span>
             <div className="w-0 h-0 border-l-[5px] border-r-[5px] border-t-[5px] border-transparent border-t-red-500" />
           </div>
-          {/* Bar */}
+          {/* Bar - flex values match gauge range 15-42 */}
           <div className="h-[10px] rounded-full overflow-hidden flex">
-            <div className="flex-[18.5] bg-blue-400 rounded-l-full" />
-            <div className="flex-[6.5] bg-green-400" />
-            <div className="flex-[5] bg-yellow-400" />
-            <div className="flex-[10] bg-gradient-to-r from-orange-400 to-red-500 rounded-r-full" />
+            <div className="flex-[3.5] bg-blue-400 rounded-l-full" />   {/* Underweight: 15-18.5 = 3.5 */}
+            <div className="flex-[6.5] bg-green-400" />                  {/* Healthy: 18.5-25 = 6.5 */}
+            <div className="flex-[5] bg-yellow-400" />                   {/* Overweight: 25-30 = 5 */}
+            <div className="flex-[12] bg-gradient-to-r from-orange-400 to-red-500 rounded-r-full" /> {/* Obese: 30-42 = 12 */}
           </div>
           {/* Dot */}
           <div
