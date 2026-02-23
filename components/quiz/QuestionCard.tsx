@@ -68,25 +68,34 @@ export function QuestionCard({
     // Special case: Body parts question uses BodyMapSelector
     if (q.id === "body-parts") {
       return (
-        <div className="space-y-6">
+        <div className="space-y-6 pb-24">
           <BodyMapSelector
             gender={gender}
             selected={Array.isArray(currentAnswer) ? currentAnswer : []}
             onChange={handleMulti}
           />
-          <ContinueButton onClick={onContinue} disabled={!canContinue()} />
         </div>
       );
     }
 
     return (
-      <div className="space-y-3">
+      <div className="space-y-3 pb-24">
         {q.options?.map((o) => (
           <OptionButton key={o.id} label={o.label} emoji={o.emoji} image={o.image}
             selected={Array.isArray(currentAnswer) && currentAnswer.includes(o.id)}
             onClick={() => handleMulti(o.id)} type="multi" />
         ))}
-        <div className="pt-3">
+      </div>
+    );
+  };
+
+  const renderStickyButton = () => {
+    // Only show sticky button for multi-select questions
+    if (q.type !== "multi-select") return null;
+    
+    return (
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 z-50">
+        <div className="max-w-[660px] mx-auto">
           <ContinueButton onClick={onContinue} disabled={!canContinue()} />
         </div>
       </div>
@@ -257,21 +266,24 @@ export function QuestionCard({
   };
 
   return (
-    <div className="w-full max-w-[660px] mx-auto px-6 py-6">
-      {q.type !== "info" && (
-        <div className="text-center mb-8">
-          <h2
-            className="text-[24px] font-bold leading-tight mb-2"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            {q.title}
-          </h2>
-          {q.subtitle && (
-            <p className="text-[15px] font-semibold text-[var(--text-primary)]">{q.subtitle}</p>
-          )}
-        </div>
-      )}
-      {content()}
-    </div>
+    <>
+      <div className="w-full max-w-[660px] mx-auto px-6 py-6">
+        {q.type !== "info" && (
+          <div className="text-center mb-8">
+            <h2
+              className="text-[24px] font-bold leading-tight mb-2"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              {q.title}
+            </h2>
+            {q.subtitle && (
+              <p className="text-[15px] font-semibold text-[var(--text-primary)]">{q.subtitle}</p>
+            )}
+          </div>
+        )}
+        {content()}
+      </div>
+      {renderStickyButton()}
+    </>
   );
 }
