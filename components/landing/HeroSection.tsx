@@ -27,7 +27,7 @@ export function HeroSection() {
         style={{ fontFamily: "var(--font-heading)" }}
       >
         Lose Weight More Easily with a Personalized{" "}
-        <span className="text-[#0097b2]">GLP-1</span> Programme
+        <span className="text-[#0097b2]">GLP-1</span> program
       </h2>
 
       <p className="text-[15px] text-[var(--text-secondary)] mb-5">

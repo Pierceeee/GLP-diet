@@ -9,12 +9,12 @@
   },
   "funnel": {
     "hero": {
-      "headline": "Lose Weight More Easily with a Personalized GLP-1 Programme",
+      "headline": "Lose Weight More Easily with a Personalized GLP-1 program",
       "subheadline": "Your hunger hormones do not respond the same way as others. Let us see how yours work."
     },
     "entry": {
-      "questionId": "q1_programme",
-      "title": "Select the GLP-1 programme designed for you",
+      "questionId": "q1_program",
+      "title": "Select the GLP-1 program designed for you",
       "options": [
         {
           "id": "men",
@@ -323,7 +323,7 @@
     ],
     "infoBlocks": [
       {
-        "id": "info_1_programme_explainer",
+        "id": "info_1_program_explainer",
         "insertAfterQuestionId": "q3_familiarity",
         "title": "Why Weight Loss Feels Hard",
         "fontWeight": "bold",
@@ -364,7 +364,7 @@
         "title": "Designed by hormone and nutrition experts",
         "fontWeight": "bold",
         "body": [
-          "The Personalized **GLP-1 Programme** helps your body send stronger fullness signals through smart food timing and structure — so eating less feels natural, not forced.",
+          "The Personalized **GLP-1 program** helps your body send stronger fullness signals through smart food timing and structure — so eating less feels natural, not forced.",
           "Powered by AI, your plan adapts to your real hunger patterns."
         ],
         "subheading": "What this means for you:",
@@ -378,7 +378,7 @@
       {
         "id": "info_4_weight_loss_multiplier",
         "insertAfterQuestionId": "q13_diets_tried",
-        "title": "Lose up to 3x more weight with a personalized programme compared to standard meal plans.",
+        "title": "Lose up to 3x more weight with a personalized program compared to standard meal plans.",
         "animation": {
           "type": "barChart",
           "chartTitle": "Weight loss rate",
@@ -426,7 +426,7 @@
           },
           "obese": {
             "title": "Your BMI is {{bmi}}, which is well above the typical range.",
-            "body": "Losing some weight could bring meaningful benefits to your health and energy levels. We will use your BMI to build your personalized programme."
+            "body": "Losing some weight could bring meaningful benefits to your health and energy levels. We will use your BMI to build your personalized program."
           }
         }
       },
@@ -442,7 +442,7 @@
       {
         "id": "info_8_age_context",
         "insertAfterQuestionId": "q18_age",
-        "title": "Your age helps us tailor your programme.",
+        "title": "Your age helps us tailor your program.",
         "body": [
           "With age, metabolism can slow and body fat levels may increase, even at the same BMI."
         ]
@@ -463,7 +463,7 @@
         "id": "info_10_timeline_projection",
         "insertAfterQuestionId": "q18_age",
         "title": "Estimated target date",
-        "template": "Based on progress seen by users following the Personalized GLP-1 Programme, we estimate you can reach your target weight of {{targetWeight}} by {{targetDate}} if you stay consistent."
+        "template": "Based on progress seen by users following the Personalized GLP-1 program, we estimate you can reach your target weight of {{targetWeight}} by {{targetDate}} if you stay consistent."
       },
       {
         "id": "info_11_meal_personalization",
@@ -476,7 +476,7 @@
       }
     ],
     "emailCapture": {
-      "title": "Enter your email to receive your Personalized GLP-1 Programme.",
+      "title": "Enter your email to receive your Personalized GLP-1 program.",
       "fieldLabel": "Email",
       "cta": "Get my plan",
       "privacyCopy": "By continuing, you agree to our Privacy Policy. We respect your privacy and will never sell, rent, or share your email address."

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, Suspense, useRef } from "react";
+import { useState, useCallback, Suspense, useRef, useEffect } from "react";
 import Image from "next/image";
 import {
   Check,
@@ -29,9 +29,9 @@ interface PlanTier {
 
 // Order Page #2 — Standard Product Plan for Non-Buyers (81% discount)
 const PLANS: PlanTier[] = [
-  { id: "7d", label: "7-Day Programme", originalPrice: 13.24, price: 2.51, perDay: "0.36" },
-  { id: "1mo", label: "1-Month Programme", originalPrice: 26.51, price: 5.04, perDay: "0.16", popular: true },
-  { id: "3mo", label: "3-Month Programme", originalPrice: 44.88, price: 8.53, perDay: "0.09" },
+  { id: "7d", label: "7-Day Program", originalPrice: 13.24, price: 2.51, perDay: "0.36" },
+  { id: "1mo", label: "1-Month Program", originalPrice: 26.51, price: 5.04, perDay: "0.16", popular: true },
+  { id: "3mo", label: "3-Month Program", originalPrice: 44.88, price: 8.53, perDay: "0.09" },
 ];
 
 const DISCOUNT_LABEL = "81% discount";
@@ -74,7 +74,7 @@ const successStories = [
     name: "Laura H.",
     headline: "Down 22 kg in just a few weeks",
     quote:
-      "I had been slowly gaining weight for years, and it was starting to affect how I felt day to day. I decided to combine a GLP-1\u2013focused nutrition approach with my medication, and the change was dramatic. In about six weeks, I lost 22 kg and many of the symptoms I struggled with eased quickly. The programme was simple to follow and didn\u2019t feel overwhelming at all.",
+      "I had been slowly gaining weight for years, and it was starting to affect how I felt day to day. I decided to combine a GLP-1\u2013focused nutrition approach with my medication, and the change was dramatic. In about six weeks, I lost 22 kg and many of the symptoms I struggled with eased quickly. The program was simple to follow and didn\u2019t feel overwhelming at all.",
     image: "/images/success-laura.png",
   },
   {
@@ -88,7 +88,7 @@ const successStories = [
     name: "Daniel T.",
     headline: "Dropped multiple clothing sizes",
     quote:
-      "Over ten weeks, I lost about 41 kg following this programme. The meals were easy, satisfying, and my cravings disappeared early on. I had more energy than I\u2019d had in years. What surprised me most was realizing I didn\u2019t need injections \u2014 this approach helped my body respond naturally.",
+      "Over ten weeks, I lost about 41 kg following this program. The meals were easy, satisfying, and my cravings disappeared early on. I had more energy than I\u2019d had in years. What surprised me most was realizing I didn\u2019t need injections \u2014 this approach helped my body respond naturally.",
     image: "/images/success-daniel.png",
   },
 ];
@@ -96,7 +96,7 @@ const successStories = [
 const faqItems = [
   {
     question: "Do I need GLP-1 medication for this to be effective?",
-    answer: `No. This programme is built to support the body systems that influence appetite, fullness, and blood-sugar balance \u2014 the same systems GLP-1 medications act on \u2014 by using food structure and daily habits to stimulate your body\u2019s own response.\n\nIf you\u2019re not using medication, the programme helps reduce hunger and cravings naturally, without injections or drug-related side effects.\n\nIf you are using GLP-1 medication, the programme fits alongside it and is designed to:\n\u2022 Help maximize your progress\n\u2022 Support consistent energy and nutrient intake\n\u2022 Ease common issues like nausea, low energy, or digestive discomfort\n\u2022 Make results feel more stable and sustainable over time\n\nIn short: it stands on its own \u2014 and it also works well as support if medication is part of your routine.`,
+    answer: `No. This program is built to support the body systems that influence appetite, fullness, and blood-sugar balance \u2014 the same systems GLP-1 medications act on \u2014 by using food structure and daily habits to stimulate your body\u2019s own response.\n\nIf you\u2019re not using medication, the program helps reduce hunger and cravings naturally, without injections or drug-related side effects.\n\nIf you are using GLP-1 medication, the program fits alongside it and is designed to:\n\u2022 Help maximize your progress\n\u2022 Support consistent energy and nutrient intake\n\u2022 Ease common issues like nausea, low energy, or digestive discomfort\n\u2022 Make results feel more stable and sustainable over time\n\nIn short: it stands on its own \u2014 and it also works well as support if medication is part of your routine.`,
   },
   {
     question: "How is my experience personalized?",
@@ -124,7 +124,7 @@ const faqItems = [
       "Not at all. Most meals can be prepared in 10\u201330 minutes using everyday ingredients. Whether you enjoy cooking or prefer to keep things simple, the recipes are designed to fit real life.",
   },
   {
-    question: "Does the programme change as I go?",
+    question: "Does the program change as I go?",
     answer:
       "Yes. As you move forward and your needs change, the recommendations are adjusted based on your progress and feedback. This helps keep things aligned with your goals instead of staying static.",
   },
@@ -166,7 +166,7 @@ function PricingSection({
         className="text-[24px] font-bold text-center leading-tight mb-6"
         style={{ fontFamily: "var(--font-heading)" }}
       >
-        Your personalized programme is{" "}
+        Your personalized program is{" "}
         <span className="text-[var(--brand)]">ready!</span>
       </h2>
 
@@ -236,13 +236,13 @@ function PricingSection({
         ))}
       </div>
 
-      {/* GET MY PROGRAMME button */}
+      {/* GET MY program button */}
       <button
         onClick={() => onGetPlan(selected)}
         className="w-full py-4 rounded-full text-[15px] font-semibold transition-all duration-150
                    bg-[var(--brand)] text-white hover:bg-[var(--brand-hover)] active:scale-[0.98] cursor-pointer mb-4"
       >
-        GET MY PROGRAMME
+        GET MY program
       </button>
 
       {/* Terms checkbox */}
@@ -267,9 +267,9 @@ function PricingSection({
 
       {/* Billing disclaimer */}
       <p className="text-[11px] text-[var(--text-muted)] leading-relaxed mb-4">
-        By clicking &ldquo;GET MY PROGRAMME&rdquo;, I agree to pay{" "}
+        By clicking &ldquo;GET MY program&rdquo;, I agree to pay{" "}
         <strong>&euro;{sel.price.toFixed(2)}</strong> today. If I do not cancel before the end of
-        the {sel.id === "7d" ? "7-day" : sel.id === "1mo" ? "1-month" : "3-month"} programme
+        the {sel.id === "7d" ? "7-day" : sel.id === "1mo" ? "1-month" : "3-month"} program
         period, my payment method will be charged the regular price of{" "}
         <strong>&euro;{sel.originalPrice.toFixed(2)}</strong> every{" "}
         {sel.id === "7d" ? "week" : sel.id === "1mo" ? "month" : "3 months"} until I cancel by
@@ -308,7 +308,7 @@ function FeaturesSection({ onGetPlan }: { onGetPlan: () => void }) {
         className="text-[22px] font-bold text-center leading-tight mb-6"
         style={{ fontFamily: "var(--font-heading)" }}
       >
-        What&apos;s included in your programme
+        What&apos;s included in your program
       </h2>
       <div className="space-y-3 mb-8">
         {features.map((f, i) => (
@@ -330,7 +330,7 @@ function FeaturesSection({ onGetPlan }: { onGetPlan: () => void }) {
         className="w-full py-4 rounded-full text-[15px] font-semibold transition-all duration-150
                    bg-[var(--brand)] text-white hover:bg-[var(--brand-hover)] active:scale-[0.98] cursor-pointer"
       >
-        GET MY PROGRAMME
+        GET MY program
       </button>
     </div>
   );
@@ -419,17 +419,121 @@ function GuaranteeSection() {
 }
 
 // =============== NOW VS GOAL ===============
-function NowVsGoal() {
+// Deurenberg Formula for body fat estimation:
+// BodyFat% = (1.2 × BMI) + (0.23 × Age) - (10.8 × Sex) - 5.4
+// Where Sex = 1 for male, Sex = 0 for female
+function calculateBodyFat(bmi: number, age: number, isMale: boolean): number {
+  const sex = isMale ? 1 : 0;
+  const fat = (1.2 * bmi) + (0.23 * age) - (10.8 * sex) - 5.4;
+  return Math.max(5, Math.min(55, parseFloat(fat.toFixed(1))));
+}
+
+function calculateBMI(heightCm: number, weightKg: number): number {
+  const heightM = heightCm / 100;
+  return weightKg / (heightM * heightM);
+}
+
+const ANSWERS_STORAGE_KEY = "glp-quiz-answers";
+
+interface QuizAnswers {
+  [key: string]: string | number | string[] | null | undefined;
+}
+
+function loadAnswersFromStorage(): QuizAnswers {
+  if (typeof window === "undefined") return {};
+  try {
+    const stored = localStorage.getItem(ANSWERS_STORAGE_KEY);
+    return stored ? JSON.parse(stored) : {};
+  } catch {
+    return {};
+  }
+}
+
+function NowVsGoal({ answers }: { answers: QuizAnswers }) {
+  const currentWeight = (answers.weight as number) || 80;
+  const targetWeight = (answers["target-weight"] as number) || 65;
+  const height = (answers.height as number) || 170;
+  const age = (answers.age as number) || 35;
+  const gender = (answers.gender as string) || "female";
+  const isMale = gender === "male";
+
+  const currentBMI = calculateBMI(height, currentWeight);
+  const targetBMI = calculateBMI(height, targetWeight);
+
+  const currentBodyFat = calculateBodyFat(currentBMI, age, isMale);
+  const targetBodyFat = calculateBodyFat(targetBMI, age, isMale);
+
   return (
-    <div className="w-full rounded-2xl overflow-hidden shadow-sm border border-gray-200">
-      <Image
-        src="/images/checkout-step.png"
-        alt="Now vs Goal comparison"
-        width={660}
-        height={660}
-        className="w-full h-auto"
-        priority
-      />
+    <div className="w-full rounded-2xl overflow-hidden shadow-sm border border-gray-200 bg-white">
+      <div className="px-6 py-5">
+        <h3 className="text-[18px] font-bold text-center mb-6" style={{ fontFamily: "var(--font-heading)" }}>
+          Your Transformation
+        </h3>
+        
+        <div className="flex justify-between gap-4">
+          {/* NOW Column */}
+          <div className="flex-1 bg-red-50 rounded-xl p-4 border border-red-100">
+            <div className="text-center mb-4">
+              <span className="inline-block px-3 py-1 bg-red-500 text-white text-[12px] font-bold rounded-full">
+                NOW
+              </span>
+            </div>
+            <div className="space-y-3">
+              <div className="text-center">
+                <p className="text-[11px] text-[var(--text-muted)] mb-0.5">Weight</p>
+                <p className="text-[20px] font-bold text-gray-900">{currentWeight} kg</p>
+              </div>
+              <div className="text-center">
+                <p className="text-[11px] text-[var(--text-muted)] mb-0.5">BMI</p>
+                <p className="text-[20px] font-bold text-gray-900">{currentBMI.toFixed(1)}</p>
+              </div>
+              <div className="text-center">
+                <p className="text-[11px] text-[var(--text-muted)] mb-0.5">Body Fat</p>
+                <p className="text-[20px] font-bold text-gray-900">{currentBodyFat}%</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Arrow */}
+          <div className="flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-[var(--brand-light)] flex items-center justify-center">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </div>
+          </div>
+
+          {/* GOAL Column */}
+          <div className="flex-1 bg-green-50 rounded-xl p-4 border border-green-100">
+            <div className="text-center mb-4">
+              <span className="inline-block px-3 py-1 bg-green-500 text-white text-[12px] font-bold rounded-full">
+                GOAL
+              </span>
+            </div>
+            <div className="space-y-3">
+              <div className="text-center">
+                <p className="text-[11px] text-[var(--text-muted)] mb-0.5">Weight</p>
+                <p className="text-[20px] font-bold text-gray-900">{targetWeight} kg</p>
+              </div>
+              <div className="text-center">
+                <p className="text-[11px] text-[var(--text-muted)] mb-0.5">BMI</p>
+                <p className="text-[20px] font-bold text-gray-900">{targetBMI.toFixed(1)}</p>
+              </div>
+              <div className="text-center">
+                <p className="text-[11px] text-[var(--text-muted)] mb-0.5">Body Fat</p>
+                <p className="text-[20px] font-bold text-gray-900">{targetBodyFat}%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Weight loss summary */}
+        <div className="mt-5 text-center">
+          <p className="text-[14px] text-[var(--text-secondary)]">
+            Projected loss: <span className="font-bold text-[var(--brand)]">{(currentWeight - targetWeight).toFixed(1)} kg</span> &amp; <span className="font-bold text-[var(--brand)]">{(currentBodyFat - targetBodyFat).toFixed(1)}% body fat</span>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -437,6 +541,14 @@ function NowVsGoal() {
 // =============== MAIN CONTENT ===============
 function OfferNonBuyers3Content() {
   const pricingRef = useRef<HTMLDivElement>(null);
+  const [answers, setAnswers] = useState<QuizAnswers>({});
+
+  useEffect(() => {
+    const stored = loadAnswersFromStorage();
+    if (Object.keys(stored).length > 0) {
+      setAnswers(stored);
+    }
+  }, []);
 
   const scrollToPricing = useCallback(() => {
     pricingRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -464,7 +576,7 @@ function OfferNonBuyers3Content() {
       </header>
 
       <main className="flex-1 w-full max-w-[660px] mx-auto px-6 py-8 space-y-12">
-        <NowVsGoal />
+        <NowVsGoal answers={answers} />
 
         <div ref={pricingRef}>
           <PricingSection onGetPlan={handleGetPlan} />

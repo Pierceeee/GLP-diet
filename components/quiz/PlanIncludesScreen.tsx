@@ -50,7 +50,7 @@ export function PlanIncludesScreen({ onContinue }: PlanIncludesScreenProps) {
             style={{ fontFamily: "var(--font-heading)" }}
           >
             What does your{" "}
-            <span className="text-[var(--brand)]">Personalized GLP-1 Programme</span> include?
+            <span className="text-[var(--brand)]">Personalized GLP-1 program</span> include?
           </h2>
 
           <div className="space-y-4 mb-8">

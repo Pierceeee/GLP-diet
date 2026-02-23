@@ -18,7 +18,7 @@ const testimonials = [
   {
     name: "Rachel D.",
     quote:
-      "I started Ozempic a couple of months ago, but the scale didn't really move until I paired it with a Personalized GLP-1 Programme. In 8 weeks, I lost 25 kg and finally started feeling comfortable in my body again.",
+      "I started Ozempic a couple of months ago, but the scale didn't really move until I paired it with a Personalized GLP-1 program. In 8 weeks, I lost 25 kg and finally started feeling comfortable in my body again.",
     image: "/images/testimonial-rachel.png",
   },
   {
@@ -48,7 +48,7 @@ export function TestimonialsScreen({ onContinue }: TestimonialsScreenProps) {
           </h2>
           <p className="text-[14px] text-[var(--text-secondary)] text-center mb-2">
             See how people are describing their experience with the{" "}
-            <strong>Personalized GLP-1 Programme</strong>
+            <strong>Personalized GLP-1 program</strong>
           </p>
           <p className="text-[14px] text-[var(--text-secondary)] text-center mb-8">
             We&apos;ve already supported{" "}

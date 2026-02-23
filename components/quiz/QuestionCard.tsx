@@ -132,7 +132,7 @@ export function QuestionCard({
       return {
         emoji: "❗",
         title: `Your BMI is ${bmiVal}, which is well above the typical range`,
-        description: "Losing some weight could bring meaningful benefits to your health and energy levels.\n\nWe'll use your BMI to build the personalized weight-loss programme that best fits your needs.",
+        description: "Losing some weight could bring meaningful benefits to your health and energy levels.\n\nWe'll use your BMI to build the personalized weight-loss program that best fits your needs.",
       };
     }
   };
@@ -190,7 +190,7 @@ export function QuestionCard({
         <div className="bg-[var(--info-bg)] rounded-2xl px-5 py-4">
           <p className="text-[14px]">
             <span className="mr-1.5">☝️</span>
-            <span className="font-semibold text-[var(--info-text)]">Your age helps us tailor your programme.</span>
+            <span className="font-semibold text-[var(--info-text)]">Your age helps us tailor your program.</span>
           </p>
           <p className="text-[13px] text-[var(--text-secondary)] mt-1 leading-relaxed">
             With age, metabolism can slow and body fat levels may increase, even at the same BMI.

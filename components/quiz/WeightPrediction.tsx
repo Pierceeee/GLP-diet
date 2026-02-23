@@ -260,7 +260,7 @@ export function WeightPrediction({ answers, onContinue }: WeightPredictionProps)
         </p>
         <p className="text-[14px] text-[var(--text-secondary)] leading-relaxed">
           Based on progress seen by users following the{" "}
-          <span className="font-semibold">Personalized GLP-1 Programme</span>, we estimate you can reach your target weight of{" "}
+          <span className="font-semibold">Personalized GLP-1 program</span>, we estimate you can reach your target weight of{" "}
           <span className="font-semibold">{targetWeight} kg</span> by{" "}
           <span className="font-semibold">{targetDateStr}</span>, if you stay consistent with your plan.
         </p>

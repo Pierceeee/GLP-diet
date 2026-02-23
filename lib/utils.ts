@@ -65,7 +65,7 @@ export function formatNumber(num: number, decimals: number = 1): string {
 }
 
 /**
- * Estimate target date to reach goal weight (GLP-style programme ~1 kg/week)
+ * Estimate target date to reach goal weight (GLP-style program ~1 kg/week)
  */
 export function getTargetWeightDate(
   currentWeight: number,

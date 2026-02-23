@@ -313,7 +313,7 @@ export const questions: Question[] = [
     type: "info",
     title: "Designed by hormone and nutrition experts",
     subtitle:
-      "The Personalized **GLP-1 Programme** helps your body send stronger fullness signals through smart food timing and structure — so eating less feels natural, not forced.\n\nPowered by AI, your plan adapts to your real hunger patterns.\n\n**What this means for you:**",
+      "The Personalized **GLP-1 program** helps your body send stronger fullness signals through smart food timing and structure — so eating less feels natural, not forced.\n\nPowered by AI, your plan adapts to your real hunger patterns.\n\n**What this means for you:**",
     benefits: [
       "Feel full sooner and crave less — without injections",
       "More stable energy and blood sugar",
@@ -346,7 +346,7 @@ export const questions: Question[] = [
     id: "weight-loss-multiplier",
     step: 17,
     type: "info",
-    title: "Lose up to 3x more weight with a personalized programme compared to standard meal plans.",
+    title: "Lose up to 3x more weight with a personalized program compared to standard meal plans.",
   },
 
   // Step 18: Motivation (Gender-specific)
@@ -626,8 +626,8 @@ export const loadingMessages = [
  */
 export const emailStep = {
   id: "email",
-  title: "Enter your email to receive your Personalized GLP-1 Programme.",
-  highlight: "Personalized GLP-1 Programme",
+  title: "Enter your email to receive your Personalized GLP-1 program.",
+  highlight: "Personalized GLP-1 program",
   placeholder: "Email",
   buttonText: "Get my plan",
   disclaimer:

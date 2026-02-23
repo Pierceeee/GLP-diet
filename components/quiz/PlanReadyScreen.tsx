@@ -83,7 +83,7 @@ export function PlanReadyScreen({ answers: propAnswers, onContinue }: PlanReadyS
             className="text-[22px] sm:text-[26px] font-bold mb-2"
             style={{ fontFamily: "var(--font-heading)" }}
           >
-            Your Personalized GLP-1 Programme is ready!
+            Your Personalized GLP-1 program is ready!
           </h2>
           <p className="text-[15px] text-[var(--text)] mb-8">
             <span className="font-bold">Switch off hunger</span> and see visible progress within <span className="font-bold">4 weeks</span>

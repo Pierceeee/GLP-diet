@@ -23,7 +23,7 @@ All question copy has been updated to match the PDF funnel copy exactly.
 
 ### Step 2: GLP Introduction (Info Block)
 - **Before:** Generic GLP diet description
-- **After:** Full "What is the Personalized GLP-1 Programme?" copy with hormone education, Ozempic context, and natural approach positioning
+- **After:** Full "What is the Personalized GLP-1 program?" copy with hormone education, Ozempic context, and natural approach positioning
 
 ### Step 3: Goals
 - **Before:** "What are your goals?" with emojis
@@ -116,7 +116,7 @@ All question copy has been updated to match the PDF funnel copy exactly.
 
 ### Email Capture
 - **Before:** "Enter your email to get your **Personalized GLP Diet Plan**" / "Claim my plan"
-- **After:** "Enter your email to receive your **Personalized GLP-1 Programme**" / "Get my plan"
+- **After:** "Enter your email to receive your **Personalized GLP-1 program**" / "Get my plan"
 - Updated privacy disclaimer wording
 
 ## Gender Variants Preserved
@@ -147,5 +147,5 @@ To fully integrate the PDF copy, you may want to:
 
 - Removed most emojis to match PDF's cleaner, more professional tone
 - Simplified language throughout (e.g., "you're" → "you are" in formal blocks)
-- Emphasized "GLP-1 Programme" branding consistently
+- Emphasized "GLP-1 program" branding consistently
 - Maintained existing step numbering and IDs for backward compatibility
