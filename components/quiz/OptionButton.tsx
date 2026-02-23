@@ -17,27 +17,24 @@ interface OptionButtonProps {
 export function OptionButton({
   label, description, emoji, image, selected, onClick, type, disabled = false,
 }: OptionButtonProps) {
+  const baseClasses = "w-full flex items-center justify-between px-5 py-4 rounded-2xl border transition-all duration-150";
+  const selectedClasses = selected
+    ? "border-[var(--brand)] bg-[var(--brand-light)] shadow-sm"
+    : "border-gray-100 bg-[var(--bg-card)] hover:border-gray-200 hover:bg-gray-50";
+  const disabledClasses = disabled
+    ? "opacity-40 pointer-events-none"
+    : "cursor-pointer active:scale-[0.98]";
+
   return (
     <button
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className={`
-        w-full flex items-center justify-between px-5 py-4
-        rounded-2xl border transition-all duration-150
-        ${selected
-          ? "border-[var(--brand)] bg-[var(--brand-light)] shadow-sm"
-          : "border-gray-100 bg-[var(--bg-card)] hover:border-gray-200 hover:bg-gray-50"
-        }
-        ${disabled ? "opacity-40 pointer-events-none" : "cursor-pointer active:scale-[0.98]"}
-      `}
+      className={`${baseClasses} ${selectedClasses} ${disabledClasses}`}
     >
       <div className="flex items-center gap-4 min-w-0">
         {type === "multi" && (
-          <div className={`
-            w-[18px] h-[18px] rounded flex-shrink-0 border-[1.5px] flex items-center justify-center transition-all
-            ${selected ? "bg-[var(--brand)] border-[var(--brand)]" : "border-gray-300 bg-white"}
-          `}>
+          <div className={`w-[18px] h-[18px] rounded flex-shrink-0 border-[1.5px] flex items-center justify-center transition-all ${selected ? "bg-[var(--brand)] border-[var(--brand)]" : "border-gray-300 bg-white"}`}>
             {selected && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
           </div>
         )}

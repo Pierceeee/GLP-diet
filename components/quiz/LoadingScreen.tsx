@@ -54,16 +54,17 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
 
       <div className="space-y-4 w-full max-w-[440px]">
         {loadingMessages.map((m, i) => (
-          <div key={i} className="flex items-center gap-3">
+          <div 
+            key={i} 
+            className={`flex items-center gap-3 transition-opacity duration-300 ${
+              done.includes(i) ? "opacity-100" : "opacity-0"
+            }`}
+          >
             <CircleCheck
-              className={`w-5 h-5 flex-shrink-0 transition-colors duration-300 ${
-                done.includes(i) ? "text-[var(--brand)]" : "text-gray-200"
-              }`}
+              className="w-5 h-5 flex-shrink-0 text-[var(--brand)]"
               strokeWidth={2}
             />
-            <span className={`text-[14px] transition-colors duration-300 ${
-              done.includes(i) ? "text-[var(--text)]" : "text-[var(--text-muted)]"
-            }`}>
+            <span className="text-[14px] text-[var(--text)]">
               {m.text}
             </span>
           </div>

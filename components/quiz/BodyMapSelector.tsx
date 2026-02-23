@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Check } from "lucide-react";
 import type { Gender } from "@/types";
 
@@ -113,11 +114,20 @@ interface BodyMapSelectorProps {
 }
 
 export function BodyMapSelector({ gender, selected, onChange }: BodyMapSelectorProps) {
+  const [hasMounted, setHasMounted] = useState(false);
+  
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
   const imageSrc = gender === "female"
     ? "/images/bodymap/female-body.png"
     : "/images/bodymap/male-body.png";
   
   const bodyParts = gender === "female" ? femaleBodyParts : maleBodyParts;
+  
+  // Use empty array for server render to avoid hydration mismatch
+  const safeSelected = hasMounted ? selected : [];
 
   return (
     <div className="relative w-full max-w-lg mx-auto" style={{ minHeight: "700px" }}>
@@ -133,7 +143,7 @@ export function BodyMapSelector({ gender, selected, onChange }: BodyMapSelectorP
 
           {/* Highlight overlay zones */}
           {bodyParts.map((part) => {
-            const isSelected = selected.includes(part.id);
+            const isSelected = safeSelected.includes(part.id);
             return part.zones.map((zone, zoneIndex) => (
               <button
                 key={`zone-${part.id}-${zoneIndex}`}
@@ -164,7 +174,7 @@ export function BodyMapSelector({ gender, selected, onChange }: BodyMapSelectorP
 
       {/* Checkbox labels positioned around the image */}
       {bodyParts.map((part) => {
-        const isSelected = selected.includes(part.id);
+        const isSelected = safeSelected.includes(part.id);
         return (
           <button
             key={part.id}
