@@ -35,9 +35,9 @@ export function PlanReadyScreen({ answers: propAnswers, onContinue }: PlanReadyS
   }, []);
 
   useEffect(() => {
-    const t1 = setTimeout(() => setAnimate(true), 100);
-    const t2 = setTimeout(() => setShowNowBadge(true), 400);
-    const t3 = setTimeout(() => setShowAfterBadge(true), 1200);
+    const t1 = setTimeout(() => setAnimate(true), 200);
+    const t2 = setTimeout(() => setShowNowBadge(true), 600);
+    const t3 = setTimeout(() => setShowAfterBadge(true), 2800);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
@@ -50,30 +50,30 @@ export function PlanReadyScreen({ answers: propAnswers, onContinue }: PlanReadyS
   const targetWeight = (answers["target-weight"] as number) || 65;
   const week4Weight = currentWeight - (currentWeight - targetWeight) * 0.4;
 
-  const chartWidth = 340;
-  const chartHeight = 180;
-  const padding = { top: 48, right: 24, bottom: 36, left: 24 };
+  const chartWidth = 420;
+  const chartHeight = 260;
+  const padding = { top: 60, right: 24, bottom: 48, left: 24 };
   const innerW = chartWidth - padding.left - padding.right;
   const innerH = chartHeight - padding.top - padding.bottom;
-  const minW = Math.min(currentWeight, week4Weight) - 2;
-  const maxW = Math.max(currentWeight, week4Weight) + 2;
-  const range = Math.max(maxW - minW, 1);
 
   const x = (week: number) => padding.left + ((week - 1) / 3) * innerW;
-  const y = (w: number) => padding.top + innerH - ((w - minW) / range) * innerH;
-
-  // Curved path using quadratic bezier
-  const startX = x(1);
-  const startY = y(currentWeight);
-  const endX = x(4);
-  const endY = y(week4Weight);
-  const controlX = startX + innerW * 0.5;
-  const controlY = startY + (endY - startY) * 0.3;
   
-  const pathD = `M ${startX} ${startY} Q ${controlX} ${controlY} ${endX} ${endY}`;
+  // Fixed Y positions for curve with belly in the middle
+  const startX = x(1);
+  const startY = padding.top + 5;
+  const endX = x(4);
+  const endY = padding.top + innerH - 10;
+  
+  // Control points that create a curve bulging outward in the middle
+  const cp1X = startX + innerW * 0.3;
+  const cp1Y = startY;
+  const cp2X = startX + innerW * 0.7;
+  const cp2Y = endY;
+  
+  const pathD = `M ${startX} ${startY} C ${cp1X} ${cp1Y} ${cp2X} ${cp2Y} ${endX} ${endY}`;
   const areaD = `${pathD} L ${endX} ${padding.top + innerH} L ${startX} ${padding.top + innerH} Z`;
 
-  const pathLength = 500;
+  const pathLength = 700;
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -106,9 +106,11 @@ export function PlanReadyScreen({ answers: propAnswers, onContinue }: PlanReadyS
                   y2="0"
                   gradientUnits="objectBoundingBox"
                 >
-                  <stop offset="0%" stopColor="#fca5a5" />
-                  <stop offset="50%" stopColor="#fde047" />
-                  <stop offset="100%" stopColor="#86efac" />
+                  <stop offset="0%" stopColor="#ef4444" />
+                  <stop offset="25%" stopColor="#f97316" />
+                  <stop offset="50%" stopColor="#eab308" />
+                  <stop offset="75%" stopColor="#84cc16" />
+                  <stop offset="100%" stopColor="#22c55e" />
                 </linearGradient>
                 <clipPath id="areaClip">
                   <rect
@@ -117,29 +119,29 @@ export function PlanReadyScreen({ answers: propAnswers, onContinue }: PlanReadyS
                     width={animate ? innerW : 0}
                     height={chartHeight}
                     style={{
-                      transition: "width 1s cubic-bezier(0.4, 0, 0.2, 1)",
+                      transition: "width 2.5s cubic-bezier(0.25, 0.1, 0.25, 1)",
                     }}
                   />
                 </clipPath>
               </defs>
 
-              {/* Animated gradient area */}
+              {/* Animated gradient area - light fill */}
               <g clipPath="url(#areaClip)">
-                <path d={areaD} fill="url(#planGradient)" opacity={0.7} />
+                <path d={areaD} fill="url(#planGradient)" opacity={0.25} />
               </g>
 
-              {/* Animated line */}
+              {/* Gradient outline matching the fill colors */}
               <path
                 d={pathD}
                 fill="none"
-                stroke="#0d9488"
+                stroke="url(#planGradient)"
                 strokeWidth="3"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeDasharray={pathLength}
                 strokeDashoffset={animate ? 0 : pathLength}
                 style={{
-                  transition: "stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1)",
+                  transition: "stroke-dashoffset 2.5s cubic-bezier(0.25, 0.1, 0.25, 1)",
                 }}
               />
 
@@ -147,33 +149,33 @@ export function PlanReadyScreen({ answers: propAnswers, onContinue }: PlanReadyS
               <g
                 style={{
                   opacity: showNowBadge ? 1 : 0,
-                  transform: showNowBadge ? "translateY(0)" : "translateY(-8px)",
-                  transition: "opacity 0.4s ease, transform 0.4s ease",
+                  transform: showNowBadge ? "translateY(0)" : "translateY(-10px)",
+                  transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
                 }}
               >
                 <circle
                   cx={startX}
                   cy={startY}
-                  r="7"
+                  r="8"
                   fill="#dc2626"
                   stroke="white"
                   strokeWidth="3"
                 />
-                <g transform={`translate(${startX + 8},${startY - 28})`}>
+                <g transform={`translate(${startX + 12},${startY - 20})`}>
                   <rect
                     x="0"
                     y="0"
-                    width="48"
-                    height="26"
-                    rx="6"
+                    width="46"
+                    height="28"
+                    rx="14"
                     fill="#dc2626"
                   />
                   <text
-                    x="24"
-                    y="18"
+                    x="23"
+                    y="19"
                     textAnchor="middle"
                     fill="white"
-                    style={{ fontSize: 13, fontWeight: 600 }}
+                    style={{ fontSize: 14, fontWeight: 600 }}
                   >
                     Now
                   </text>
@@ -184,33 +186,33 @@ export function PlanReadyScreen({ answers: propAnswers, onContinue }: PlanReadyS
               <g
                 style={{
                   opacity: showAfterBadge ? 1 : 0,
-                  transform: showAfterBadge ? "translateY(0)" : "translateY(-8px)",
-                  transition: "opacity 0.4s ease, transform 0.4s ease",
+                  transform: showAfterBadge ? "translateY(0)" : "translateY(-10px)",
+                  transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
                 }}
               >
                 <circle
                   cx={endX}
                   cy={endY}
-                  r="7"
+                  r="8"
                   fill="#16a34a"
                   stroke="white"
                   strokeWidth="3"
                 />
-                <g transform={`translate(${endX - 100},${endY - 28})`}>
+                <g transform={`translate(${endX - 105},${endY - 20})`}>
                   <rect
                     x="0"
                     y="0"
-                    width="108"
-                    height="26"
-                    rx="6"
+                    width="100"
+                    height="28"
+                    rx="14"
                     fill="#16a34a"
                   />
                   <text
-                    x="54"
-                    y="18"
+                    x="50"
+                    y="19"
                     textAnchor="middle"
                     fill="white"
-                    style={{ fontSize: 13, fontWeight: 600 }}
+                    style={{ fontSize: 14, fontWeight: 600 }}
                   >
                     After 4 weeks
                   </text>
@@ -222,10 +224,10 @@ export function PlanReadyScreen({ answers: propAnswers, onContinue }: PlanReadyS
                 <text
                   key={w}
                   x={x(w)}
-                  y={chartHeight - 8}
+                  y={chartHeight - 12}
                   textAnchor="middle"
                   className="fill-[var(--text-muted)]"
-                  style={{ fontSize: 13, fontWeight: 500 }}
+                  style={{ fontSize: 14, fontWeight: 500 }}
                 >
                   Week {w}
                 </text>
