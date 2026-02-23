@@ -137,12 +137,13 @@ export function SummaryAfterEmail({ answers: propAnswers, onContinue }: SummaryA
                 />
               </div>
 
-              {/* Gauge bar */}
+              {/* Gauge bar - proportional to BMI ranges (15-42 scale = 27 units total) */}
+              {/* Underweight: 15-18.5 (3.5), Healthy: 18.5-25 (6.5), Overweight: 25-30 (5), Obese: 30-42 (12) */}
               <div className="h-3.5 rounded-full overflow-hidden flex">
-                <div className="flex-[18.5] bg-blue-400 rounded-l-full" />
+                <div className="flex-[3.5] bg-blue-400 rounded-l-full" />
                 <div className="flex-[6.5] bg-green-500" />
                 <div className="flex-[5] bg-yellow-400" />
-                <div className="flex-[10] bg-gradient-to-r from-orange-400 to-red-500 rounded-r-full" />
+                <div className="flex-[12] bg-gradient-to-r from-orange-400 to-red-500 rounded-r-full" />
               </div>
 
               {/* Animated dot */}
@@ -199,7 +200,7 @@ export function SummaryAfterEmail({ answers: propAnswers, onContinue }: SummaryA
                 <span className="text-[15px] font-semibold">Metabolic age</span>
               </div>
               <span className="text-[18px] font-bold text-red-600">
-                {age > 0 ? `${age} years` : "—"}
+                {age > 0 ? `${age + 9} years` : "—"}
               </span>
             </div>
 
