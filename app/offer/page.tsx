@@ -56,9 +56,9 @@ interface PlanTier {
 }
 
 const PLANS: PlanTier[] = [
-  { id: "7d", label: "7-Day Programme", originalPrice: 13.24, price: 6.49, perDay: "0.92" },
-  { id: "1mo", label: "1-Month Programme", originalPrice: 26.51, price: 12.99, perDay: "0.43", popular: true },
-  { id: "3mo", label: "3-Month Programme", originalPrice: 44.88, price: 21.99, perDay: "0.24" },
+  { id: "7d", label: "7-Day Program", originalPrice: 13.24, price: 6.49, perDay: "0.92" },
+  { id: "1mo", label: "1-Month Program", originalPrice: 26.51, price: 12.99, perDay: "0.43", popular: true },
+  { id: "3mo", label: "3-Month Program", originalPrice: 44.88, price: 21.99, perDay: "0.24" },
 ];
 
 const DISCOUNT_LABEL = "51% discount";
@@ -96,7 +96,7 @@ const successStories = [
     name: "Laura H.",
     headline: "Down 22 kg in just a few weeks",
     quote:
-      "I had been slowly gaining weight for years, and it was starting to affect how I felt day to day. I decided to combine a GLP-1\u2013focused nutrition approach with my medication, and the change was dramatic. In about six weeks, I lost 22 kg and many of the symptoms I struggled with eased quickly. The programme was simple to follow and didn\u2019t feel overwhelming at all.",
+      "I had been slowly gaining weight for years, and it was starting to affect how I felt day to day. I decided to combine a GLP-1\u2013focused nutrition approach with my medication, and the change was dramatic. In about six weeks, I lost 22 kg and many of the symptoms I struggled with eased quickly. The program was simple to follow and didn\u2019t feel overwhelming at all.",
     image: "/images/success-laura.png",
   },
   {
@@ -110,7 +110,7 @@ const successStories = [
     name: "Daniel T.",
     headline: "Dropped multiple clothing sizes",
     quote:
-      "Over ten weeks, I lost about 41 kg following this programme. The meals were easy, satisfying, and my cravings disappeared early on. I had more energy than I\u2019d had in years. What surprised me most was realizing I didn\u2019t need injections \u2014 this approach helped my body respond naturally.",
+      "Over ten weeks, I lost about 41 kg following this program. The meals were easy, satisfying, and my cravings disappeared early on. I had more energy than I\u2019d had in years. What surprised me most was realizing I didn\u2019t need injections \u2014 this approach helped my body respond naturally.",
     image: "/images/success-daniel.png",
   },
 ];
@@ -118,7 +118,7 @@ const successStories = [
 const faqItems = [
   {
     question: "Do I need GLP-1 medication for this to be effective?",
-    answer: `No. This programme is built to support the body systems that influence appetite, fullness, and blood-sugar balance \u2014 the same systems GLP-1 medications act on \u2014 by using food structure and daily habits to stimulate your body\u2019s own response.\n\nIf you\u2019re not using medication, the programme helps reduce hunger and cravings naturally, without injections or drug-related side effects.\n\nIf you are using GLP-1 medication, the programme fits alongside it and is designed to:\n\u2022 Help maximize your progress\n\u2022 Support consistent energy and nutrient intake\n\u2022 Ease common issues like nausea, low energy, or digestive discomfort\n\u2022 Make results feel more stable and sustainable over time\n\nIn short: it stands on its own \u2014 and it also works well as support if medication is part of your routine.`,
+    answer: `No. This program is built to support the body systems that influence appetite, fullness, and blood-sugar balance \u2014 the same systems GLP-1 medications act on \u2014 by using food structure and daily habits to stimulate your body\u2019s own response.\n\nIf you\u2019re not using medication, the program helps reduce hunger and cravings naturally, without injections or drug-related side effects.\n\nIf you are using GLP-1 medication, the program fits alongside it and is designed to:\n\u2022 Help maximize your progress\n\u2022 Support consistent energy and nutrient intake\n\u2022 Ease common issues like nausea, low energy, or digestive discomfort\n\u2022 Make results feel more stable and sustainable over time\n\nIn short: it stands on its own \u2014 and it also works well as support if medication is part of your routine.`,
   },
   {
     question: "How is my experience personalized?",
@@ -146,7 +146,7 @@ const faqItems = [
       "Not at all. Most meals can be prepared in 10\u201330 minutes using everyday ingredients. Whether you enjoy cooking or prefer to keep things simple, the recipes are designed to fit real life.",
   },
   {
-    question: "Does the programme change as I go?",
+    question: "Does the program change as I go?",
     answer:
       "Yes. As you move forward and your needs change, the recommendations are adjusted based on your progress and feedback. This helps keep things aligned with your goals instead of staying static.",
   },
@@ -218,7 +218,7 @@ function PricingSection({
         className="text-[24px] font-bold text-center leading-tight mb-6"
         style={{ fontFamily: "var(--font-heading)" }}
       >
-        Your personalized programme is{" "}
+        Your personalized program is{" "}
         <span className="text-[var(--brand)]">ready!</span>
       </h2>
 
@@ -327,7 +327,7 @@ function PricingSection({
       <p className="text-[11px] text-[var(--text-muted)] leading-relaxed mb-4">
         By clicking &ldquo;GET MY PROGRAMME&rdquo;, I agree to pay{" "}
         <strong>&euro;{sel.price.toFixed(2)}</strong> today. If I do not cancel before the end of
-        the {sel.id === "7d" ? "7-day" : sel.id === "1mo" ? "1-month" : "3-month"} programme
+        the {sel.id === "7d" ? "7-day" : sel.id === "1mo" ? "1-month" : "3-month"} program
         period, my payment method will be charged the regular price of{" "}
         <strong>&euro;{sel.originalPrice.toFixed(2)}</strong> every{" "}
         {sel.id === "7d" ? "week" : sel.id === "1mo" ? "month" : "3 months"} until I cancel by
@@ -366,7 +366,7 @@ function FeaturesSection({ onGetPlan }: { onGetPlan: () => void }) {
         className="text-[22px] font-bold text-center leading-tight mb-6"
         style={{ fontFamily: "var(--font-heading)" }}
       >
-        What&apos;s included in your programme
+        What&apos;s included in your program
       </h2>
       <div className="space-y-3 mb-8">
         {features.map((f, i) => (

@@ -9,7 +9,7 @@
   },
   "funnel": {
     "hero": {
-      "headline": "Lose Weight More Easily with a Personalized GLP-1 Programme",
+      "headline": "Lose Weight More Easily with a Personalized GLP-1 Program",
       "subheadline": "Your hunger hormones do not respond the same way as others. Let us see how yours work."
     },
     "entry": {
@@ -364,7 +364,7 @@
         "title": "Designed by hormone and nutrition experts",
         "fontWeight": "bold",
         "body": [
-          "The Personalized **GLP-1 Programme** helps your body send stronger fullness signals through smart food timing and structure — so eating less feels natural, not forced.",
+          "The Personalized **GLP-1 Program** helps your body send stronger fullness signals through smart food timing and structure — so eating less feels natural, not forced.",
           "Powered by AI, your plan adapts to your real hunger patterns."
         ],
         "subheading": "What this means for you:",
@@ -463,7 +463,7 @@
         "id": "info_10_timeline_projection",
         "insertAfterQuestionId": "q18_age",
         "title": "Estimated target date",
-        "template": "Based on progress seen by users following the Personalized GLP-1 Programme, we estimate you can reach your target weight of {{targetWeight}} by {{targetDate}} if you stay consistent."
+        "template": "Based on progress seen by users following the Personalized GLP-1 Program, we estimate you can reach your target weight of {{targetWeight}} by {{targetDate}} if you stay consistent."
       },
       {
         "id": "info_11_meal_personalization",
@@ -476,7 +476,7 @@
       }
     ],
     "emailCapture": {
-      "title": "Enter your email to receive your Personalized GLP-1 Programme.",
+      "title": "Enter your email to receive your Personalized GLP-1 Program.",
       "fieldLabel": "Email",
       "cta": "Get my plan",
       "privacyCopy": "By continuing, you agree to our Privacy Policy. We respect your privacy and will never sell, rent, or share your email address."
