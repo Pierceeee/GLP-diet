@@ -3,55 +3,106 @@
 import { Check } from "lucide-react";
 import type { Gender } from "@/types";
 
+interface BodyPartZone {
+  top: string;
+  left: string;
+  width: string;
+  height: string;
+}
+
 interface BodyPart {
   id: string;
   label: string;
   /** Position of the checkbox label relative to the image container */
   position: { top: string; left?: string; right?: string };
-  /** Highlight zone over the body image (percentage-based) */
-  zone: { top: string; left: string; width: string; height: string };
+  /** Highlight zone(s) over the body image (percentage-based) - can have multiple zones */
+  zones: BodyPartZone[];
 }
 
 /**
- * Same body parts for both genders, positioned to alternate left/right
- * matching the screenshot layout.
+ * Body parts with gender-specific zone positioning
  */
-const bodyParts: BodyPart[] = [
+const maleBodyParts: BodyPart[] = [
   {
     id: "arms",
     label: "Arms",
-    position: { top: "15%", left: "0" },
-    zone: { top: "20%", left: "14%", width: "14%", height: "20%" },
+    position: { top: "22%", left: "0" },
+    zones: [
+      { top: "20%", left: "30%", width: "12%", height: "22%" },
+      { top: "20%", left: "58%", width: "12%", height: "22%" },
+    ],
   },
   {
     id: "chest",
     label: "Chest",
-    position: { top: "15%", right: "0" },
-    zone: { top: "20%", left: "36%", width: "28%", height: "10%" },
+    position: { top: "22%", right: "0" },
+    zones: [{ top: "18%", left: "38%", width: "24%", height: "14%" }],
   },
   {
     id: "back",
     label: "Back",
-    position: { top: "35%", left: "0" },
-    zone: { top: "30%", left: "36%", width: "28%", height: "10%" },
+    position: { top: "38%", left: "0" },
+    zones: [{ top: "28%", left: "38%", width: "24%", height: "12%" }],
   },
   {
     id: "belly",
     label: "Belly",
-    position: { top: "35%", right: "0" },
-    zone: { top: "40%", left: "38%", width: "24%", height: "10%" },
+    position: { top: "38%", right: "0" },
+    zones: [{ top: "36%", left: "40%", width: "20%", height: "12%" }],
   },
   {
     id: "butt",
     label: "Butt",
-    position: { top: "55%", left: "0" },
-    zone: { top: "50%", left: "36%", width: "28%", height: "8%" },
+    position: { top: "52%", left: "0" },
+    zones: [{ top: "44%", left: "38%", width: "24%", height: "10%" }],
   },
   {
     id: "legs",
     label: "Legs",
-    position: { top: "55%", right: "0" },
-    zone: { top: "58%", left: "30%", width: "40%", height: "30%" },
+    position: { top: "52%", right: "0" },
+    zones: [{ top: "50%", left: "34%", width: "32%", height: "40%" }],
+  },
+];
+
+const femaleBodyParts: BodyPart[] = [
+  {
+    id: "arms",
+    label: "Arms",
+    position: { top: "22%", left: "0" },
+    zones: [
+      { top: "28%", left: "38%", width: "8%", height: "20%" },
+      { top: "24%", left: "56%", width: "10%", height: "16%" },
+    ],
+  },
+  {
+    id: "chest",
+    label: "Chest",
+    position: { top: "22%", right: "0" },
+    zones: [{ top: "18%", left: "42%", width: "16%", height: "12%" }],
+  },
+  {
+    id: "back",
+    label: "Back",
+    position: { top: "38%", left: "0" },
+    zones: [{ top: "26%", left: "42%", width: "16%", height: "10%" }],
+  },
+  {
+    id: "belly",
+    label: "Belly",
+    position: { top: "38%", right: "0" },
+    zones: [{ top: "32%", left: "42%", width: "14%", height: "12%" }],
+  },
+  {
+    id: "butt",
+    label: "Butt",
+    position: { top: "52%", left: "0" },
+    zones: [{ top: "40%", left: "40%", width: "18%", height: "10%" }],
+  },
+  {
+    id: "legs",
+    label: "Legs",
+    position: { top: "52%", right: "0" },
+    zones: [{ top: "48%", left: "34%", width: "28%", height: "42%" }],
   },
 ];
 
@@ -65,33 +116,35 @@ export function BodyMapSelector({ gender, selected, onChange }: BodyMapSelectorP
   const imageSrc = gender === "female"
     ? "/images/bodymap/female-body.png"
     : "/images/bodymap/male-body.png";
+  
+  const bodyParts = gender === "female" ? femaleBodyParts : maleBodyParts;
 
   return (
     <div className="relative w-full max-w-lg mx-auto" style={{ minHeight: "700px" }}>
       {/* Center image with highlight overlays */}
       <div className="flex justify-center">
-        <div className="relative" style={{ width: "100%", maxWidth: "500px" }}>
+        <div className="relative" style={{ width: "100%", maxWidth: "500px", aspectRatio: "1 / 1" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={imageSrc}
             alt={`${gender} body`}
-            style={{ width: "100%", height: "auto" }}
+            className="absolute inset-0 w-full h-full object-contain"
           />
 
           {/* Highlight overlay zones */}
           {bodyParts.map((part) => {
             const isSelected = selected.includes(part.id);
-            return (
+            return part.zones.map((zone, zoneIndex) => (
               <button
-                key={`zone-${part.id}`}
+                key={`zone-${part.id}-${zoneIndex}`}
                 onClick={() => onChange(part.id)}
                 aria-label={`Select ${part.label}`}
                 className="absolute rounded-[20px] cursor-pointer"
                 style={{
-                  top: part.zone.top,
-                  left: part.zone.left,
-                  width: part.zone.width,
-                  height: part.zone.height,
+                  top: zone.top,
+                  left: zone.left,
+                  width: zone.width,
+                  height: zone.height,
                   backgroundColor: isSelected
                     ? "rgba(0, 166, 153, 0.2)"
                     : "transparent",
@@ -104,7 +157,7 @@ export function BodyMapSelector({ gender, selected, onChange }: BodyMapSelectorP
                   transition: "all 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
                 }}
               />
-            );
+            ));
           })}
         </div>
       </div>
