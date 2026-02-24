@@ -77,19 +77,19 @@ export function FatBurningRateScreen({ answers: propAnswers, onContinue }: FatBu
             Your fat-burning rate is:{" "}
             <span className="text-red-600">{metabolism}</span>
           </h2>
-          <p className="text-[15px] text-[var(--text-secondary)] leading-relaxed mb-6">
+          <p className="text-[15px] text-gray-800 font-medium leading-relaxed mb-6">
             A slower fat-burning rate can make it more difficult to lose weight
             and maintain results over time.
           </p>
 
           {/* Fat Burning Rate Gauge */}
-          <div className="bg-white rounded-2xl border border-[var(--border)] shadow-sm px-6 py-5 mb-6 text-left">
-            <p className="text-[15px] font-semibold mb-4">Fat Burning Rate</p>
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm px-6 py-5 mb-6 text-left">
+            <p className="text-[17px] font-extrabold text-gray-950 mb-4">Fat Burning Rate</p>
             <div className="relative pt-8 pb-2">
               <div className="h-3.5 rounded-full overflow-hidden flex bg-gray-100">
                 <div className="flex-1 bg-gradient-to-r from-red-500 via-yellow-400 to-green-500" />
               </div>
-              <div className="flex justify-between text-[11px] text-[var(--text-muted)] mt-1.5 px-0.5">
+              <div className="flex justify-between text-[13px] text-gray-700 font-semibold mt-2 px-0.5">
                 <span>Slow</span>
                 <span>Average</span>
                 <span>Fast</span>
@@ -122,7 +122,7 @@ export function FatBurningRateScreen({ answers: propAnswers, onContinue }: FatBu
 
           {/* Comparison Table */}
           <div
-            className="bg-white rounded-2xl border border-[var(--border)] shadow-sm overflow-hidden mb-8"
+            className="bg-white rounded-2xl border-2 border-gray-200 shadow-md overflow-hidden mb-8"
             style={{
               opacity: showTable ? 1 : 0,
               transform: showTable ? "translateY(0)" : "translateY(16px)",
@@ -131,13 +131,13 @@ export function FatBurningRateScreen({ answers: propAnswers, onContinue }: FatBu
           >
             {/* Table Header */}
             <div className="grid grid-cols-2">
-              <div className="bg-red-50 px-4 py-3 flex items-center gap-2 border-b border-red-100">
-                <AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0" />
-                <span className="text-[14px] font-semibold text-red-600">Currently</span>
+              <div className="bg-red-100 px-5 py-4 flex items-center gap-2.5 border-b-2 border-red-200">
+                <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" strokeWidth={2.5} />
+                <span className="text-[15px] font-extrabold text-red-700">Currently</span>
               </div>
-              <div className="bg-emerald-50 px-4 py-3 flex items-center gap-2 border-b border-emerald-100">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                <span className="text-[14px] font-semibold text-emerald-700">With GLP Diet</span>
+              <div className="bg-emerald-100 px-5 py-4 flex items-center gap-2.5 border-b-2 border-emerald-200">
+                <CheckCircle2 className="w-5 h-5 text-emerald-700 flex-shrink-0" strokeWidth={2.5} />
+                <span className="text-[15px] font-extrabold text-emerald-800">With GLP Diet</span>
               </div>
             </div>
 
@@ -152,11 +152,11 @@ export function FatBurningRateScreen({ answers: propAnswers, onContinue }: FatBu
                   transition: `opacity 0.3s ease ${index * 80}ms, transform 0.3s ease ${index * 80}ms`,
                 }}
               >
-                <div className={`px-4 py-3 text-left ${index < comparisonData.length - 1 ? "border-b border-gray-100" : ""}`}>
-                  <span className="text-[13px] text-gray-700">{row.current}</span>
+                <div className={`px-5 py-3.5 text-left ${index < comparisonData.length - 1 ? "border-b border-gray-200" : ""}`}>
+                  <span className="text-[14px] text-gray-950 font-semibold">{row.current}</span>
                 </div>
-                <div className={`px-4 py-3 text-left bg-emerald-50/50 ${index < comparisonData.length - 1 ? "border-b border-emerald-100/50" : ""}`}>
-                  <span className="text-[13px] text-emerald-800 font-medium">{row.withGlp}</span>
+                <div className={`px-5 py-3.5 text-left bg-emerald-50 ${index < comparisonData.length - 1 ? "border-b border-emerald-200" : ""}`}>
+                  <span className="text-[14px] text-emerald-700 font-bold">{row.withGlp}</span>
                 </div>
               </div>
             ))}
