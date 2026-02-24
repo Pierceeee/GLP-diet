@@ -271,7 +271,7 @@ export function PersonalSummary({ answers, gender }: PersonalSummaryProps) {
             <img
               src={getBodyImage()}
               alt={`${gender} body`}
-              className="w-40 sm:w-52 h-auto rounded-xl object-contain"
+              className="w-52 sm:w-64 h-auto rounded-xl object-contain"
             />
           </div>
         </div>
