@@ -71,11 +71,11 @@ export function WeightPrediction({ answers, onContinue }: WeightPredictionProps)
   const endX = x(1);
   const endY = y(targetWeight);
   
-  // Control points for organic S-curve: faster initial drop, tapering toward goal
-  const cp1X = startX + innerWidth * 0.25;
-  const cp1Y = startY + (endY - startY) * 0.6;
-  const cp2X = startX + innerWidth * 0.7;
-  const cp2Y = endY - (endY - startY) * 0.05;
+  // Control points for a more pronounced curve
+  const cp1X = startX + innerWidth * 0.7;
+  const cp1Y = startY + (endY - startY) * 0.1;
+  const cp2X = startX + innerWidth * 0.3;
+  const cp2Y = endY - (endY - startY) * 0.1;
   
   const pathD = `M ${startX} ${startY} C ${cp1X} ${cp1Y}, ${cp2X} ${cp2Y}, ${endX} ${endY}`;
   const areaD = `${pathD} L ${endX} ${padding.top + innerHeight} L ${startX} ${padding.top + innerHeight} Z`;
@@ -111,31 +111,19 @@ export function WeightPrediction({ answers, onContinue }: WeightPredictionProps)
           viewBox={`0 0 ${chartWidth} ${chartHeight}`}
         >
           <defs>
-            {/* Multi-stop horizontal gradient: Red -> Orange -> Light Green -> Green */}
+            {/* Multi-stop horizontal gradient matching step 31 */}
             <linearGradient
               id="organicWeightGradient"
-              x1="0%"
-              y1="0%"
-              x2="100%"
-              y2="0%"
+              x1="0"
+              y1="0"
+              x2="1"
+              y2="0"
+              gradientUnits="objectBoundingBox"
             >
               <stop offset="0%" stopColor="#ef4444" />
               <stop offset="25%" stopColor="#f97316" />
-              <stop offset="50%" stopColor="#facc15" />
-              <stop offset="75%" stopColor="#86efac" />
-              <stop offset="100%" stopColor="#22c55e" />
-            </linearGradient>
-            
-            {/* Gradient for the line stroke */}
-            <linearGradient
-              id="lineGradient"
-              x1="0%"
-              y1="0%"
-              x2="100%"
-              y2="0%"
-            >
-              <stop offset="0%" stopColor="#ef4444" />
-              <stop offset="50%" stopColor="#f97316" />
+              <stop offset="50%" stopColor="#eab308" />
+              <stop offset="75%" stopColor="#84cc16" />
               <stop offset="100%" stopColor="#22c55e" />
             </linearGradient>
             
@@ -146,7 +134,7 @@ export function WeightPrediction({ answers, onContinue }: WeightPredictionProps)
                 width={animate ? innerWidth + 10 : 0}
                 height={chartHeight}
                 style={{
-                  transition: "width 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
+                  transition: "width 2.5s cubic-bezier(0.25, 0.1, 0.25, 1)",
                 }}
               />
             </clipPath>
@@ -180,23 +168,23 @@ export function WeightPrediction({ answers, onContinue }: WeightPredictionProps)
             />
           ))}
 
-          {/* Animated gradient area under the spline curve */}
+          {/* Animated gradient area - light fill matching step 31 */}
           <g clipPath="url(#revealClip)">
-            <path d={areaD} fill="url(#organicWeightGradient)" opacity={0.85} />
+            <path d={areaD} fill="url(#organicWeightGradient)" opacity={0.25} />
           </g>
 
-          {/* Animated spline curve - solid green stroke */}
+          {/* Gradient outline matching the fill colors */}
           <path
             d={pathD}
             fill="none"
-            stroke="#16a34a"
-            strokeWidth="3.5"
+            stroke="url(#organicWeightGradient)"
+            strokeWidth="3"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeDasharray={pathLength}
             strokeDashoffset={animate ? 0 : pathLength}
             style={{
-              transition: "stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
+              transition: "stroke-dashoffset 2.5s cubic-bezier(0.25, 0.1, 0.25, 1)",
             }}
           />
 

@@ -64,11 +64,11 @@ export function PlanReadyScreen({ answers: propAnswers, onContinue }: PlanReadyS
   const endX = x(4);
   const endY = padding.top + innerH - 10;
   
-  // Control points that create a curve bulging outward in the middle
-  const cp1X = startX + innerW * 0.3;
-  const cp1Y = startY;
-  const cp2X = startX + innerW * 0.7;
-  const cp2Y = endY;
+  // Control points that create a more pronounced curve
+  const cp1X = startX + innerW * 0.7;
+  const cp1Y = startY + innerH * 0.05;
+  const cp2X = startX + innerW * 0.3;
+  const cp2Y = endY - innerH * 0.05;
   
   const pathD = `M ${startX} ${startY} C ${cp1X} ${cp1Y} ${cp2X} ${cp2Y} ${endX} ${endY}`;
   const areaD = `${pathD} L ${endX} ${padding.top + innerH} L ${startX} ${padding.top + innerH} Z`;
