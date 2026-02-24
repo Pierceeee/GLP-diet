@@ -56,12 +56,38 @@ export function SummaryAfterEmail({ answers: propAnswers, onContinue }: SummaryA
 
   const isHealthy = categoryDisplay === "Healthy";
 
-  // Gauge position (15–42 range)
-  const gaugeMin = 15;
-  const gaugeMax = 42;
-  const pct = hasValidData
-    ? Math.min(Math.max(((bmi - gaugeMin) / (gaugeMax - gaugeMin)) * 100, 0), 100)
-    : 0;
+  // BMI ranges and their widths (total 27 units from 15 to 42)
+  // Underweight: 15-18.5 (3.5 units) = 12.96%
+  // Healthy: 18.5-25 (6.5 units) = 24.07%
+  // Overweight: 25-30 (5 units) = 18.52%
+  // Obese: 30-42 (12 units) = 44.44%
+  const segments = [
+    { min: 15, max: 18.5, width: 12.96 },    // Underweight
+    { min: 18.5, max: 25, width: 24.07 },    // Healthy
+    { min: 25, max: 30, width: 18.52 },      // Overweight
+    { min: 30, max: 42, width: 44.44 },      // Obese
+  ];
+
+  // Calculate position based on which segment the BMI falls into
+  const calculatePosition = (bmiValue: number): number => {
+    const clampedBmi = Math.min(Math.max(bmiValue, 15), 42);
+    let position = 0;
+    
+    for (const seg of segments) {
+      if (clampedBmi <= seg.min) break;
+      if (clampedBmi >= seg.max) {
+        position += seg.width;
+      } else {
+        // BMI is within this segment
+        const segmentProgress = (clampedBmi - seg.min) / (seg.max - seg.min);
+        position += segmentProgress * seg.width;
+        break;
+      }
+    }
+    return position;
+  };
+
+  const pct = hasValidData ? calculatePosition(bmi) : 0;
 
   // Animation timings
   useEffect(() => {
@@ -113,57 +139,59 @@ export function SummaryAfterEmail({ answers: propAnswers, onContinue }: SummaryA
               <span className="text-[15px] font-semibold">Current BMI</span>
             </div>
 
-            <div className="relative mb-2 pt-8">
-              {/* Animated badge */}
-              <div
-                className="absolute -top-0 flex flex-col items-center transition-all duration-700 ease-out"
-                style={{
-                  left: animate ? `${pct}%` : "0%",
-                  transform: "translateX(-50%)",
-                  opacity: animate ? 1 : 0,
-                }}
-              >
-                <span
-                  className={`text-[12px] font-bold text-white px-2.5 py-1 rounded-md whitespace-nowrap shadow-sm ${
-                    isHealthy ? "bg-[var(--success)]" : "bg-red-500"
-                  }`}
-                >
-                  You - {bmi.toFixed(1)}
-                </span>
+            <div className="mb-2 pt-8">
+              {/* Bar container - relative for positioning badge and dot */}
+              <div className="relative">
+                {/* Animated badge */}
                 <div
-                  className={`w-0 h-0 border-l-[5px] border-r-[5px] border-t-[5px] border-transparent ${
-                    isHealthy ? "border-t-[var(--success)]" : "border-t-red-500"
+                  className="absolute -top-8 flex flex-col items-center transition-all duration-700 ease-out"
+                  style={{
+                    left: animate ? `${pct}%` : "0%",
+                    transform: "translateX(-50%)",
+                    opacity: animate ? 1 : 0,
+                  }}
+                >
+                  <span
+                    className={`text-[12px] font-bold text-white px-2.5 py-1 rounded-md whitespace-nowrap shadow-sm ${
+                      isHealthy ? "bg-[var(--success)]" : "bg-red-500"
+                    }`}
+                  >
+                    You - {bmi.toFixed(1)}
+                  </span>
+                  <div
+                    className={`w-0 h-0 border-l-[5px] border-r-[5px] border-t-[5px] border-transparent ${
+                      isHealthy ? "border-t-[var(--success)]" : "border-t-red-500"
+                    }`}
+                  />
+                </div>
+
+                {/* Gauge bar - percentage widths matching segment calculations */}
+                <div className="h-3.5 rounded-full overflow-hidden flex">
+                  <div className="bg-blue-400 rounded-l-full" style={{ width: '12.96%' }} />
+                  <div className="bg-green-500" style={{ width: '24.07%' }} />
+                  <div className="bg-yellow-400" style={{ width: '18.52%' }} />
+                  <div className="bg-gradient-to-r from-orange-400 to-red-500 rounded-r-full" style={{ width: '44.44%' }} />
+                </div>
+
+                {/* Animated dot */}
+                <div
+                  className={`absolute top-1/2 w-4 h-4 rounded-full bg-white border-2 shadow transition-all duration-700 ease-out ${
+                    isHealthy ? "border-[var(--success)]" : "border-red-500"
                   }`}
+                  style={{
+                    left: animate ? `${pct}%` : "0%",
+                    transform: "translate(-50%, -50%)",
+                  }}
                 />
               </div>
-
-              {/* Gauge bar - proportional to BMI ranges (15-42 scale = 27 units total) */}
-              {/* Underweight: 15-18.5 (3.5), Healthy: 18.5-25 (6.5), Overweight: 25-30 (5), Obese: 30-42 (12) */}
-              <div className="h-3.5 rounded-full overflow-hidden flex">
-                <div className="flex-[3.5] bg-blue-400 rounded-l-full" />
-                <div className="flex-[6.5] bg-green-500" />
-                <div className="flex-[5] bg-yellow-400" />
-                <div className="flex-[12] bg-gradient-to-r from-orange-400 to-red-500 rounded-r-full" />
-              </div>
-
-              {/* Animated dot */}
-              <div
-                className={`absolute top-1/2 w-4 h-4 rounded-full bg-white border-2 shadow transition-all duration-700 ease-out ${
-                  isHealthy ? "border-[var(--success)]" : "border-red-500"
-                }`}
-                style={{
-                  left: animate ? `${pct}%` : "0%",
-                  transform: "translate(-50%, -50%)",
-                  marginTop: "4px",
-                }}
-              />
             </div>
 
-            <div className="flex justify-between text-[11px] text-[var(--text-muted)] mt-2 px-0.5">
-              <span>Underweight</span>
-              <span>Healthy</span>
-              <span>Overweight</span>
-              <span>Obese</span>
+            {/* Labels — aligned to gauge segments using same percentage widths */}
+            <div className="flex text-[11px] text-[var(--text-muted)] mt-2">
+              <span className="text-center" style={{ width: '12.96%' }}>Underweight</span>
+              <span className="text-center" style={{ width: '24.07%' }}>Healthy</span>
+              <span className="text-center" style={{ width: '18.52%' }}>Overweight</span>
+              <span className="text-center" style={{ width: '44.44%' }}>Obese</span>
             </div>
 
             <div

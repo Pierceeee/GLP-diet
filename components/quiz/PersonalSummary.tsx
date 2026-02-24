@@ -19,10 +19,38 @@ export function PersonalSummary({ answers, gender }: PersonalSummaryProps) {
 
   const bmi = calculateBMI(height, weight);
 
-  // Map BMI to a percentage position on the gauge (15–42 range)
-  const gaugeMin = 15;
-  const gaugeMax = 42;
-  const pct = Math.min(Math.max(((bmi - gaugeMin) / (gaugeMax - gaugeMin)) * 100, 0), 100);
+  // BMI ranges and their widths (total 27 units from 15 to 42)
+  // Underweight: 15-18.5 (3.5 units) = 12.96%
+  // Healthy: 18.5-25 (6.5 units) = 24.07%
+  // Overweight: 25-30 (5 units) = 18.52%
+  // Obese: 30-42 (12 units) = 44.44%
+  const segments = [
+    { min: 15, max: 18.5, width: 12.96 },    // Underweight
+    { min: 18.5, max: 25, width: 24.07 },    // Healthy
+    { min: 25, max: 30, width: 18.52 },      // Overweight
+    { min: 30, max: 42, width: 44.44 },      // Obese
+  ];
+
+  // Calculate position based on which segment the BMI falls into
+  const calculatePosition = (bmiValue: number): number => {
+    const clampedBmi = Math.min(Math.max(bmiValue, 15), 42);
+    let position = 0;
+    
+    for (const seg of segments) {
+      if (clampedBmi <= seg.min) break;
+      if (clampedBmi >= seg.max) {
+        position += seg.width;
+      } else {
+        // BMI is within this segment
+        const segmentProgress = (clampedBmi - seg.min) / (seg.max - seg.min);
+        position += segmentProgress * seg.width;
+        break;
+      }
+    }
+    return position;
+  };
+
+  const pct = calculatePosition(bmi);
 
   // Animation state
   const [animated, setAnimated] = useState(false);
@@ -120,48 +148,51 @@ export function PersonalSummary({ answers, gender }: PersonalSummaryProps) {
         <h3 className="text-[16px] font-bold mb-6">Body Mass Index (BMI)</h3>
 
         {/* Badge + Gauge */}
-        <div className="relative mb-2 mt-8">
-          {/* Badge */}
-          <div
-            className="absolute -top-7 flex flex-col items-center"
-            style={{
-              left: animated ? `${pct}%` : "0%",
-              transform: "translateX(-50%)",
-              transition: "left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
-              opacity: animated ? 1 : 0,
-              transitionProperty: "left, opacity",
-              transitionDuration: "0.8s, 0.3s",
-            }}
-          >
-            <span className="text-[11px] font-bold text-white bg-red-500 px-2.5 py-1 rounded-md whitespace-nowrap">
-              You - {bmi.toFixed(1)}
-            </span>
-            <div className="w-0 h-0 border-l-[5px] border-r-[5px] border-t-[5px] border-transparent border-t-red-500" />
+        <div className="mb-2 mt-8">
+          {/* Bar container - relative for positioning badge and dot */}
+          <div className="relative">
+            {/* Badge */}
+            <div
+              className="absolute -top-7 flex flex-col items-center"
+              style={{
+                left: animated ? `${pct}%` : "0%",
+                transform: "translateX(-50%)",
+                transition: "left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                opacity: animated ? 1 : 0,
+                transitionProperty: "left, opacity",
+                transitionDuration: "0.8s, 0.3s",
+              }}
+            >
+              <span className="text-[11px] font-bold text-white bg-red-500 px-2.5 py-1 rounded-md whitespace-nowrap">
+                You - {bmi.toFixed(1)}
+              </span>
+              <div className="w-0 h-0 border-l-[5px] border-r-[5px] border-t-[5px] border-transparent border-t-red-500" />
+            </div>
+                {/* Bar - percentage widths matching segment calculations */}
+            <div className="h-[10px] rounded-full overflow-hidden flex">
+              <div className="bg-blue-400 rounded-l-full" style={{ width: '12.96%' }} />   {/* Underweight: 15-18.5 */}
+              <div className="bg-green-400" style={{ width: '24.07%' }} />                  {/* Healthy: 18.5-25 */}
+              <div className="bg-yellow-400" style={{ width: '18.52%' }} />                 {/* Overweight: 25-30 */}
+              <div className="bg-gradient-to-r from-orange-400 to-red-500 rounded-r-full" style={{ width: '44.44%' }} /> {/* Obese: 30-42 */}
+            </div>
+            {/* Dot */}
+            <div
+              className="absolute top-1/2 w-[14px] h-[14px] rounded-full bg-white border-[2.5px] border-red-500 shadow"
+              style={{
+                left: animated ? `${pct}%` : "0%",
+                transform: "translate(-50%, -50%)",
+                transition: "left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
+              }}
+            />
           </div>
-          {/* Bar - flex values match gauge range 15-42 */}
-          <div className="h-[10px] rounded-full overflow-hidden flex">
-            <div className="flex-[3.5] bg-blue-400 rounded-l-full" />   {/* Underweight: 15-18.5 = 3.5 */}
-            <div className="flex-[6.5] bg-green-400" />                  {/* Healthy: 18.5-25 = 6.5 */}
-            <div className="flex-[5] bg-yellow-400" />                   {/* Overweight: 25-30 = 5 */}
-            <div className="flex-[12] bg-gradient-to-r from-orange-400 to-red-500 rounded-r-full" /> {/* Obese: 30-42 = 12 */}
-          </div>
-          {/* Dot */}
-          <div
-            className="absolute top-1/2 w-[14px] h-[14px] rounded-full bg-white border-[2.5px] border-red-500 shadow"
-            style={{
-              left: animated ? `${pct}%` : "0%",
-              transform: "translate(-50%, -50%)",
-              transition: "left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
-            }}
-          />
         </div>
 
-        {/* Labels */}
-        <div className="flex justify-between text-[11px] text-[var(--text-muted)] mt-2 px-0.5">
-          <span>Underweight</span>
-          <span>Healthy</span>
-          <span>Overweight</span>
-          <span>Obese</span>
+        {/* Labels — aligned to gauge segments using same percentage widths */}
+        <div className="flex text-[11px] text-[var(--text-muted)] mt-2">
+          <span className="text-center" style={{ width: '12.96%' }}>Underweight</span>
+          <span className="text-center" style={{ width: '24.07%' }}>Healthy</span>
+          <span className="text-center" style={{ width: '18.52%' }}>Overweight</span>
+          <span className="text-center" style={{ width: '44.44%' }}>Obese</span>
         </div>
       </div>
 
