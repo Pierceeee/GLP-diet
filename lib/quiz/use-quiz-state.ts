@@ -157,9 +157,9 @@ export function useQuizState() {
    */
   const progressPercentage = (step / totalSteps) * 100;
 
-  // Initialize on mount - sync gender from URL to answers
+  // Sync gender from URL to answers - always update when URL param is present
   useEffect(() => {
-    if (genderParam && !answers.gender) {
+    if (genderParam && genderParam !== answers.gender) {
       setAnswers((prev) => {
         const updated = { ...prev, gender: genderParam };
         saveAnswersToStorage(updated);

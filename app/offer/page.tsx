@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, Suspense, useRef } from "react";
+import { useState, useEffect, useCallback, Suspense, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import {
@@ -500,6 +500,19 @@ function calculateBMI(heightCm: number, weightKg: number): number {
   return weightKg / (heightM * heightM);
 }
 
+const femaleTransformationImages = [
+  "/images/before-after/female-1.png",
+  "/images/before-after/female-2.png",
+  "/images/before-after/female-3.png",
+  "/images/before-after/female-4.png",
+  "/images/before-after/female-5.png",
+];
+
+const maleTransformationImages = [
+  "/images/before-after/male-1.png",
+  "/images/before-after/male-2.png",
+];
+
 function NowVsGoal({ answers }: { answers: QuizAnswers }) {
   const currentWeight = (answers.weight as number) || 80;
   const targetWeight = (answers["target-weight"] as number) || 65;
@@ -514,6 +527,12 @@ function NowVsGoal({ answers }: { answers: QuizAnswers }) {
   const currentBodyFat = calculateBodyFat(currentBMI, age, isMale);
   const targetBodyFat = calculateBodyFat(targetBMI, age, isMale);
 
+  const transformationImage = useMemo(() => {
+    const images = isMale ? maleTransformationImages : femaleTransformationImages;
+    const randomIndex = Math.floor(Math.random() * images.length);
+    return images[randomIndex];
+  }, [isMale]);
+
   return (
     <div className="w-full rounded-2xl overflow-hidden shadow-sm border border-gray-200 bg-white">
       <div className="px-6 py-5">
@@ -521,6 +540,40 @@ function NowVsGoal({ answers }: { answers: QuizAnswers }) {
           Your Transformation
         </h3>
         
+        {/* Before/After Image Section */}
+        <div className="relative mb-6">
+          <div className="relative rounded-xl overflow-hidden">
+            <Image
+              src={transformationImage}
+              alt="Transformation visualization"
+              width={600}
+              height={400}
+              className="w-full h-auto object-cover"
+            />
+            {/* Now Label */}
+            <div className="absolute top-3 left-3">
+              <span className="inline-block px-4 py-1.5 bg-[#f87171] text-white text-[13px] font-bold rounded-full shadow-md">
+                Now
+              </span>
+            </div>
+            {/* Goal Label */}
+            <div className="absolute top-3 right-3">
+              <span className="inline-block px-4 py-1.5 bg-[#10b981] text-white text-[13px] font-bold rounded-full shadow-md">
+                Goal
+              </span>
+            </div>
+            {/* Center Arrow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0097b2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Stats Section */}
         <div className="flex justify-between gap-4">
           {/* NOW Column */}
           <div className="flex-1 bg-red-50 rounded-xl p-4 border border-red-100">
