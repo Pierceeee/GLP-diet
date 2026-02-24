@@ -629,7 +629,7 @@ function OfferContent() {
             className="text-[16px] font-bold"
             style={{ fontFamily: "var(--font-heading)" }}
           >
-            GLP Diet
+            GLP Coaching Program
           </span>
         </div>
         <div className="h-[3px] bg-[var(--brand)]" />

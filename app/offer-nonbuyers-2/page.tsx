@@ -606,7 +606,7 @@ function OfferNonBuyers2Content() {
       <header className="bg-white">
         <div className="w-full max-w-[660px] mx-auto px-6 flex items-center justify-center h-12">
           <span className="text-[16px] font-bold" style={{ fontFamily: "var(--font-heading)" }}>
-            GLP Diet
+            GLP Coaching Program
           </span>
         </div>
         <div className="h-[3px] bg-[var(--brand)]" />
