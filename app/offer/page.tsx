@@ -204,9 +204,11 @@ function PricingSection({
   const sel = PLANS.find((p) => p.id === selected)!;
   const [agreed, setAgreed] = useState(false);
 
-  // Get goal from answers
+  // Get all goals from answers
   const goals = (answers.goals as string[]) || [];
-  const primaryGoal = goals.length > 0 ? (goalLabels[goals[0]] || goals[0]) : "Support weight loss";
+  const allGoals = goals.length > 0 
+    ? goals.map(g => goalLabels[g] || g).join(", ") 
+    : "Support weight loss";
   
   // Get target weight from answers
   const targetWeight = (answers["target-weight"] as number) || 0;
@@ -230,7 +232,7 @@ function PricingSection({
           </div>
           <div>
             <p className="text-[11px] text-[var(--text-muted)]">Goal</p>
-            <p className="text-[13px] font-semibold">{primaryGoal}</p>
+            <p className="text-[13px] font-semibold">{allGoals}</p>
           </div>
         </div>
         <div className="w-px h-8 bg-gray-200" />
