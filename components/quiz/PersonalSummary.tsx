@@ -19,16 +19,12 @@ export function PersonalSummary({ answers, gender }: PersonalSummaryProps) {
 
   const bmi = calculateBMI(height, weight);
 
-  // BMI ranges and their widths (total 27 units from 15 to 42)
-  // Underweight: 15-18.5 (3.5 units) = 12.96%
-  // Healthy: 18.5-25 (6.5 units) = 24.07%
-  // Overweight: 25-30 (5 units) = 18.52%
-  // Obese: 30-42 (12 units) = 44.44%
+  // BMI ranges with equal visual widths so category position is clearer.
   const segments = [
-    { min: 15, max: 18.5, width: 12.96 },    // Underweight
-    { min: 18.5, max: 25, width: 24.07 },    // Healthy
-    { min: 25, max: 30, width: 18.52 },      // Overweight
-    { min: 30, max: 42, width: 44.44 },      // Obese
+    { min: 15, max: 18.5, width: 25 }, // Underweight
+    { min: 18.5, max: 25, width: 25 }, // Healthy
+    { min: 25, max: 30, width: 25 }, // Overweight
+    { min: 30, max: 42, width: 25 }, // Obese
   ];
 
   // Calculate position based on which segment the BMI falls into
@@ -51,6 +47,7 @@ export function PersonalSummary({ answers, gender }: PersonalSummaryProps) {
   };
 
   const pct = calculatePosition(bmi);
+  const markerPct = Math.min(Math.max(pct, 2), 98);
 
   // Animation state
   const [animated, setAnimated] = useState(false);
@@ -139,7 +136,9 @@ export function PersonalSummary({ answers, gender }: PersonalSummaryProps) {
 
   const bmiMessage = getBmiMessage();
   const bodyFat = getBodyFat();
-  const primaryGoal = goals.length > 0 ? (goalLabels[goals[0]] || goals[0]) : "Manage weight";
+  const displayGoals = goals.length > 0 
+    ? goals.map(g => goalLabels[g] || g) 
+    : ["Manage weight"];
 
   return (
     <div className="space-y-4">
@@ -155,7 +154,7 @@ export function PersonalSummary({ answers, gender }: PersonalSummaryProps) {
             <div
               className="absolute -top-7 flex flex-col items-center"
               style={{
-                left: animated ? `${pct}%` : "0%",
+                left: animated ? `${markerPct}%` : "0%",
                 transform: "translateX(-50%)",
                 transition: "left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
                 opacity: animated ? 1 : 0,
@@ -168,18 +167,18 @@ export function PersonalSummary({ answers, gender }: PersonalSummaryProps) {
               </span>
               <div className="w-0 h-0 border-l-[5px] border-r-[5px] border-t-[5px] border-transparent border-t-red-500" />
             </div>
-                {/* Bar - percentage widths matching segment calculations */}
+                {/* Bar - equal-width category segments */}
             <div className="h-[10px] rounded-full overflow-hidden flex">
-              <div className="bg-blue-400 rounded-l-full" style={{ width: '12.96%' }} />   {/* Underweight: 15-18.5 */}
-              <div className="bg-green-400" style={{ width: '24.07%' }} />                  {/* Healthy: 18.5-25 */}
-              <div className="bg-yellow-400" style={{ width: '18.52%' }} />                 {/* Overweight: 25-30 */}
-              <div className="bg-gradient-to-r from-orange-400 to-red-500 rounded-r-full" style={{ width: '44.44%' }} /> {/* Obese: 30-42 */}
+              <div className="bg-blue-400 rounded-l-full" style={{ width: "25%" }} />
+              <div className="bg-green-400" style={{ width: "25%" }} />
+              <div className="bg-yellow-400" style={{ width: "25%" }} />
+              <div className="bg-gradient-to-r from-orange-400 to-red-500 rounded-r-full" style={{ width: "25%" }} />
             </div>
             {/* Dot */}
             <div
               className="absolute top-1/2 w-[14px] h-[14px] rounded-full bg-white border-[2.5px] border-red-500 shadow"
               style={{
-                left: animated ? `${pct}%` : "0%",
+                left: animated ? `${markerPct}%` : "0%",
                 transform: "translate(-50%, -50%)",
                 transition: "left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
               }}
@@ -187,12 +186,12 @@ export function PersonalSummary({ answers, gender }: PersonalSummaryProps) {
           </div>
         </div>
 
-        {/* Labels — aligned to gauge segments using same percentage widths */}
+        {/* Labels — aligned to equal-width gauge segments */}
         <div className="flex text-[11px] text-[var(--text-muted)] mt-2">
-          <span className="text-center" style={{ width: '12.96%' }}>Underweight</span>
-          <span className="text-center" style={{ width: '24.07%' }}>Healthy</span>
-          <span className="text-center" style={{ width: '18.52%' }}>Overweight</span>
-          <span className="text-center" style={{ width: '44.44%' }}>Obese</span>
+          <span className="text-center" style={{ width: "25%" }}>Underweight</span>
+          <span className="text-center" style={{ width: "25%" }}>Healthy</span>
+          <span className="text-center" style={{ width: "25%" }}>Overweight</span>
+          <span className="text-center" style={{ width: "25%" }}>Obese</span>
         </div>
       </div>
 
@@ -255,12 +254,16 @@ export function PersonalSummary({ answers, gender }: PersonalSummaryProps) {
               </div>
             </div>
 
-            {/* Goal */}
+            {/* Goals */}
             <div>
-              <p className="text-[12px] text-[var(--text-muted)] mb-0.5">Goal</p>
-              <div className="flex items-center gap-1.5">
-                <span className="text-[16px]">🔥</span>
-                <span className="text-[18px] font-bold text-gray-900">{primaryGoal}</span>
+              <p className="text-[12px] text-[var(--text-muted)] mb-0.5">{displayGoals.length > 1 ? "Goals" : "Goal"}</p>
+              <div className="space-y-1">
+                {displayGoals.map((goal, index) => (
+                  <div key={index} className="flex items-center gap-1.5">
+                    <span className="text-[16px]">🔥</span>
+                    <span className="text-[18px] font-bold text-gray-900">{goal}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

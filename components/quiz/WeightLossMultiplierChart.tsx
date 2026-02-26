@@ -20,7 +20,7 @@ export function WeightLossMultiplierChart({ onContinue }: WeightLossMultiplierCh
   const GLP_HEIGHT = 135;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-24">
       <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm max-w-lg mx-auto">
         <div className="px-6 py-6">
           {/* Title */}
@@ -109,7 +109,12 @@ export function WeightLossMultiplierChart({ onContinue }: WeightLossMultiplierCh
         </div>
       </div>
 
-      <ContinueButton onClick={onContinue}>Continue</ContinueButton>
+      {/* Sticky Continue Button */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 z-50">
+        <div className="max-w-[660px] mx-auto">
+          <ContinueButton onClick={onContinue}>Continue</ContinueButton>
+        </div>
+      </div>
     </div>
   );
 }

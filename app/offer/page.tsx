@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, Suspense, useRef, useMemo } from "react";
+import { useState, useEffect, useCallback, Suspense, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import {
@@ -502,18 +502,8 @@ function calculateBMI(heightCm: number, weightKg: number): number {
   return weightKg / (heightM * heightM);
 }
 
-const femaleTransformationImages = [
-  "/images/before-after/female-1.png",
-  "/images/before-after/female-2.png",
-  "/images/before-after/female-3.png",
-  "/images/before-after/female-4.png",
-  "/images/before-after/female-5.png",
-];
-
-const maleTransformationImages = [
-  "/images/before-after/male-1.png",
-  "/images/before-after/male-2.png",
-];
+const beforeTransformationImage = "/images/before-after/age-35-50-before.png";
+const afterTransformationImage = "/images/before-after/age-35-50-after.png";
 
 function NowVsGoal({ answers }: { answers: QuizAnswers }) {
   const currentWeight = (answers.weight as number) || 80;
@@ -529,12 +519,6 @@ function NowVsGoal({ answers }: { answers: QuizAnswers }) {
   const currentBodyFat = calculateBodyFat(currentBMI, age, isMale);
   const targetBodyFat = calculateBodyFat(targetBMI, age, isMale);
 
-  const transformationImage = useMemo(() => {
-    const images = isMale ? maleTransformationImages : femaleTransformationImages;
-    const randomIndex = Math.floor(Math.random() * images.length);
-    return images[randomIndex];
-  }, [isMale]);
-
   return (
     <div className="w-full rounded-2xl overflow-hidden shadow-sm border border-gray-200 bg-white">
       <div className="px-6 py-5">
@@ -545,13 +529,22 @@ function NowVsGoal({ answers }: { answers: QuizAnswers }) {
         {/* Before/After Image Section */}
         <div className="relative mb-6">
           <div className="relative rounded-xl overflow-hidden">
-            <Image
-              src={transformationImage}
-              alt="Transformation visualization"
-              width={600}
-              height={400}
-              className="w-full h-auto object-cover"
-            />
+            <div className="grid grid-cols-2">
+              <Image
+                src={beforeTransformationImage}
+                alt="Current body visualization"
+                width={512}
+                height={1024}
+                className="w-full h-auto object-cover"
+              />
+              <Image
+                src={afterTransformationImage}
+                alt="Goal body visualization"
+                width={512}
+                height={1024}
+                className="w-full h-auto object-cover"
+              />
+            </div>
             {/* Now Label */}
             <div className="absolute top-3 left-3">
               <span className="inline-block px-4 py-1.5 bg-[#f87171] text-white text-[13px] font-bold rounded-full shadow-md">

@@ -8,227 +8,177 @@ interface BodyPartDef {
   id: string;
   label: string;
   position: { top: string; left?: string; right?: string };
+  lineEndpoint?: { x: number; y: number }; // SVG coordinates for the line connection
 }
 
 /*
- * Anatomical muscle-group SVG paths on a 1000×1000 viewBox.
- * Designed to mimic the reference overlay style: dark gray filled shapes
- * sitting directly on the body, with segmented abs and distinct muscle groups.
- *
- * MALE pixel-scan landmarks:
- *   Shoulders: y200 x443-595. Arms split at y300.
- *   Left arm: 340-407 | Torso: 411-615 | Right arm: 619-689 (at y300)
- *   Hands on hips at y440. Waist y480: 404-596.
- *   Legs split at y580: 389-501 / 504-616.
- *
- * FEMALE pixel-scan landmarks:
- *   Shoulders: y220 x420-613. Torso at y300: 410-584.
- *   Right arm hanging: 614-654. Left arm on hip: 410-445.
- *   Waist y400: 454-614. Legs split at y540: 378-502 / 528-609.
+ * SVG paths precisely mapped to the actual body images.
+ * Coordinates based on 1000×1000 viewBox matching the body image dimensions.
+ * Refined for organic muscle shapes and smoother contours.
  */
 
 const MALE_SVG_PATHS: Record<string, string[]> = {
   arms: [
-    // Left upper arm — shoulder cap down to elbow area with wavy curves
-    `M 398,215 C 355,225 320,260 310,310
-     C 300,360 310,400 340,420
-     C 370,440 400,435 420,410
-     C 440,385 445,340 435,295
-     C 425,250 410,220 398,215 Z`,
-    // Right upper arm with wavy curves
-    `M 602,215 C 645,225 680,260 690,310
-     C 700,360 690,400 660,420
-     C 630,440 600,435 580,410
-     C 560,385 555,340 565,295
-     C 575,250 590,220 602,215 Z`,
+    // Left Arm (Deltoid + Bicep/Tricep + Forearm) - Hand on hip
+    `M 360,185
+     C 335,195 295,250 300,340
+     C 305,390 325,435 355,465
+     C 370,450 385,430 395,390
+     C 390,340 400,290 410,240
+     C 390,220 375,200 360,185 Z`,
+    // Right Arm - Hand on hip
+    `M 640,185
+     C 665,195 705,250 700,340
+     C 695,390 675,435 645,465
+     C 630,450 615,430 605,390
+     C 610,340 600,290 590,240
+     C 610,220 625,200 640,185 Z`,
   ],
   chest: [
-    // Left pec
-    `M 435,215 C 425,228 420,248 422,268
-     C 424,285 435,295 458,298
-     C 475,300 490,298 498,290
-     C 500,286 500,275 498,260
-     C 495,240 485,222 470,213
-     C 455,205 440,208 435,215 Z`,
-    // Right pec
-    `M 565,215 C 575,228 580,248 578,268
-     C 576,285 565,295 542,298
-     C 525,300 510,298 502,290
-     C 500,286 500,275 502,260
-     C 505,240 515,222 530,213
-     C 545,205 560,208 565,215 Z`,
+    // Left Pec
+    `M 420,210
+     C 410,240 415,280 435,305
+     C 460,315 485,310 498,290
+     C 498,250 495,220 485,200
+     C 460,195 435,200 420,210 Z`,
+    // Right Pec
+    `M 580,210
+     C 590,240 585,280 565,305
+     C 540,315 515,310 502,290
+     C 502,250 505,220 515,200
+     C 540,195 565,200 580,210 Z`,
   ],
   back: [
-    // Mid-back — wide band across torso
-    `M 422,305 C 418,315 416,332 418,350
-     C 420,365 430,378 455,385
-     C 475,390 490,392 500,392
-     C 510,392 525,390 545,385
-     C 570,378 580,365 582,350
-     C 584,332 582,315 578,305
-     C 555,296 445,296 422,305 Z`,
+    // Left Lat - Continuous V-shape
+    `M 390,300
+     C 375,340 370,400 380,440
+     C 395,450 415,440 420,410
+     C 420,380 410,330 390,300 Z`,
+    // Right Lat
+    `M 610,300
+     C 625,340 630,400 620,440
+     C 605,450 585,440 580,410
+     C 580,380 590,330 610,300 Z`,
   ],
   belly: [
-    // Top ab segment
-    `M 438,395 L 498,395 L 498,420 C 490,425 475,427 460,425 C 448,423 440,418 438,415 Z`,
-    `M 502,395 L 562,395 L 562,415 C 560,418 552,423 540,425 C 525,427 510,425 502,420 Z`,
-    // Middle ab segment
-    `M 435,428 L 498,428 L 498,455 C 490,460 475,462 458,460 C 445,458 438,452 435,448 Z`,
-    `M 502,428 L 565,428 L 565,448 C 562,452 555,458 542,460 C 525,462 510,460 502,455 Z`,
-    // Lower ab segment
-    `M 432,463 L 498,463 L 498,488 C 488,492 472,494 455,492 C 442,490 435,485 432,480 Z`,
-    `M 502,463 L 568,463 L 568,480 C 565,485 558,490 545,492 C 528,494 512,492 502,488 Z`,
+    // 6-pack grid - Organic Shapes
+    // Top Left Abs
+    `M 445,330 C 435,340 435,370 445,385 C 465,390 485,385 495,380 L 495,330 C 480,325 460,325 445,330 Z`,
+    // Top Right Abs
+    `M 555,330 C 565,340 565,370 555,385 C 535,390 515,385 505,380 L 505,330 C 520,325 540,325 555,330 Z`,
+    // Mid Left Abs
+    `M 445,395 C 438,405 438,445 450,460 C 470,465 490,460 495,455 L 495,390 C 480,395 460,395 445,395 Z`,
+    // Mid Right Abs
+    `M 555,395 C 562,405 562,445 550,460 C 530,465 510,460 505,455 L 505,390 C 520,395 540,395 555,395 Z`,
+    // Lower Abs Left
+    `M 455,470 C 450,485 455,515 465,530 C 480,535 495,530 495,525 L 495,465 C 480,470 465,465 455,470 Z`,
+    // Lower Abs Right
+    `M 545,470 C 550,485 545,515 535,530 C 520,535 505,530 505,525 L 505,465 C 520,470 535,465 545,470 Z`,
   ],
   butt: [
-    // Left glute
-    `M 415,492 C 408,505 404,525 406,545
-     C 408,562 418,572 440,578
-     C 458,582 478,582 498,580
-     L 498,498
-     C 475,492 445,490 415,492 Z`,
-    // Right glute
-    `M 585,492 C 592,505 596,525 594,545
-     C 592,562 582,572 560,578
-     C 542,582 522,582 502,580
-     L 502,498
-     C 525,492 555,490 585,492 Z`,
+    // Hips/Glutes - Smooth side contour
+    // Left
+    `M 375,500
+     C 360,530 355,580 370,620
+     C 390,630 420,620 425,580
+     C 425,540 405,510 375,500 Z`,
+    // Right
+    `M 625,500
+     C 640,530 645,580 630,620
+     C 610,630 580,620 575,580
+     C 575,540 595,510 625,500 Z`,
   ],
   legs: [
-    // Left thigh — outer + inner shape
-    `M 400,585 C 394,615 390,650 388,690
-     C 386,730 387,770 390,808
-     C 393,840 398,865 406,885
-     C 414,900 424,908 434,905
-     C 442,900 448,885 452,862
-     C 458,835 460,800 462,762
-     C 463,725 463,688 464,652
-     C 466,620 470,598 478,588
-     L 498,585 Z`,
-    // Right thigh
-    `M 600,585 C 606,615 610,650 612,690
-     C 614,730 613,770 610,808
-     C 607,840 602,865 594,885
-     C 586,900 576,908 566,905
-     C 558,900 552,885 548,862
-     C 542,835 540,800 538,762
-     C 537,725 537,688 536,652
-     C 534,620 530,598 522,588
-     L 502,585 Z`,
+    // Left Leg - Single continuous form-fitting shape
+    `M 395,620
+     C 380,680 385,780 395,850
+     C 400,900 415,940 435,950
+     C 455,940 465,900 465,850
+     C 465,780 460,680 445,620
+     C 430,600 410,600 395,620 Z`,
+    // Right Leg - Single continuous form-fitting shape
+    `M 605,620
+     C 620,680 615,780 605,850
+     C 600,900 585,940 565,950
+     C 545,940 535,900 535,850
+     C 535,780 540,680 555,620
+     C 570,600 590,600 605,620 Z`,
   ],
 };
 
+// Female body highlights - precisely calibrated to body image
+// Body center is at x=500, image is 1000x1000
 const FEMALE_SVG_PATHS: Record<string, string[]> = {
   arms: [
-    // Left arm (her right — hand on hip)
-    `M 422,218 C 412,235 406,260 404,285
-     C 402,305 402,325 400,345
-     C 399,362 400,378 405,392
-     C 410,405 420,415 430,420
-     C 438,424 444,418 448,405
-     C 452,390 454,370 454,348
-     C 454,325 452,302 448,280
-     C 444,258 438,238 432,225 Z`,
-    // Right arm (her left — hanging down)
-    `M 588,218 C 600,232 614,255 628,282
-     C 640,308 648,335 650,358
-     C 652,378 648,395 640,410
-     C 632,425 622,438 610,448
-     C 600,455 592,452 588,440
-     C 584,425 585,405 588,382
-     C 592,358 594,332 594,305
-     C 594,278 590,252 586,232 Z`,
+    // Left arm (her left = image right side, bent with hand on hip)
+    // Upper arm from shoulder to elbow
+    `M 408,168 Q 395,185 392,230 Q 390,280 398,320 L 418,318 Q 425,275 422,225 Q 418,180 415,170 Z`,
+    // Forearm from elbow toward hip  
+    `M 395,328 Q 385,355 392,395 Q 400,425 418,435 L 435,428 Q 430,395 422,360 Q 415,332 408,328 Z`,
+    
+    // Right arm (her right = image left side, hanging down)
+    // Upper arm
+    `M 572,168 Q 588,188 595,240 Q 600,300 595,360 L 578,358 Q 575,295 578,235 Q 580,185 575,172 Z`,
+    // Forearm hanging
+    `M 592,368 Q 602,405 605,465 Q 608,520 600,545 L 582,542 Q 578,490 582,430 Q 585,385 588,372 Z`,
   ],
   chest: [
-    // Left bust
-    `M 460,222 C 452,235 448,252 450,270
-     C 452,286 462,295 482,298
-     C 495,300 498,295 498,282
-     C 498,265 492,245 482,230
-     C 475,220 465,218 460,222 Z`,
-    // Right bust
-    `M 545,220 C 552,232 558,250 558,268
-     C 556,284 548,294 528,298
-     C 515,300 510,295 510,282
-     C 510,265 515,245 525,230
-     C 532,220 540,216 545,220 Z`,
+    // Sports bra - left side
+    `M 428,195 Q 420,202 420,218 L 420,260 Q 420,275 438,278 L 492,278 Q 500,272 500,258 L 500,218 Q 500,202 488,198 L 438,195 Z`,
+    // Sports bra - right side  
+    `M 555,195 Q 565,202 565,218 L 565,260 Q 565,275 548,278 L 505,278 Q 498,272 498,258 L 498,218 Q 498,202 510,198 L 548,195 Z`,
   ],
   back: [
-    // Mid-back band
-    `M 456,302 C 450,314 448,330 450,348
-     C 452,362 460,372 480,378
-     C 495,382 508,382 522,380
-     C 542,376 552,366 555,350
-     C 558,334 556,316 552,304
-     C 535,296 470,296 456,302 Z`,
+    // Left side/oblique at waist
+    `M 418,295 Q 408,302 408,318 L 408,368 Q 408,382 422,385 L 448,385 Q 460,378 460,365 L 460,318 Q 460,302 448,295 L 425,295 Z`,
+    // Right side/oblique at waist
+    `M 562,295 Q 572,302 572,318 L 572,368 Q 572,382 558,385 L 532,385 Q 520,378 520,365 L 520,318 Q 520,302 532,295 L 555,295 Z`,
   ],
   belly: [
-    // Top ab segment left
-    `M 455,385 L 498,385 L 498,408 C 490,412 478,414 465,412 C 458,410 455,406 455,402 Z`,
-    // Top ab segment right
-    `M 505,385 L 548,385 L 548,402 C 548,406 545,410 538,412 C 525,414 513,412 505,408 Z`,
-    // Mid ab segment left
-    `M 452,418 L 498,418 L 498,440 C 490,444 476,446 462,444 C 455,442 452,438 452,434 Z`,
-    // Mid ab segment right
-    `M 505,418 L 552,418 L 552,434 C 552,438 549,442 542,444 C 528,446 514,444 505,440 Z`,
-    // Lower ab segment left
-    `M 448,448 L 498,448 L 498,470 C 488,474 474,476 460,474 C 452,472 449,468 448,464 Z`,
-    // Lower ab segment right
-    `M 505,448 L 555,448 L 555,464 C 554,468 551,472 543,474 C 530,476 515,474 505,470 Z`,
+    // Upper left ab
+    `M 458,295 Q 450,300 450,312 L 450,345 Q 450,358 465,360 L 492,360 Q 500,355 500,345 L 500,312 Q 500,300 488,295 L 465,295 Z`,
+    // Upper right ab
+    `M 528,295 Q 538,300 538,312 L 538,345 Q 538,358 522,360 L 502,360 Q 495,355 495,345 L 495,312 Q 495,300 508,295 L 522,295 Z`,
+    // Lower left ab
+    `M 460,368 Q 452,372 452,385 L 452,418 Q 452,430 468,432 L 492,432 Q 500,428 500,418 L 500,385 Q 500,372 488,368 L 468,368 Z`,
+    // Lower right ab
+    `M 528,368 Q 538,372 538,385 L 538,418 Q 538,430 522,432 L 502,432 Q 495,428 495,418 L 495,385 Q 495,372 508,368 L 522,368 Z`,
   ],
   butt: [
-    // Left glute/hip
-    `M 428,478 C 420,492 416,510 418,530
-     C 420,545 430,554 452,558
-     C 470,560 488,560 498,558
-     L 498,484
-     C 475,478 448,476 428,478 Z`,
-    // Right glute/hip
-    `M 572,478 C 578,492 582,510 580,530
-     C 578,545 568,554 548,558
-     C 530,560 512,560 505,558
-     L 505,484
-     C 525,478 552,476 572,478 Z`,
+    // Left hip on leggings
+    `M 412,445 Q 395,465 398,520 Q 402,572 432,590 L 475,585 Q 498,562 495,515 Q 490,470 465,450 L 425,445 Z`,
+    // Right hip on leggings
+    `M 568,445 Q 585,465 582,520 Q 578,572 548,590 L 508,585 Q 485,562 488,515 Q 492,470 518,450 L 558,445 Z`,
   ],
   legs: [
-    // Left leg
-    `M 395,562 C 388,592 383,630 380,672
-     C 378,712 380,750 384,786
-     C 388,818 395,842 405,860
-     C 413,872 422,878 432,875
-     C 440,870 446,858 450,838
-     C 456,812 460,780 462,745
-     C 464,710 464,674 466,640
-     C 468,608 472,582 480,568
-     L 498,562 Z`,
-    // Right leg
-    `M 565,560 C 570,588 574,622 576,662
-     C 578,700 576,738 572,772
-     C 568,802 562,828 554,846
-     C 546,860 538,864 530,860
-     C 522,856 518,842 515,822
-     C 512,798 512,766 514,732
-     C 516,698 518,662 520,630
-     C 522,600 525,578 530,566
-     L 505,560 Z`,
+    // Left thigh (front leg)
+    `M 395,598 Q 375,645 378,735 Q 382,820 415,848 L 465,845 Q 495,815 492,735 Q 488,655 460,605 L 415,598 Z`,
+    // Left calf
+    `M 375,862 Q 358,905 368,968 Q 378,1000 412,1000 L 452,998 Q 478,975 472,920 Q 465,870 438,858 L 392,862 Z`,
+    
+    // Right thigh (back leg)
+    `M 575,598 Q 598,645 595,735 Q 592,820 560,848 L 515,845 Q 488,815 490,735 Q 492,655 522,605 L 565,598 Z`,
+    // Right calf
+    `M 598,862 Q 615,905 605,968 Q 595,1000 562,1000 L 522,998 Q 498,975 502,920 Q 508,870 535,858 L 582,862 Z`,
   ],
 };
 
 const FEMALE_PARTS: BodyPartDef[] = [
-  { id: "arms", label: "Arms", position: { top: "22%", left: "0" } },
-  { id: "chest", label: "Chest", position: { top: "22%", right: "0" } },
-  { id: "back", label: "Back", position: { top: "36%", left: "0" } },
-  { id: "belly", label: "Belly", position: { top: "36%", right: "0" } },
-  { id: "butt", label: "Butt", position: { top: "50%", left: "0" } },
-  { id: "legs", label: "Legs", position: { top: "58%", right: "0" } },
+  { id: "arms", label: "Arms", position: { top: "18%", left: "5%" }, lineEndpoint: { x: 365, y: 270 } },
+  { id: "chest", label: "Chest", position: { top: "18%", right: "5%" }, lineEndpoint: { x: 540, y: 235 } },
+  { id: "back", label: "Back", position: { top: "32%", left: "5%" }, lineEndpoint: { x: 420, y: 345 } },
+  { id: "belly", label: "Belly", position: { top: "32%", right: "5%" }, lineEndpoint: { x: 520, y: 370 } },
+  { id: "butt", label: "Butt", position: { top: "46%", left: "5%" }, lineEndpoint: { x: 420, y: 490 } },
+  { id: "legs", label: "Legs", position: { top: "60%", right: "5%" }, lineEndpoint: { x: 535, y: 700 } },
 ];
 
 const MALE_PARTS: BodyPartDef[] = [
-  { id: "arms", label: "Arms", position: { top: "22%", left: "0" } },
-  { id: "chest", label: "Chest", position: { top: "22%", right: "0" } },
-  { id: "back", label: "Back", position: { top: "36%", left: "0" } },
-  { id: "belly", label: "Belly", position: { top: "36%", right: "0" } },
-  { id: "butt", label: "Butt", position: { top: "50%", left: "0" } },
-  { id: "legs", label: "Legs", position: { top: "58%", right: "0" } },
+  { id: "arms", label: "Arms", position: { top: "18%", left: "5%" }, lineEndpoint: { x: 315, y: 260 } },
+  { id: "chest", label: "Chest", position: { top: "18%", right: "5%" }, lineEndpoint: { x: 605, y: 245 } },
+  { id: "back", label: "Back", position: { top: "32%", left: "5%" }, lineEndpoint: { x: 380, y: 415 } },
+  { id: "belly", label: "Belly", position: { top: "32%", right: "5%" }, lineEndpoint: { x: 575, y: 385 } },
+  { id: "butt", label: "Butt", position: { top: "46%", left: "5%" }, lineEndpoint: { x: 380, y: 625 } },
+  { id: "legs", label: "Legs", position: { top: "60%", right: "5%" }, lineEndpoint: { x: 630, y: 910 } },
 ];
 
 interface BodyMapSelectorProps {
@@ -236,6 +186,8 @@ interface BodyMapSelectorProps {
   selected: string[];
   onChange: (id: string) => void;
 }
+
+const OVERLAY_RENDER_ORDER = ["back", "chest", "belly", "arms", "butt", "legs"];
 
 export function BodyMapSelector({ gender, selected, onChange }: BodyMapSelectorProps) {
   const [hasMounted, setHasMounted] = useState(false);
@@ -260,6 +212,7 @@ export function BodyMapSelector({ gender, selected, onChange }: BodyMapSelectorP
           className="relative w-full"
           style={{ maxWidth: "400px", aspectRatio: "1 / 1" }}
         >
+          {/* Body Image */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={imageSrc}
@@ -267,60 +220,81 @@ export function BodyMapSelector({ gender, selected, onChange }: BodyMapSelectorP
             className="absolute inset-0 w-full h-full object-contain"
           />
 
+          {/* SVG Overlay for Highlights */}
           <svg
             viewBox="0 0 1000 1000"
             className="absolute inset-0 w-full h-full"
             preserveAspectRatio="xMidYMid meet"
             style={{ pointerEvents: "none" }}
           >
-            {Object.entries(svgPaths).map(([partId, paths]) => {
+            {/* Clean, professional highlight style */}
+            <defs>
+              {/* Solid semi-transparent fill for clean look */}
+              <linearGradient id="highlightGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="rgba(120, 140, 140, 0.55)" />
+                <stop offset="100%" stopColor="rgba(90, 110, 110, 0.65)" />
+              </linearGradient>
+            </defs>
+            
+            {/* Render clean rectangular shapes */}
+            {OVERLAY_RENDER_ORDER.map((partId) => {
+              const paths = svgPaths[partId];
+              if (!paths || paths.length === 0) return null;
               const isActive = safeSelected.includes(partId);
+              
               return paths.map((d, i) => (
                 <path
                   key={`${partId}-${i}`}
                   d={d}
-                  fill={isActive ? "rgba(70, 70, 70, 0.6)" : "transparent"}
-                  stroke="none"
+                  fill={isActive ? "rgba(128, 148, 148, 0.6)" : "transparent"}
+                  stroke={isActive ? "rgba(180, 195, 195, 0.5)" : "none"}
+                  strokeWidth={isActive ? 1.5 : 0}
+                  rx="8"
                   style={{
                     pointerEvents: "auto",
                     cursor: "pointer",
-                    transition: "fill 0.3s ease",
+                    transition: "all 0.2s ease",
                   }}
                   onClick={() => onChange(partId)}
                 />
               ));
             })}
           </svg>
+          
+          {/* Connecting Lines Overlay removed as per user preference */}
+
         </div>
       </div>
 
+      {/* Buttons */}
       {bodyParts.map((part) => {
         const isSelected = safeSelected.includes(part.id);
         return (
           <button
             key={part.id}
             onClick={() => onChange(part.id)}
-            className="absolute flex items-center gap-2 rounded-lg text-[14px] font-semibold z-10
-                       px-3.5 py-2 bg-white border shadow-sm select-none"
+            className={`absolute flex items-center gap-2 rounded-full text-[14px] font-semibold z-10
+                       px-4 py-2.5 transition-all duration-200 select-none shadow-sm
+                       ${isSelected 
+                         ? "bg-[#1a3a36] border-[#1a3a36] text-white" 
+                         : "bg-white border-gray-200 text-gray-700 hover:border-gray-300"
+                       } border`}
             style={{
               top: part.position.top,
               left: part.position.left,
               right: part.position.right,
-              borderColor: isSelected ? "#1f2937" : "#e5e7eb",
-              transition: "border-color 0.2s ease",
+              transform: "translateY(-50%)", // Center vertically on the point
             }}
           >
             <div
-              className="w-[20px] h-[20px] rounded-[5px] flex items-center justify-center flex-shrink-0"
-              style={{
-                backgroundColor: isSelected ? "#1a3a36" : "white",
-                border: isSelected ? "none" : "2px solid #d1d5db",
-                transition: "all 0.2s ease",
-              }}
+              className={`w-[20px] h-[20px] rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-200
+                        ${isSelected ? "bg-white" : "bg-white border-2 border-gray-300"}`}
             >
-              {isSelected && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
+              {isSelected && <Check className="w-3 h-3 text-[#1a3a36]" strokeWidth={3} />}
             </div>
-            <span className="text-[#1a1a1a]">{part.label}</span>
+            <span className="font-medium">
+              {part.label}
+            </span>
           </button>
         );
       })}

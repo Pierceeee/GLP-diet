@@ -76,8 +76,8 @@ export function PlanReadyScreen({ answers: propAnswers, onContinue }: PlanReadyS
   const pathLength = 700;
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
-      <main className="flex-1 flex flex-col items-center px-6 py-8 pb-12">
+    <div className="min-h-screen bg-white flex flex-col pb-24">
+      <main className="flex-1 flex flex-col items-center px-6 py-8">
         <div className="w-full max-w-[520px] text-center">
           <h2
             className="text-[22px] sm:text-[26px] font-bold mb-2"
@@ -234,10 +234,15 @@ export function PlanReadyScreen({ answers: propAnswers, onContinue }: PlanReadyS
               ))}
             </svg>
           </div>
-
-          <ContinueButton onClick={onContinue}>Continue</ContinueButton>
         </div>
       </main>
+
+      {/* Sticky Continue Button */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 z-50">
+        <div className="max-w-[520px] mx-auto">
+          <ContinueButton onClick={onContinue}>Continue</ContinueButton>
+        </div>
+      </div>
     </div>
   );
 }

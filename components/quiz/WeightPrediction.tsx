@@ -91,7 +91,7 @@ export function WeightPrediction({ answers, onContinue }: WeightPredictionProps)
   const bubbleArrowSize = 6;
 
   return (
-    <div className="space-y-5 text-center">
+    <div className="space-y-5 text-center pb-24">
       {/* Main heading */}
       <h2
         className="text-[22px] sm:text-[26px] font-bold leading-tight text-[#1a3a2f] px-2"
@@ -289,7 +289,12 @@ export function WeightPrediction({ answers, onContinue }: WeightPredictionProps)
         </p>
       </div>
 
-      <ContinueButton onClick={onContinue}>Continue</ContinueButton>
+      {/* Sticky Continue Button */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 z-50">
+        <div className="max-w-[660px] mx-auto">
+          <ContinueButton onClick={onContinue}>Continue</ContinueButton>
+        </div>
+      </div>
     </div>
   );
 }

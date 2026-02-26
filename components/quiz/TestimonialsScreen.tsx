@@ -37,8 +37,8 @@ const testimonials = [
 
 export function TestimonialsScreen({ onContinue }: TestimonialsScreenProps) {
   return (
-    <div className="min-h-screen bg-white flex flex-col">
-      <main className="flex-1 flex flex-col items-center px-6 py-8 pb-12">
+    <div className="min-h-screen bg-white flex flex-col pb-24">
+      <main className="flex-1 flex flex-col items-center px-6 py-8">
         <div className="w-full max-w-[520px]">
           <h2
             className="text-[20px] sm:text-[24px] font-bold text-center mb-2"
@@ -86,12 +86,15 @@ export function TestimonialsScreen({ onContinue }: TestimonialsScreenProps) {
               </div>
             ))}
           </div>
-
-          <div className="flex justify-center">
-            <ContinueButton onClick={onContinue}>Continue</ContinueButton>
-          </div>
         </div>
       </main>
+
+      {/* Sticky Continue Button */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 z-50">
+        <div className="max-w-[520px] mx-auto">
+          <ContinueButton onClick={onContinue}>Continue</ContinueButton>
+        </div>
+      </div>
     </div>
   );
 }

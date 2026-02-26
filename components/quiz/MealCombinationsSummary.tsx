@@ -8,7 +8,7 @@ interface MealCombinationsSummaryProps {
 
 export function MealCombinationsSummary({ onContinue }: MealCombinationsSummaryProps) {
   return (
-    <div className="flex flex-col items-center justify-center text-center">
+    <div className="flex flex-col items-center justify-center text-center pb-24">
       <div className="w-full max-w-[520px] bg-white rounded-2xl border border-[var(--border)] shadow-sm px-6 py-8 sm:px-8 sm:py-10">
         <p
           className="text-[var(--text)] font-bold text-[17px] sm:text-[18px] leading-tight mb-2"
@@ -28,7 +28,11 @@ export function MealCombinationsSummary({ onContinue }: MealCombinationsSummaryP
           side effects, and help you reach your body goals in the most enjoyable,
           effortless way!
         </p>
-        <div className="mt-8">
+      </div>
+
+      {/* Sticky Continue Button */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 z-50">
+        <div className="max-w-[660px] mx-auto">
           <ContinueButton onClick={onContinue}>Continue</ContinueButton>
         </div>
       </div>

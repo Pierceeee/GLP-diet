@@ -30,7 +30,11 @@ export function QuestionCard({
   const canContinue = () => {
     if (q.type === "info") return true;
     if (q.type === "single-select") return currentAnswer !== null;
-    if (q.type === "multi-select") return Array.isArray(currentAnswer) && currentAnswer.length > 0;
+    if (q.type === "multi-select") {
+      // Body parts is optional - user can continue without selecting any
+      if (q.id === "body-parts") return true;
+      return Array.isArray(currentAnswer) && currentAnswer.length > 0;
+    }
     if (q.type === "number") {
       const v = currentAnswer as number;
       if (v === null || v === undefined) return false;
@@ -96,7 +100,7 @@ export function QuestionCard({
     return (
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 z-50">
         <div className="max-w-[660px] mx-auto">
-          <ContinueButton onClick={onContinue} disabled={!canContinue()} />
+          <ContinueButton onClick={onContinue} disabled={canContinue() ? false : true} />
         </div>
       </div>
     );
@@ -217,7 +221,7 @@ export function QuestionCard({
           <p className="text-[13px] text-[var(--text-secondary)] mt-1 leading-relaxed">{targetInfo.description}</p>
         </div>
       )}
-      <ContinueButton onClick={onContinue} disabled={!canContinue()} />
+      <ContinueButton onClick={onContinue} disabled={canContinue() ? false : true} />
     </div>
     );
   };
@@ -230,9 +234,13 @@ export function QuestionCard({
     }
     if (q.id === "personal-summary") {
       return (
-        <div className="space-y-6">
+        <div className="space-y-6 pb-24">
           <PersonalSummary answers={allAnswers} gender={gender} />
-          <ContinueButton onClick={onContinue}>Continue</ContinueButton>
+          <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 z-50">
+            <div className="max-w-[660px] mx-auto">
+              <ContinueButton onClick={onContinue}>Continue</ContinueButton>
+            </div>
+          </div>
         </div>
       );
     }
@@ -248,9 +256,13 @@ export function QuestionCard({
       return <WeightLossMultiplierChart onContinue={onContinue} />;
     }
     return (
-      <div className="space-y-6">
+      <div className="space-y-6 pb-24">
         <InfoCard title={q.title} subtitle={q.subtitle} image={q.image} benefits={q.benefits} />
-        <ContinueButton onClick={onContinue}>Continue</ContinueButton>
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 z-50">
+          <div className="max-w-[660px] mx-auto">
+            <ContinueButton onClick={onContinue}>Continue</ContinueButton>
+          </div>
+        </div>
       </div>
     );
   };

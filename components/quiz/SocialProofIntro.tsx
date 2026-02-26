@@ -19,7 +19,7 @@ export function SocialProofIntro({ gender, onContinue }: SocialProofIntroProps) 
     : "Four men in casual wear";
 
   return (
-    <div className="w-full max-w-[660px] mx-auto px-6 py-8 flex flex-col items-center">
+    <div className="w-full max-w-[660px] mx-auto px-6 py-8 pb-24 flex flex-col items-center">
       {/* Image */}
       <div className="w-full flex justify-center mb-8">
         <Image
@@ -33,14 +33,18 @@ export function SocialProofIntro({ gender, onContinue }: SocialProofIntroProps) 
       </div>
 
       {/* Text */}
-      <p className="text-[15px] md:text-[17px] font-semibold text-[var(--text-primary)] text-center leading-relaxed mb-10 max-w-[440px]">
+      <p className="text-[15px] md:text-[17px] font-semibold text-[var(--text-primary)] text-center leading-relaxed max-w-[440px]">
         {isFemale
           ? "Trusted by over 1.5 million women looking for a calmer, more manageable approach to weight loss"
           : "Trusted by over 1.2 million men looking for a more manageable approach to weight loss"}
       </p>
 
-      {/* Continue Button */}
-      <ContinueButton onClick={onContinue}>Continue</ContinueButton>
+      {/* Sticky Continue Button */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 z-50">
+        <div className="max-w-[660px] mx-auto">
+          <ContinueButton onClick={onContinue}>Continue</ContinueButton>
+        </div>
+      </div>
     </div>
   );
 }

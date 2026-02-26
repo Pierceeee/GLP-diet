@@ -56,16 +56,12 @@ export function SummaryAfterEmail({ answers: propAnswers, onContinue }: SummaryA
 
   const isHealthy = categoryDisplay === "Healthy";
 
-  // BMI ranges and their widths (total 27 units from 15 to 42)
-  // Underweight: 15-18.5 (3.5 units) = 12.96%
-  // Healthy: 18.5-25 (6.5 units) = 24.07%
-  // Overweight: 25-30 (5 units) = 18.52%
-  // Obese: 30-42 (12 units) = 44.44%
+  // BMI ranges with equal visual widths so category position is clearer.
   const segments = [
-    { min: 15, max: 18.5, width: 12.96 },    // Underweight
-    { min: 18.5, max: 25, width: 24.07 },    // Healthy
-    { min: 25, max: 30, width: 18.52 },      // Overweight
-    { min: 30, max: 42, width: 44.44 },      // Obese
+    { min: 15, max: 18.5, width: 25 }, // Underweight
+    { min: 18.5, max: 25, width: 25 }, // Healthy
+    { min: 25, max: 30, width: 25 }, // Overweight
+    { min: 30, max: 42, width: 25 }, // Obese
   ];
 
   // Calculate position based on which segment the BMI falls into
@@ -88,6 +84,7 @@ export function SummaryAfterEmail({ answers: propAnswers, onContinue }: SummaryA
   };
 
   const pct = hasValidData ? calculatePosition(bmi) : 0;
+  const markerPct = Math.min(Math.max(pct, 2), 98);
 
   // Animation timings
   useEffect(() => {
@@ -102,8 +99,8 @@ export function SummaryAfterEmail({ answers: propAnswers, onContinue }: SummaryA
   }, []);
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
-      <main className="flex-1 flex flex-col items-center px-6 py-8 pb-12">
+    <div className="min-h-screen bg-white flex flex-col pb-24">
+      <main className="flex-1 flex flex-col items-center px-6 py-8">
         <div className="w-full max-w-[520px] text-center">
           <h2
             className="text-[26px] font-bold mb-3"
@@ -146,7 +143,7 @@ export function SummaryAfterEmail({ answers: propAnswers, onContinue }: SummaryA
                 <div
                   className="absolute -top-8 flex flex-col items-center transition-all duration-700 ease-out"
                   style={{
-                    left: animate ? `${pct}%` : "0%",
+                    left: animate ? `${markerPct}%` : "0%",
                     transform: "translateX(-50%)",
                     opacity: animate ? 1 : 0,
                   }}
@@ -165,12 +162,12 @@ export function SummaryAfterEmail({ answers: propAnswers, onContinue }: SummaryA
                   />
                 </div>
 
-                {/* Gauge bar - percentage widths matching segment calculations */}
+                {/* Gauge bar - equal-width category segments */}
                 <div className="h-3.5 rounded-full overflow-hidden flex">
-                  <div className="bg-blue-400 rounded-l-full" style={{ width: '12.96%' }} />
-                  <div className="bg-green-500" style={{ width: '24.07%' }} />
-                  <div className="bg-yellow-400" style={{ width: '18.52%' }} />
-                  <div className="bg-gradient-to-r from-orange-400 to-red-500 rounded-r-full" style={{ width: '44.44%' }} />
+                  <div className="bg-blue-400 rounded-l-full" style={{ width: "25%" }} />
+                  <div className="bg-green-500" style={{ width: "25%" }} />
+                  <div className="bg-yellow-400" style={{ width: "25%" }} />
+                  <div className="bg-gradient-to-r from-orange-400 to-red-500 rounded-r-full" style={{ width: "25%" }} />
                 </div>
 
                 {/* Animated dot */}
@@ -179,19 +176,19 @@ export function SummaryAfterEmail({ answers: propAnswers, onContinue }: SummaryA
                     isHealthy ? "border-[var(--success)]" : "border-red-500"
                   }`}
                   style={{
-                    left: animate ? `${pct}%` : "0%",
+                    left: animate ? `${markerPct}%` : "0%",
                     transform: "translate(-50%, -50%)",
                   }}
                 />
               </div>
             </div>
 
-            {/* Labels — aligned to gauge segments using same percentage widths */}
+            {/* Labels — aligned to equal-width gauge segments */}
             <div className="flex text-[11px] text-[var(--text-muted)] mt-2">
-              <span className="text-center" style={{ width: '12.96%' }}>Underweight</span>
-              <span className="text-center" style={{ width: '24.07%' }}>Healthy</span>
-              <span className="text-center" style={{ width: '18.52%' }}>Overweight</span>
-              <span className="text-center" style={{ width: '44.44%' }}>Obese</span>
+              <span className="text-center" style={{ width: "25%" }}>Underweight</span>
+              <span className="text-center" style={{ width: "25%" }}>Healthy</span>
+              <span className="text-center" style={{ width: "25%" }}>Overweight</span>
+              <span className="text-center" style={{ width: "25%" }}>Obese</span>
             </div>
 
             <div
@@ -239,10 +236,15 @@ export function SummaryAfterEmail({ answers: propAnswers, onContinue }: SummaryA
               </span>
             </div>
           </div>
-
-          <ContinueButton onClick={onContinue}>Continue</ContinueButton>
         </div>
       </main>
+
+      {/* Sticky Continue Button */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 z-50">
+        <div className="max-w-[520px] mx-auto">
+          <ContinueButton onClick={onContinue}>Continue</ContinueButton>
+        </div>
+      </div>
     </div>
   );
 }
