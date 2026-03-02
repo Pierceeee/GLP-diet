@@ -16,7 +16,7 @@ export { PlanReadyScreen } from "./PlanReadyScreen";
 export { PlanIncludesScreen } from "./PlanIncludesScreen";
 export { TestimonialsScreen } from "./TestimonialsScreen";
 export { QuestionCard } from "./QuestionCard";
-export { BodyMapSelector } from "./BodyMapSelector";
+export { BodyHighlight } from "./BodyHighlight";
 export { SocialProofIntro } from "./SocialProofIntro";
 export {
   AnimatedContainer,

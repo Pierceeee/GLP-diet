@@ -9,7 +9,7 @@ import { PersonalSummary } from "./PersonalSummary";
 import { WeightPrediction } from "./WeightPrediction";
 import { MealCombinationsSummary } from "./MealCombinationsSummary";
 import { WeightLossMultiplierChart } from "./WeightLossMultiplierChart";
-import { BodyMapSelector } from "./BodyMapSelector";
+import { BodyHighlight } from "./BodyHighlight";
 import { SocialProofIntro } from "./SocialProofIntro";
 import { getQuestionWithGender } from "@/config/questions";
 
@@ -73,10 +73,10 @@ export function QuestionCard({
     if (q.id === "body-parts") {
       return (
         <div className="space-y-6 pb-24">
-          <BodyMapSelector
+          <BodyHighlight
             gender={gender}
-            selected={Array.isArray(currentAnswer) ? currentAnswer : []}
-            onChange={handleMulti}
+            selectedAreas={Array.isArray(currentAnswer) ? currentAnswer : []}
+            onToggle={handleMulti}
           />
         </div>
       );

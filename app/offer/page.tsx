@@ -502,9 +502,6 @@ function calculateBMI(heightCm: number, weightKg: number): number {
   return weightKg / (heightM * heightM);
 }
 
-const beforeTransformationImage = "/images/before-after/age-35-50-before.png";
-const afterTransformationImage = "/images/before-after/age-35-50-after.png";
-
 function NowVsGoal({ answers }: { answers: QuizAnswers }) {
   const currentWeight = (answers.weight as number) || 80;
   const targetWeight = (answers["target-weight"] as number) || 65;
@@ -512,6 +509,30 @@ function NowVsGoal({ answers }: { answers: QuizAnswers }) {
   const age = (answers.age as number) || 35;
   const gender = (answers.gender as string) || "female";
   const isMale = gender === "male";
+
+  const getTransformationImage = () => {
+    if (isMale) {
+      if (age < 45) {
+        return "/images/before-after/male-2.png";
+      } else {
+        return "/images/before-after/male-1.png";
+      }
+    } else {
+      if (age < 30) {
+        return "/images/before-after/female-1.png";
+      } else if (age < 35) {
+        return "/images/before-after/female-3.png";
+      } else if (age < 40) {
+        return "/images/before-after/female-5.png";
+      } else if (age < 45) {
+        return "/images/before-after/female-2.png";
+      } else {
+        return "/images/before-after/female-4.png";
+      }
+    }
+  };
+
+  const transformationImage = getTransformationImage();
 
   const currentBMI = calculateBMI(height, currentWeight);
   const targetBMI = calculateBMI(height, targetWeight);
@@ -529,22 +550,13 @@ function NowVsGoal({ answers }: { answers: QuizAnswers }) {
         {/* Before/After Image Section */}
         <div className="relative mb-6">
           <div className="relative rounded-xl overflow-hidden">
-            <div className="grid grid-cols-2">
-              <Image
-                src={beforeTransformationImage}
-                alt="Current body visualization"
-                width={512}
-                height={1024}
-                className="w-full h-auto object-cover"
-              />
-              <Image
-                src={afterTransformationImage}
-                alt="Goal body visualization"
-                width={512}
-                height={1024}
-                className="w-full h-auto object-cover"
-              />
-            </div>
+            <Image
+              src={transformationImage}
+              alt="Before and after transformation"
+              width={1024}
+              height={1024}
+              className="w-full h-auto object-cover"
+            />
             {/* Now Label */}
             <div className="absolute top-3 left-3">
               <span className="inline-block px-4 py-1.5 bg-[#f87171] text-white text-[13px] font-bold rounded-full shadow-md">
